@@ -1,0 +1,48 @@
+---
+complexity:
+  LabeledExpression:
+    active: false
+  LongParameterList:
+    active: false
+naming:
+  FunctionNaming:
+    ignoreAnnotated: [ 'Composable' ]
+empty-blocks:
+  EmptyFunctionBlock:
+    ignoreOverridden: true
+style:
+  ReturnCount:
+    active: false
+  UnusedPrivateMember:
+    allowedNames: ".*[cC]ases.*"
+  MandatoryBracesIfStatements:
+    active: false
+  MandatoryBracesLoops:
+    active: false
+  NewLineAtEndOfFile:
+    active: false
+  WildcardImport:
+    active: false
+formatting:
+  TrailingComma:
+    active: false
+  AnnotationOnSeparateLine:
+    active: false
+  ArgumentListWrapping:
+    active: false
+  CommentSpacing:
+    active: false
+  NoWildcardImports:
+    active: false
+  FinalNewline:
+    active: false
+  MultiLineIfElse:
+    active: false
+  ParameterListWrapping:
+    active: false
+  ChainWrapping:
+    active: false
+  Indentation:
+    active: false
+comments:
+  active: false

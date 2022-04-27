@@ -1,0 +1,5 @@
+/.idea
+#Gradle-specific files
+**/.gradle/*
+/local.properties
+**/build/*

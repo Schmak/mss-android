@@ -1,0 +1,80 @@
+default:
+  image: 'registry.gitlab.com/schmak_android/gradle-with-android-sdk:v0.2'
+  tags: [ 'docker-asg' ]
+
+stages:
+  - 'test'
+  - 'build'
+
+.gradle common cache: &gradle_common_cache
+  key: gradle_common
+  paths:
+    - .gradle_common/caches
+  policy: pull
+
+.gradle: &gradle
+  before_script:
+    - export GRADLE_USER_HOME=`pwd`/.gradle_common
+  cache:
+    <<: *gradle_common_cache
+
+
+.Test report artifacts: &test_reports
+  artifacts:
+    reports:
+      junit: ./**/build/test-results/test*/TEST-*.xml
+
+.Android report artifacts: &android_reports
+  artifacts:
+    when: on_failure
+    expire_in: 7 days
+    paths:
+      - ./**/build/reports/*
+
+.Default Rules: &defaultRules
+  rules:
+    - if: "$CI_PIPELINE_SOURCE != 'merge_request_event'"
+      when: on_success
+
+Pre-build:
+  <<: *gradle
+  <<: *defaultRules
+  stage: .pre
+  script: gradle assemble
+  artifacts:
+    name: '$CI_COMMIT_REF_SLUG'
+    paths:
+      - ./.gradle
+      - ./**/build
+    expire_in: '1 hour'
+  cache:
+    <<: *gradle_common_cache
+    policy: pull-push
+
+Kotlin Linter:
+  <<: *gradle
+  <<: *defaultRules
+  stage: .pre
+  script: gradle detekt
+
+Unit Tests:
+  <<: *gradle
+  <<: *test_reports
+  <<: *defaultRules
+  stage: 'test'
+  script: gradle test -x testDebug
+
+Android Linter:
+  <<: *gradle
+  <<: *defaultRules
+  <<: *android_reports
+  stage: 'test'
+  script: gradle lintRelease
+
+Instrumentation Tests:
+  <<: *gradle
+  <<: *android_reports
+  <<: *defaultRules
+  stage: 'test'
+  script:
+    - run-instrumentation-test.sh
