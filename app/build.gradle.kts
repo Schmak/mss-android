@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import Projects.TEST_HELPERS
 import Projects.UTILS
 
@@ -77,6 +79,8 @@ dependencies {
     implementation(Deps.Coroutines.core)
 
     //AndroidX
+    implementation(Deps.AndroidX.Accompanist.insets)
+    implementation(Deps.AndroidX.Accompanist.systemUiController)
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.core)
     implementation(Deps.AndroidX.lifecycleRuntime)
