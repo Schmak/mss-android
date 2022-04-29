@@ -7,6 +7,12 @@ object Deps {
         const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.AndroidX.lifecycle}"
         const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
 
+        object Accompanist {
+            const val prefix = "com.google.accompanist:accompanist"
+            const val insets = "$prefix-insets:${Versions.AndroidX.accompanist}"
+            const val systemUiController = "$prefix-systemuicontroller:${Versions.AndroidX.accompanist}"
+        }
+
         object Test {
             const val junit = "androidx.test.ext:junit:${Versions.AndroidX.Test.junit}"
             const val espresso = "androidx.test.espresso:espresso-core:${Versions.AndroidX.Test.espresso}"
