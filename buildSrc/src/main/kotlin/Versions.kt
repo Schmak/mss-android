@@ -9,6 +9,7 @@ object Versions {
         const val appcompat = "1.4.1"
         const val core = "1.7.0"
         const val lifecycle = "2.4.1"
+        const val accompanist = "0.23.1"
 
         object Test {
             const val junit = "1.1.3"
