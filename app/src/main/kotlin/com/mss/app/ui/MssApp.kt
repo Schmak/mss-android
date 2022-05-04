@@ -1,8 +1,8 @@
 package com.mss.app.ui
 
 import androidx.compose.material.DrawerValue
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalDrawer
+import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -17,6 +17,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mss.app.navigation.NavGraph
 import com.mss.app.navigation.Route
+import com.mss.app.ui.components.TopBar
 import com.mss.app.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -25,9 +26,8 @@ fun MssApp() {
     AppTheme {
         ProvideWindowInsets {
             val systemUiController = rememberSystemUiController()
-            val darkIcons = MaterialTheme.colors.isLight
             SideEffect {
-                systemUiController.setSystemBarsColor(Color.Transparent, darkIcons = darkIcons)
+                systemUiController.setSystemBarsColor(Color.Transparent, darkIcons = false)
             }
 
             val coroutineScope = rememberCoroutineScope()
@@ -54,10 +54,17 @@ fun MssApp() {
                 },
                 drawerState = drawerState,
             ) {
-                NavGraph(
-                    navController = navController,
-                    modifier = Modifier.statusBarsPadding()
-                )
+                Scaffold(
+                    topBar = {
+                        TopBar(
+                            modifier = Modifier.statusBarsPadding(),
+                            onMenuClick = { coroutineScope.launch { drawerState.open() } },
+                            onSearchClick = {},
+                        )
+                    }
+                ) {
+                    NavGraph(navController = navController)
+                }
             }
         }
     }
