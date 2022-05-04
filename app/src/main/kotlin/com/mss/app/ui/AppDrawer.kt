@@ -39,7 +39,11 @@ fun AppDrawer(
             modifier = Modifier.fillMaxWidth()
         ) {
             Box(modifier = Modifier.statusBarsPadding()) {
-                MssLogo(modifier = Modifier.padding(16.dp))
+                MssLogo(
+                    modifier = Modifier
+                        .height(48.dp)
+                        .padding(start = 16.dp, bottom = 8.dp)
+                )
             }
         }
         Spacer(Modifier.height(40.dp))
