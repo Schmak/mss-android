@@ -26,6 +26,7 @@ fun AppTheme(
 ) {
     MaterialTheme(
         colors = if (darkTheme) DarkThemeColors else LightThemeColors,
+        typography = AppTypography,
         content = {
             ProvideTextStyle(
                 value = TextStyle(color = MaterialTheme.colors.onBackground),
