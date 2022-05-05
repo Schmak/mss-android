@@ -23,6 +23,9 @@ private val DarkThemeColors = darkColors(
 val Colors.imageBackground: Color
     get() = if (isLight) Gray95 else Color.White
 
+val Colors.divider: Color
+    get() = if (isLight) Black10 else White10
+
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

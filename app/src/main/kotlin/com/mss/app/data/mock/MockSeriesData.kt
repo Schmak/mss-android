@@ -1,6 +1,8 @@
 package com.mss.app.data.mock
 
 import com.mss.app.model.SeriesItem
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import kotlin.random.Random
 
 @Suppress("MagicNumber")
@@ -22,9 +24,20 @@ object MockSeriesData {
         "GT World Challenge Europe Sprint Cup",
     )
 
+    private val eventNames = listOf(
+        "Fuji", "Oulton Park", "Portimão", "Estoril",
+        "Spain", "Brands Hatch", "Hyundai Monterey Sports Car Championship", "Honday Indy Grand Prix of Alabama",
+        "Barber Motorsports Park",
+    )
+
     val regions = listOf(
         "Worldwide", "Europe", "North America", "Asia", "Australasia", "France", "Germany", "Great Britain",
         "Japan", "Macau", "United States of America"
+    )
+
+    val categories = listOf(
+        "Single Seater", "Motorcycle", "Sportscar", "Touring Car", "Stock Car", "Rally", "Rallycross",
+        "One Make", "Endurance", "GT & Touringcar", "Pickup Truck Racing", "eSports"
     )
 
     val leadingSeries = List(10) {
@@ -34,11 +47,27 @@ object MockSeriesData {
         )
     }
 
+    val categorySeries = List(10) {
+        SeriesItem(
+            imageUrl = pictures.random(random),
+            title = names.random(random),
+            subtitle = categories.random(random),
+        )
+    }
+
     val regionSeries = List(10) {
         SeriesItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
             subtitle = regions.random(random),
+        )
+    }
+
+    val mostRecent = List(10) {
+        SeriesItem(
+            imageUrl = pictures.random(random),
+            title = eventNames.random(random),
+            subtitle = LocalDate.now().minusDays(it.toLong()).format(DateTimeFormatter.ofPattern("dd MMM yyyy")),
         )
     }
 }
