@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.mss.app.R
 import com.mss.app.navigation.Route.Companion.composable
+import com.mss.app.ui.series.SeriesScreen
 
 @Composable
 fun NavGraph(
@@ -20,7 +21,7 @@ fun NavGraph(
         startDestination = startDestination.value,
         modifier = modifier
     ) {
-        composable(Route.Series) { Text(stringResource(R.string.series)) }
+        composable(Route.Series) { SeriesScreen() }
         composable(Route.Results) { Text(stringResource(R.string.results)) }
         composable(Route.Drivers) { Text(stringResource(R.string.drivers)) }
         composable(Route.Teams) { Text(stringResource(R.string.teams)) }
