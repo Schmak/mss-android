@@ -9,4 +9,9 @@ object Projects {
         const val UI = ":core-ui"
         const val UTILS = ":core-utils"
     }
+
+    object Domain {
+        const val MODEL = ":domain-model"
+        const val TEST_HELPERS = ":domain-test-helpers"
+    }
 }
