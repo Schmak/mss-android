@@ -1,4 +1,5 @@
 @file:Suppress("UnstableApiUsage")
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -7,4 +8,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "android-mss"
-include(":app", ":test-helpers", ":utils")
+include(
+    ":app",
+    ":core-test-helpers", ":core-utils",
+)
