@@ -68,6 +68,7 @@ android {
 }
 
 dependencies {
+    implementation(project(Core.UI))
     implementation(project(Core.UTILS))
     testImplementation(project(Core.TEST_HELPERS))
 
@@ -87,12 +88,6 @@ dependencies {
 
     //UI
     implementation(Deps.Compose.activity)
-    implementation(Deps.Compose.material)
-    implementation(Deps.Compose.ui)
-    implementation(Deps.Compose.uiToolingPreview)
-    implementation(Deps.UI.material)
-    implementation(Deps.UI.coil)
-    debugImplementation(Deps.Compose.uiTooling)
 
     //DI
     implementation(Deps.Hilt.Android.core)

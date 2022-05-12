@@ -1,4 +1,4 @@
-package com.mss.app.ui.theme.shapes
+package com.mss.core.ui.theme.shapes
 
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
@@ -8,8 +8,8 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.mss.app.ui.theme.shapes.SlopeSideShape.CornerType.Bottom
-import com.mss.app.ui.theme.shapes.SlopeSideShape.CornerType.Top
+import com.mss.core.ui.theme.shapes.SlopeSideShape.CornerType.Bottom
+import com.mss.core.ui.theme.shapes.SlopeSideShape.CornerType.Top
 
 class SlopeSideShape(
     private val leftCornerType: CornerType = Top,

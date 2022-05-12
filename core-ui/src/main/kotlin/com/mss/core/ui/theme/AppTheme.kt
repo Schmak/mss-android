@@ -1,4 +1,4 @@
-package com.mss.app.ui.theme
+package com.mss.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.*

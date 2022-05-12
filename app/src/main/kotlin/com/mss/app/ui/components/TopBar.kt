@@ -14,11 +14,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mss.app.R
-import com.mss.app.ui.theme.AppTheme
-import com.mss.app.ui.theme.Blue25
-import com.mss.app.ui.theme.Blue44
-import com.mss.app.ui.theme.shapes.SlopeSideShape.CornerType.Bottom
-import com.mss.app.ui.theme.shapes.SlopeSideShape.CornerType.Top
+import com.mss.core.ui.components.SlopeSideContainer
+import com.mss.core.ui.theme.AppTheme
+import com.mss.core.ui.theme.Blue25
+import com.mss.core.ui.theme.Blue44
+import com.mss.core.ui.theme.shapes.SlopeSideShape.CornerType.Bottom
+import com.mss.core.ui.theme.shapes.SlopeSideShape.CornerType.Top
 
 @Composable
 fun TopBar(

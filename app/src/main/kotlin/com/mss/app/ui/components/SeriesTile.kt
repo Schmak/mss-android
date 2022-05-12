@@ -24,9 +24,9 @@ import coil.request.ImageRequest
 import com.mss.app.R
 import com.mss.app.data.mock.MockSeriesData
 import com.mss.app.model.SeriesItem
-import com.mss.app.ui.theme.AppTheme
-import com.mss.app.ui.theme.Dimensions.Tile
-import com.mss.app.ui.theme.imageBackground
+import com.mss.core.ui.theme.AppTheme
+import com.mss.core.ui.theme.Dimensions.Tile
+import com.mss.core.ui.theme.imageBackground
 
 @Composable
 fun SeriesTile(

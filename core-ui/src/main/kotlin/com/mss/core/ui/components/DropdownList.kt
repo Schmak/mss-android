@@ -1,4 +1,4 @@
-package com.mss.app.ui.components
+package com.mss.core.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
@@ -26,9 +26,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mss.app.R
-import com.mss.app.data.mock.MockSeriesData
-import com.mss.app.ui.theme.AppTheme
+import com.mss.core.ui.R
+import com.mss.core.ui.theme.AppTheme
 
 @Composable
 fun DropdownList(
@@ -101,37 +100,32 @@ private fun Item(
     )
 }
 
-@Preview("Collapsed list", widthDp = 150)
-@Preview("Collapsed list (dark)", widthDp = 150, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun PreviewCollapsedDropdownList() {
+private fun PreviewDropdownList(expanded: Boolean) {
     AppTheme {
         Surface {
             DropdownList(
                 title = "Select region",
-                items = MockSeriesData.regions,
+                items = listOf("Worldwide", "Europe", "Asia"),
                 onItemSelected = { },
                 selectedIdx = 0,
+                initiallyExpanded = expanded,
                 modifier = Modifier.padding(horizontal = 8.dp)
             )
         }
     }
 }
 
+@Preview("Collapsed list", widthDp = 150)
+@Preview("Collapsed list (dark)", widthDp = 150, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PreviewCollapsedDropdownList() {
+    PreviewDropdownList(expanded = true)
+}
+
 @Preview("Expanded list", widthDp = 150)
 @Preview("Expanded list (dark)", widthDp = 150, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewExpandedDropdownList() {
-    AppTheme {
-        Surface {
-            DropdownList(
-                title = "Select region",
-                items = MockSeriesData.regions,
-                selectedIdx = 2,
-                initiallyExpanded = true,
-                onItemSelected = { },
-                modifier = Modifier.padding(horizontal = 8.dp)
-            )
-        }
-    }
+    PreviewDropdownList(expanded = false)
 }

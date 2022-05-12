@@ -18,7 +18,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mss.app.navigation.NavGraph
 import com.mss.app.navigation.Route
 import com.mss.app.ui.components.TopBar
-import com.mss.app.ui.theme.AppTheme
+import com.mss.core.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
 @Composable

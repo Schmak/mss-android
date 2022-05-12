@@ -1,4 +1,4 @@
-package com.mss.app.ui.theme
+package com.mss.core.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.mss.app.R
+import com.mss.core.ui.R
 
 private val Poppins = FontFamily(
     Font(R.font.poppins_medium, FontWeight.Medium),

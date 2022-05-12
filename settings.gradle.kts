@@ -10,5 +10,5 @@ dependencyResolutionManagement {
 rootProject.name = "android-mss"
 include(
     ":app",
-    ":core-test-helpers", ":core-utils",
+    ":core-test-helpers", ":core-ui", ":core-utils",
 )
