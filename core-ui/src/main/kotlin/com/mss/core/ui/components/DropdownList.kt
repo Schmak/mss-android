@@ -5,9 +5,9 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -19,9 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,9 +49,10 @@ fun DropdownList(
             )
             @Suppress("MagicNumber")
             val angle: Float by animateFloatAsState(if (expanded) 180f else 0f)
-            Image(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_dropdown_list_icon),
+            Icon(
+                painter = painterResource(R.drawable.ic_dropdown_list_icon),
                 contentDescription = null,
+                tint = MaterialTheme.colors.primary,
                 modifier = Modifier.rotate(angle)
             )
         }
@@ -95,7 +94,7 @@ private fun Item(
         maxLines = 1,
         lineHeight = 21.sp,
         overflow = TextOverflow.Ellipsis,
-        color = if (selected) Color.Red else MaterialTheme.colors.onBackground,
+        color = if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.onBackground,
         modifier = modifier,
     )
 }

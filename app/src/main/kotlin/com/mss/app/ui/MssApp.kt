@@ -9,7 +9,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
@@ -19,6 +18,7 @@ import com.mss.app.navigation.NavGraph
 import com.mss.app.navigation.Route
 import com.mss.app.ui.components.TopBar
 import com.mss.core.ui.theme.AppTheme
+import com.mss.core.ui.theme.Transparent
 import kotlinx.coroutines.launch
 
 @Composable
@@ -27,7 +27,7 @@ fun MssApp() {
         ProvideWindowInsets {
             val systemUiController = rememberSystemUiController()
             SideEffect {
-                systemUiController.setSystemBarsColor(Color.Transparent, darkIcons = false)
+                systemUiController.setSystemBarsColor(Transparent, darkIcons = false)
             }
 
             val coroutineScope = rememberCoroutineScope()
