@@ -1,9 +1,9 @@
-import Projects.TEST_HELPERS
+import Projects.Core
 
 plugins {
     kotlin("jvm")
 }
 
 dependencies {
-    testImplementation(project(TEST_HELPERS))
+    testImplementation(project(Core.TEST_HELPERS))
 }

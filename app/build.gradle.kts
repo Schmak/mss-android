@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-import Projects.TEST_HELPERS
-import Projects.UTILS
+import Projects.Core
 
 plugins {
     id("com.android.application")
@@ -69,8 +68,8 @@ android {
 }
 
 dependencies {
-    implementation(project(UTILS))
-    testImplementation(project(TEST_HELPERS))
+    implementation(project(Core.UTILS))
+    testImplementation(project(Core.TEST_HELPERS))
 
     //Desugaring
     coreLibraryDesugaring(Deps.GradlePlugins.desugaring)

@@ -1,3 +1,5 @@
+import Projects.Core
+
 plugins {
     kotlin("jvm")
 }
@@ -9,7 +11,7 @@ dependencies {
     api(Deps.Test.assertJ)
     api(Deps.Test.mockk)
 
-    implementation(project(Projects.UTILS))
+    implementation(project(Core.UTILS))
     implementation(kotlin("reflect"))
     implementation(Deps.Test.Jackson.core)
     implementation(Deps.Test.Jackson.databind)
