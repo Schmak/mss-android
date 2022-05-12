@@ -14,4 +14,8 @@ object Projects {
         const val MODEL = ":domain-model"
         const val TEST_HELPERS = ":domain-test-helpers"
     }
+
+    object Features {
+        const val SERIES = ":feature-series"
+    }
 }

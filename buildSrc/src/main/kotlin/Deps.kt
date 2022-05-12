@@ -30,6 +30,7 @@ object Deps {
 
     object Coroutines {
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+        const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     }
 
     object GradlePlugins {
@@ -82,6 +83,7 @@ object Deps {
             const val core = "com.fasterxml.jackson.core:jackson-core:${Versions.Test.jackson}"
             const val databind = "com.fasterxml.jackson.core:jackson-databind:${Versions.Test.jackson}"
             const val moduleKotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:${Versions.Test.jackson}"
+            const val datatypeJsr310 = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${Versions.Test.jackson}"
         }
 
         const val assertJ = "org.assertj:assertj-core:${Versions.Test.assertJ}"

@@ -2,8 +2,9 @@ package com.mss.asserts
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.assertj.core.presentation.Representation
 import java.lang.System.identityHashCode
 
@@ -12,7 +13,8 @@ internal object PrettyRepresentation : Representation {
     private val prettyJsonMapper: ObjectMapper by lazy {
         jacksonObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT)
-            .registerModule(KotlinModule.Builder().build())
+            .registerKotlinModule()
+            .registerModule(JavaTimeModule())
     }
 
     override fun toStringOf(obj: Any?): String =
