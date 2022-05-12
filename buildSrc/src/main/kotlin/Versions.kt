@@ -47,6 +47,6 @@ object Versions {
 
     object UI {
         const val material = "1.6.0"
-        const val coil = "1.4.0"
+        const val coil = "2.0.0"
     }
 }
