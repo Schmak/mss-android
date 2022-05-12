@@ -1,4 +1,4 @@
-package com.mss.app.ui.theme
+package com.mss.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.*
@@ -16,12 +16,12 @@ private val DarkThemeColors = darkColors(
     secondary = Cyan82,
     surface = Blue21,
     background = Blue21,
-    onSurface = Color.White,
-    onBackground = Color.White,
+    onSurface = White,
+    onBackground = White,
 )
 
 val Colors.imageBackground: Color
-    get() = if (isLight) Gray95 else Color.White
+    get() = if (isLight) Gray95 else White
 
 val Colors.divider: Color
     get() = if (isLight) Black10 else White10

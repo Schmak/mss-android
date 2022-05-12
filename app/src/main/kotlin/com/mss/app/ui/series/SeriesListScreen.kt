@@ -22,11 +22,11 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.mss.app.R
 import com.mss.app.data.mock.MockSeriesData
 import com.mss.app.model.SeriesItem
-import com.mss.app.ui.components.DropdownList
 import com.mss.app.ui.components.SeriesTile
-import com.mss.app.ui.theme.AppTheme
-import com.mss.app.ui.theme.Dimensions.Screen
-import com.mss.app.ui.theme.divider
+import com.mss.core.ui.components.DropdownList
+import com.mss.core.ui.theme.AppTheme
+import com.mss.core.ui.theme.Dimensions.Screen
+import com.mss.core.ui.theme.divider
 
 @Composable
 fun SeriesScreen(

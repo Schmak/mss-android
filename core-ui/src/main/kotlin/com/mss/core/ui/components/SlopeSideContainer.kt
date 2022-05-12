@@ -1,20 +1,15 @@
-package com.mss.app.ui.components
+package com.mss.core.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.mss.app.ui.theme.shapes.SlopeSideShape
-import com.mss.app.ui.theme.shapes.SlopeSideShape.CornerType
-import com.mss.app.ui.theme.shapes.SlopeSideShape.CornerType.Bottom
-import com.mss.app.ui.theme.shapes.SlopeSideShape.CornerType.Top
+import com.mss.core.ui.theme.shapes.SlopeSideShape
 
 @Composable
 fun SlopeSideContainer(
@@ -22,8 +17,8 @@ fun SlopeSideContainer(
     modifier: Modifier = Modifier,
     leftCornerWidth: Dp = 0.dp,
     rightCornerWidth: Dp = 0.dp,
-    leftCornerType: CornerType = Top,
-    rightCornerType: CornerType = Top,
+    leftCornerType: SlopeSideShape.CornerType = SlopeSideShape.CornerType.Top,
+    rightCornerType: SlopeSideShape.CornerType = SlopeSideShape.CornerType.Top,
     content: @Composable () -> Unit
 ) {
     Surface(
@@ -43,19 +38,5 @@ fun SlopeSideContainer(
             if (rightCornerWidth != 0.dp)
                 Spacer(Modifier.width(rightCornerWidth))
         }
-    }
-}
-
-@Preview()
-@Composable
-fun PreviewCutCornerContainer() {
-    SlopeSideContainer(
-        color = Color.Green,
-        leftCornerWidth = 10.dp,
-        leftCornerType = Bottom,
-        rightCornerType = Top,
-        rightCornerWidth = 20.dp
-    ) {
-        Text("Hello", color = Color.White)
     }
 }

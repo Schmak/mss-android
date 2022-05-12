@@ -15,8 +15,8 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.mss.app.R
 import com.mss.app.navigation.Route
 import com.mss.app.ui.components.MssLogo
-import com.mss.app.ui.theme.AppTheme
-import com.mss.app.ui.theme.Blue25
+import com.mss.core.ui.theme.AppTheme
+import com.mss.core.ui.theme.Blue25
 
 private val routes = mapOf(
     Route.Series to R.string.series,
