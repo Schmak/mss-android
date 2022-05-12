@@ -41,12 +41,12 @@ object Versions {
     object Test {
         const val junit5 = "5.8.2"
         const val assertJ = "3.22.0"
-        const val mockk = "1.12.3"
+        const val mockk = "1.12.4"
         const val jackson = "2.13.2"
     }
 
     object UI {
-        const val material = "1.5.0"
-        const val coil = "1.4.0"
+        const val material = "1.6.0"
+        const val coil = "2.0.0"
     }
 }

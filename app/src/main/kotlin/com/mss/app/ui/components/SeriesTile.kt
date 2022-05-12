@@ -1,8 +1,11 @@
 package com.mss.app.ui.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -12,10 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.mss.app.R
 import com.mss.app.data.mock.MockSeriesData
 import com.mss.app.model.SeriesItem
@@ -32,23 +37,17 @@ fun SeriesTile(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.width(Tile.width)
     ) {
-        Box(
-            modifier = Modifier.clip(CircleShape),
-        ) {
-            Surface(color = MaterialTheme.colors.imageBackground) {
-                Image(
-                    painter = rememberImagePainter(
-                        data = item.imageUrl,
-                        builder = {
-                            error(R.drawable.ic_launcher_foreground)
-                        }
-                    ),
-                    contentScale = ContentScale.Crop,
-                    contentDescription = item.title,
-                    modifier = Modifier.size(Tile.imageSize),
-                )
-            }
-        }
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(item.imageUrl)
+                .error(R.drawable.ic_launcher_foreground)
+                .build(),
+            contentScale = ContentScale.Crop,
+            contentDescription = item.title,
+            modifier = Modifier.size(Tile.imageSize)
+                .clip(CircleShape)
+                .background(MaterialTheme.colors.imageBackground),
+        )
 
         Text(
             text = item.title.uppercase(),
