@@ -46,6 +46,7 @@ object Deps {
 
     object Hilt {
         const val compiler = "com.google.dagger:hilt-compiler:${Versions.Hilt.core}"
+        const val core = "com.google.dagger:hilt-core:${Versions.Hilt.core}"
         const val navigationCompose = "androidx.hilt:hilt-navigation-compose:${Versions.Hilt.navigationCompose}"
 
         object Android {
@@ -61,6 +62,13 @@ object Deps {
 
     object Logging {
         const val timber = "com.jakewharton.timber:timber:${Versions.Logging.timber}"
+    }
+
+    object Network {
+        object Retrofit {
+            const val core = "com.squareup.retrofit2:retrofit:${Versions.Network.retrofit}"
+            const val gson = "com.squareup.retrofit2:converter-gson:${Versions.Network.retrofit}"
+        }
     }
 
     object Test {

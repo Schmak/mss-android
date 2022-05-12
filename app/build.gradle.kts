@@ -23,6 +23,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "SERVER_URL", """"https://api.motorsportstats.com"""")
+        buildConfigField("String", "API_KEY", """"${System.getenv("x-api-key")}"""")
     }
 
     buildTypes {
@@ -68,6 +71,7 @@ android {
 }
 
 dependencies {
+    implementation(project(Core.NETWORK))
     implementation(project(Core.UI))
     implementation(project(Core.UTILS))
     testImplementation(project(Core.TEST_HELPERS))

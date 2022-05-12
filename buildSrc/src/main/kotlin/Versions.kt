@@ -38,6 +38,10 @@ object Versions {
         const val timber = "5.0.1"
     }
 
+    object Network {
+        const val retrofit = "2.9.0"
+    }
+
     object Test {
         const val junit5 = "5.8.2"
         const val assertJ = "3.22.0"
