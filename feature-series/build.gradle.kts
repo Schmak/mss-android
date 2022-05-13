@@ -49,6 +49,9 @@ dependencies {
 
     implementation(Deps.Coroutines.core)
 
+    //AndroidX
+    implementation(Deps.AndroidX.Accompanist.insets)
+
     //Desugaring
     coreLibraryDesugaring(Deps.GradlePlugins.desugaring)
 

@@ -1,4 +1,4 @@
-package com.mss.app.ui.series
+package com.mss.features.series.presentation.ui.landing
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -19,20 +20,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
-import com.mss.app.R
 import com.mss.core.ui.components.DropdownList
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions.Screen
 import com.mss.core.ui.theme.divider
+import com.mss.features.series.R
 import com.mss.features.series.data.mock.MockSeriesData
 import com.mss.features.series.presentation.model.UiSeriesItem
-import com.mss.features.series.presentation.ui.landing.SeriesTile
 
 @Composable
-fun SeriesScreen(
+fun SeriesLandingScreen(
     modifier: Modifier = Modifier
 ) {
-    SeriesScreen(
+    SeriesLandingScreen(
         leadingSeries = MockSeriesData.leadingSeries,
         categorySeries = MockSeriesData.categorySeries,
         regionSeries = MockSeriesData.regionSeries,
@@ -44,7 +44,7 @@ fun SeriesScreen(
 }
 
 @Composable
-fun SeriesScreen(
+fun SeriesLandingScreen(
     leadingSeries: List<UiSeriesItem>,
     categorySeries: List<UiSeriesItem>,
     regionSeries: List<UiSeriesItem>,
@@ -133,18 +133,20 @@ private fun SeriesList(
     }
 }
 
-@Preview("Series screen")
-@Preview("Series screen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview("Series landing screen")
+@Preview("Series landing screen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSeriesScreen() {
     AppTheme {
-        SeriesScreen(
-            leadingSeries = MockSeriesData.leadingSeries,
-            categorySeries = MockSeriesData.categorySeries,
-            regionSeries = MockSeriesData.regionSeries,
-            mostRecent = MockSeriesData.mostRecent,
-            categories = MockSeriesData.categories,
-            regions = MockSeriesData.regions,
-        )
+        Surface {
+            SeriesLandingScreen(
+                leadingSeries = MockSeriesData.leadingSeries,
+                categorySeries = MockSeriesData.categorySeries,
+                regionSeries = MockSeriesData.regionSeries,
+                mostRecent = MockSeriesData.mostRecent,
+                categories = MockSeriesData.categories,
+                regions = MockSeriesData.regions,
+            )
+        }
     }
 }
