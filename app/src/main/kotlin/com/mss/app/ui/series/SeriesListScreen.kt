@@ -20,13 +20,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
 import com.mss.app.R
-import com.mss.app.data.mock.MockSeriesData
-import com.mss.app.model.SeriesItem
-import com.mss.app.ui.components.SeriesTile
 import com.mss.core.ui.components.DropdownList
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions.Screen
 import com.mss.core.ui.theme.divider
+import com.mss.features.series.data.mock.MockSeriesData
+import com.mss.features.series.presentation.model.UiSeriesItem
+import com.mss.features.series.presentation.ui.landing.SeriesTile
 
 @Composable
 fun SeriesScreen(
@@ -45,10 +45,10 @@ fun SeriesScreen(
 
 @Composable
 fun SeriesScreen(
-    leadingSeries: List<SeriesItem>,
-    categorySeries: List<SeriesItem>,
-    regionSeries: List<SeriesItem>,
-    mostRecent: List<SeriesItem>,
+    leadingSeries: List<UiSeriesItem>,
+    categorySeries: List<UiSeriesItem>,
+    regionSeries: List<UiSeriesItem>,
+    mostRecent: List<UiSeriesItem>,
     categories: List<String>,
     regions: List<String>,
     modifier: Modifier = Modifier
@@ -99,7 +99,7 @@ private fun SeriesList(
     title: String,
     categoryTitle: String = "",
     categories: List<String> = emptyList(),
-    series: List<SeriesItem>,
+    series: List<UiSeriesItem>,
     modifier: Modifier,
     firstList: Boolean = false,
 ) {

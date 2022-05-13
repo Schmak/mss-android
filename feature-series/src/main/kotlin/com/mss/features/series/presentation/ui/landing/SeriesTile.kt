@@ -1,4 +1,4 @@
-package com.mss.app.ui.components
+package com.mss.features.series.presentation.ui.landing
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -21,16 +21,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.mss.app.R
-import com.mss.app.data.mock.MockSeriesData
-import com.mss.app.model.SeriesItem
+import com.mss.core.ui.R
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions.Tile
 import com.mss.core.ui.theme.imageBackground
+import com.mss.features.series.data.mock.MockSeriesData
+import com.mss.features.series.presentation.model.UiSeriesItem
 
 @Composable
 fun SeriesTile(
-    item: SeriesItem,
+    item: UiSeriesItem,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -40,7 +40,7 @@ fun SeriesTile(
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(item.imageUrl)
-                .error(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_mss)
                 .build(),
             contentScale = ContentScale.Crop,
             contentDescription = item.title,

@@ -1,6 +1,6 @@
-package com.mss.app.model
+package com.mss.features.series.presentation.model
 
-data class SeriesItem(
+data class UiSeriesItem(
     val imageUrl: String,
     val title: String,
     val subtitle: String? = null,

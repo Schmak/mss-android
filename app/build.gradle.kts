@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import Projects.Core
+import Projects.Features
 
 plugins {
     id("com.android.application")
@@ -74,6 +75,7 @@ dependencies {
     implementation(project(Core.NETWORK))
     implementation(project(Core.UI))
     implementation(project(Core.UTILS))
+    implementation(project(Features.SERIES))
     testImplementation(project(Core.TEST_HELPERS))
 
     //Desugaring

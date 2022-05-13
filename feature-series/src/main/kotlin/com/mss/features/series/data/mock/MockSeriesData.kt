@@ -1,6 +1,6 @@
-package com.mss.app.data.mock
+package com.mss.features.series.data.mock
 
-import com.mss.app.model.SeriesItem
+import com.mss.features.series.presentation.model.UiSeriesItem
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
@@ -41,14 +41,14 @@ object MockSeriesData {
     )
 
     val leadingSeries = List(10) {
-        SeriesItem(
+        UiSeriesItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
         )
     }
 
     val categorySeries = List(10) {
-        SeriesItem(
+        UiSeriesItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
             subtitle = categories.random(random),
@@ -56,7 +56,7 @@ object MockSeriesData {
     }
 
     val regionSeries = List(10) {
-        SeriesItem(
+        UiSeriesItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
             subtitle = regions.random(random),
@@ -64,7 +64,7 @@ object MockSeriesData {
     }
 
     val mostRecent = List(10) {
-        SeriesItem(
+        UiSeriesItem(
             imageUrl = pictures.random(random),
             title = eventNames.random(random),
             subtitle = LocalDate.now().minusDays(it.toLong()).format(DateTimeFormatter.ofPattern("dd MMM yyyy")),
