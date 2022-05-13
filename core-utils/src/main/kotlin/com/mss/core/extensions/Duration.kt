@@ -1,4 +1,4 @@
-package com.mss.extensions
+package com.mss.core.extensions
 
 import kotlin.time.Duration
 

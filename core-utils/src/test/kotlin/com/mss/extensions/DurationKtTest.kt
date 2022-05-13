@@ -1,5 +1,6 @@
 package com.mss.extensions
 
+import com.mss.core.extensions.formatAsHHMMSS
 import com.mss.junit5.AbstractTestCaseWithOrigin
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest

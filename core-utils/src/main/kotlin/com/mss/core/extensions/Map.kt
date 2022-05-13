@@ -1,4 +1,4 @@
-package com.mss.extensions
+package com.mss.core.extensions
 
 fun <K, V> Map<K, V?>.filterNotNullValues(): Map<K, V> {
     return mapNotNull { (key, nullableValue) ->
