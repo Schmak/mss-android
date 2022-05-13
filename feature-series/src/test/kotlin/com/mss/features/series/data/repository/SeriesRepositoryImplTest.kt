@@ -1,5 +1,6 @@
 package com.mss.features.series.data.repository
 
+import com.mss.annotation.CoroutineTest
 import com.mss.annotation.UnitTest
 import com.mss.core.utils.Result
 import com.mss.domain.SeriesItem
@@ -17,6 +18,8 @@ import com.mss.network.model.ref.EventReferenceDto
 import com.mss.network.model.ref.SeriesReferenceDto
 import com.mss.network.model.ref.create
 import com.mss.utils.DEFAULT_LOCAL_DATE
+import com.mss.utils.coroutines.TestDispatchers
+import com.mss.utils.coroutines.verify
 import io.mockk.MockKMatcherScope
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -29,10 +32,20 @@ import org.junit.jupiter.params.provider.MethodSource
 import kotlin.time.Duration.Companion.days
 
 @UnitTest
+@CoroutineTest
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class SeriesRepositoryImplTest {
     private val seriesApi: SeriesApi = mockk()
-    private val repository: SeriesRepository = SeriesRepositoryImpl(api = seriesApi)
+    private val repository: SeriesRepository = SeriesRepositoryImpl(
+        api = seriesApi,
+        dispatcher = TestDispatchers.IO
+    )
+
+    @ParameterizedTest
+    @MethodSource("cases")
+    fun `check dispatcher`(case: TestCase<*, *>) = runTest {
+        verify { case.apiQuery(this) } isCalledFrom case.repositoryQuery with TestDispatchers.IO
+    }
 
     @ParameterizedTest
     @MethodSource("cases")
