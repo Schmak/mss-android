@@ -38,6 +38,7 @@ dependencies {
     implementation(project(Core.UTILS))
 
     api(Deps.Compose.material)
+    api(Deps.Compose.paging)
     api(Deps.Compose.ui)
     api(Deps.Compose.uiToolingPreview)
     api(Deps.UI.material)

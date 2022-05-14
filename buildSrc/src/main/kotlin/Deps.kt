@@ -22,6 +22,7 @@ object Deps {
     object Compose {
         const val activity = "androidx.activity:activity-compose:${Versions.Compose.activity}"
         const val material = "androidx.compose.material:material:${Versions.Compose.core}"
+        const val paging = "androidx.paging:paging-compose:${Versions.Compose.paging}"
         const val ui = "androidx.compose.ui:ui:${Versions.Compose.core}"
         const val uiTest = "androidx.compose.ui:ui-test-junit4:${Versions.Compose.core}"
         const val uiTooling = "androidx.compose.ui:ui-tooling:${Versions.Compose.core}"

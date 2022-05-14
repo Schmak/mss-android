@@ -20,6 +20,7 @@ object Versions {
     object Compose {
         const val core = "1.1.1"
         const val activity = "1.4.0"
+        const val paging = "1.0.0-alpha14"
     }
 
     object GradlePlugin {
