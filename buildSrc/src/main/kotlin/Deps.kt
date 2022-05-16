@@ -11,6 +11,7 @@ object Deps {
             const val prefix = "com.google.accompanist:accompanist"
             const val insets = "$prefix-insets:${Versions.AndroidX.accompanist}"
             const val systemUiController = "$prefix-systemuicontroller:${Versions.AndroidX.accompanist}"
+            const val swipeRefresh = "$prefix-swiperefresh:${Versions.AndroidX.accompanist}"
         }
 
         object Test {
@@ -22,6 +23,7 @@ object Deps {
     object Compose {
         const val activity = "androidx.activity:activity-compose:${Versions.Compose.activity}"
         const val material = "androidx.compose.material:material:${Versions.Compose.core}"
+        const val paging = "androidx.paging:paging-compose:${Versions.Compose.paging}"
         const val ui = "androidx.compose.ui:ui:${Versions.Compose.core}"
         const val uiTest = "androidx.compose.ui:ui-test-junit4:${Versions.Compose.core}"
         const val uiTooling = "androidx.compose.ui:ui-tooling:${Versions.Compose.core}"
@@ -30,6 +32,7 @@ object Deps {
 
     object Coroutines {
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+        const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     }
 
     object GradlePlugins {
@@ -46,6 +49,7 @@ object Deps {
 
     object Hilt {
         const val compiler = "com.google.dagger:hilt-compiler:${Versions.Hilt.core}"
+        const val core = "com.google.dagger:hilt-core:${Versions.Hilt.core}"
         const val navigationCompose = "androidx.hilt:hilt-navigation-compose:${Versions.Hilt.navigationCompose}"
 
         object Android {
@@ -63,6 +67,13 @@ object Deps {
         const val timber = "com.jakewharton.timber:timber:${Versions.Logging.timber}"
     }
 
+    object Network {
+        object Retrofit {
+            const val core = "com.squareup.retrofit2:retrofit:${Versions.Network.retrofit}"
+            const val gson = "com.squareup.retrofit2:converter-gson:${Versions.Network.retrofit}"
+        }
+    }
+
     object Test {
         object JUnit5 {
             const val api = "org.junit.jupiter:junit-jupiter-api:${Versions.Test.junit5}"
@@ -74,6 +85,7 @@ object Deps {
             const val core = "com.fasterxml.jackson.core:jackson-core:${Versions.Test.jackson}"
             const val databind = "com.fasterxml.jackson.core:jackson-databind:${Versions.Test.jackson}"
             const val moduleKotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:${Versions.Test.jackson}"
+            const val datatypeJsr310 = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${Versions.Test.jackson}"
         }
 
         const val assertJ = "org.assertj:assertj-core:${Versions.Test.assertJ}"

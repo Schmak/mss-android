@@ -1,8 +1,8 @@
 package com.mss.junit5.extension
 
-import com.mss.extensions.filterNotNullValues
+import com.mss.core.extensions.filterNotNullValues
+import com.mss.core.extensions.nullIfEmpty
 import com.mss.extensions.isMock
-import com.mss.extensions.nullIfEmpty
 import io.mockk.clearMocks
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext

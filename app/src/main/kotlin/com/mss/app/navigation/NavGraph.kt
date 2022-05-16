@@ -4,11 +4,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.mss.app.R
 import com.mss.app.navigation.Route.Companion.composable
-import com.mss.app.ui.series.SeriesScreen
+import com.mss.features.series.presentation.ui.landing.SeriesLandingScreen
 
 @Composable
 fun NavGraph(
@@ -21,7 +22,7 @@ fun NavGraph(
         startDestination = startDestination.value,
         modifier = modifier
     ) {
-        composable(Route.Series) { SeriesScreen() }
+        composable(Route.Series) { SeriesLandingScreen(hiltViewModel()) }
         composable(Route.Results) { Text(stringResource(R.string.results)) }
         composable(Route.Drivers) { Text(stringResource(R.string.drivers)) }
         composable(Route.Teams) { Text(stringResource(R.string.teams)) }

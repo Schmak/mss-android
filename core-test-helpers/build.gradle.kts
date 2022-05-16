@@ -10,10 +10,12 @@ dependencies {
     api(Deps.Test.JUnit5.params)
     api(Deps.Test.assertJ)
     api(Deps.Test.mockk)
+    api(Deps.Coroutines.test)
 
     implementation(project(Core.UTILS))
     implementation(kotlin("reflect"))
     implementation(Deps.Test.Jackson.core)
     implementation(Deps.Test.Jackson.databind)
     implementation(Deps.Test.Jackson.moduleKotlin)
+    implementation(Deps.Test.Jackson.datatypeJsr310)
 }

@@ -20,6 +20,7 @@ object Versions {
     object Compose {
         const val core = "1.1.1"
         const val activity = "1.4.0"
+        const val paging = "1.0.0-alpha14"
     }
 
     object GradlePlugin {
@@ -36,6 +37,10 @@ object Versions {
 
     object Logging {
         const val timber = "5.0.1"
+    }
+
+    object Network {
+        const val retrofit = "2.9.0"
     }
 
     object Test {
