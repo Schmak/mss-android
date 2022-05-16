@@ -35,5 +35,6 @@ val AppTypography = Typography(
     button = TextStyle(
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
+        color = White,
     ),
 )

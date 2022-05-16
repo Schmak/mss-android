@@ -51,11 +51,13 @@ dependencies {
 
     //AndroidX
     implementation(Deps.AndroidX.Accompanist.insets)
+    implementation(Deps.AndroidX.Accompanist.swipeRefresh)
+    implementation(Deps.AndroidX.lifecycleViewModel)
 
     //Desugaring
     coreLibraryDesugaring(Deps.GradlePlugins.desugaring)
 
     //DI
-    implementation(Deps.Hilt.core)
+    implementation(Deps.Hilt.Android.core)
     kapt(Deps.Hilt.compiler)
 }

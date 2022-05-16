@@ -11,6 +11,7 @@ object Deps {
             const val prefix = "com.google.accompanist:accompanist"
             const val insets = "$prefix-insets:${Versions.AndroidX.accompanist}"
             const val systemUiController = "$prefix-systemuicontroller:${Versions.AndroidX.accompanist}"
+            const val swipeRefresh = "$prefix-swiperefresh:${Versions.AndroidX.accompanist}"
         }
 
         object Test {
