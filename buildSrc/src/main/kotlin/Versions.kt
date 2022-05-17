@@ -1,7 +1,7 @@
 @file:Suppress("MissingPackageDeclaration", "StringLiteralDuplication")
 
 object Versions {
-    const val kotlin = "1.6.10"
+    const val kotlin = "1.6.21"
     const val coroutines = "1.6.1"
     const val leakCanary = "2.9.1"
 
@@ -18,7 +18,7 @@ object Versions {
     }
 
     object Compose {
-        const val core = "1.1.1"
+        const val core = "1.2.0-beta01"
         const val activity = "1.4.0"
         const val paging = "1.0.0-alpha14"
     }
