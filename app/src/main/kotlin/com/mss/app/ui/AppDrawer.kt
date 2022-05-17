@@ -42,6 +42,7 @@ fun AppDrawer(
                 MssLogo(
                     modifier = Modifier
                         .height(48.dp)
+                        .fillMaxWidth()
                         .padding(start = 16.dp, bottom = 8.dp)
                 )
             }

@@ -29,25 +29,33 @@ fun TopBar(
     modifier: Modifier = Modifier
 ) {
     Surface(color = Blue25) {
-        Row(modifier = modifier.fillMaxWidth().height(48.dp)) {
-                SlopeSideContainer(
-                    color = MaterialTheme.colors.primary,
-                    rightCornerType = Bottom,
-                    rightCornerWidth = 24.dp
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(48.dp)
+        ) {
+            SlopeSideContainer(
+                color = MaterialTheme.colors.primary,
+                rightCornerType = Bottom,
+                rightCornerWidth = 24.dp
+            ) {
+                IconButton(
+                    onClick = onMenuClick,
+                    modifier = Modifier.size(48.dp)
                 ) {
-                    IconButton(
-                        onClick = onMenuClick,
-                        modifier = Modifier.size(48.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Menu,
-                            tint = White,
-                            contentDescription = stringResource(R.string.menu)
-                        )
-                    }
+                    Icon(
+                        imageVector = Icons.Default.Menu,
+                        tint = White,
+                        contentDescription = stringResource(R.string.menu)
+                    )
                 }
-            MssLogo(modifier = Modifier.padding(start = 4.dp, bottom = 8.dp))
-            Spacer(modifier = Modifier.fillMaxWidth().weight(1.0f))
+            }
+            MssLogo(
+                modifier = Modifier
+                    .padding(start = 4.dp, bottom = 8.dp)
+                    .weight(1f)
+                    .fillMaxSize()
+            )
             SlopeSideContainer(
                 color = Blue44,
                 leftCornerType = Top,

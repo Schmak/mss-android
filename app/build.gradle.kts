@@ -66,8 +66,8 @@ android {
     }
     lint {
         disable += setOf("IconLauncherShape", "IconMissingDensityFolder", "ObsoleteLintCustomCheck")
-        isWarningsAsErrors = true
-        isAbortOnError = true
+        warningsAsErrors = true
+        abortOnError = true
     }
 }
 

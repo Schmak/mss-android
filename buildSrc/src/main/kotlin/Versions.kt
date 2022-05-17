@@ -1,7 +1,7 @@
 @file:Suppress("MissingPackageDeclaration", "StringLiteralDuplication")
 
 object Versions {
-    const val kotlin = "1.6.10"
+    const val kotlin = "1.6.21"
     const val coroutines = "1.6.1"
     const val leakCanary = "2.9.1"
 
@@ -18,13 +18,13 @@ object Versions {
     }
 
     object Compose {
-        const val core = "1.1.1"
+        const val core = "1.2.0-beta01"
         const val activity = "1.4.0"
         const val paging = "1.0.0-alpha14"
     }
 
     object GradlePlugin {
-        const val android = "7.0.4"
+        const val android = "7.2.0"
         const val detekt = "1.20.0"
         const val desugaring = "1.1.5"
         const val dependencyUpdates = "0.42.0"
@@ -32,7 +32,7 @@ object Versions {
 
     object Hilt {
         const val navigationCompose = "1.0.0"
-        const val core = "2.41"
+        const val core = "2.42"
     }
 
     object Logging {
@@ -47,7 +47,7 @@ object Versions {
         const val junit5 = "5.8.2"
         const val assertJ = "3.22.0"
         const val mockk = "1.12.4"
-        const val jackson = "2.13.2"
+        const val jackson = "2.13.3"
     }
 
     object UI {
