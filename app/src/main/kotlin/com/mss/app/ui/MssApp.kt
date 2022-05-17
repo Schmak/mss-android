@@ -1,5 +1,6 @@
 package com.mss.app.ui
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.DrawerValue
 import androidx.compose.material.ModalDrawer
 import androidx.compose.material.Scaffold
@@ -62,8 +63,11 @@ fun MssApp() {
                             onSearchClick = {},
                         )
                     }
-                ) {
-                    NavGraph(navController = navController)
+                ) { paddingValues ->
+                    NavGraph(
+                        navController = navController,
+                        modifier = Modifier.padding(paddingValues)
+                    )
                 }
             }
         }
