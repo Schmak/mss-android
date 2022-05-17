@@ -32,7 +32,7 @@ object Versions {
 
     object Hilt {
         const val navigationCompose = "1.0.0"
-        const val core = "2.41"
+        const val core = "2.42"
     }
 
     object Logging {
@@ -47,7 +47,7 @@ object Versions {
         const val junit5 = "5.8.2"
         const val assertJ = "3.22.0"
         const val mockk = "1.12.4"
-        const val jackson = "2.13.2"
+        const val jackson = "2.13.3"
     }
 
     object UI {
