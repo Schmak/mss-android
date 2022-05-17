@@ -2,6 +2,10 @@ package com.mss.features.series.data.repository
 
 import com.mss.core.utils.Result
 import com.mss.domain.SeriesItem
+import com.mss.domain.page.Page
+import com.mss.domain.page.Page.Companion.getPage
+import com.mss.domain.page.Page.Companion.map
+import com.mss.domain.page.Pageable
 import com.mss.domain.ref.SeriesReference
 import com.mss.features.series.domain.mapper.SeriesItemMapper
 import com.mss.features.series.domain.mapper.SeriesReferenceMapper
@@ -15,7 +19,6 @@ class SeriesRepositoryImpl @Inject constructor(
     private val api: SeriesApi,
     private val dispatcher: CoroutineDispatcher,
 ) : SeriesRepository {
-
     override suspend fun getRegions(): Result<List<String>> = withContext(dispatcher) {
         Result.of { api.getRegions() }
     }
@@ -24,37 +27,42 @@ class SeriesRepositoryImpl @Inject constructor(
         Result.of { api.getCategories() }
     }
 
-    override suspend fun getLeadingSeries(page: Int): Result<List<SeriesReference>> = withContext(dispatcher) {
+    override suspend fun getLeadingSeries(
+        pageable: Pageable
+    ): Result<Page<SeriesReference>> = withContext(dispatcher) {
         Result.of {
-            if (page == 0)
-                api.getGoldenSeries().map { it.series }.map(SeriesReferenceMapper)
-            else
-                emptyList()
+            api.getGoldenSeries()
+                .getPage(pageable)
+                .map { SeriesReferenceMapper(it.series) }
         }
     }
 
-    override suspend fun getMostRecent(page: Int): Result<List<SeriesItem>> = withContext(dispatcher) {
+    override suspend fun getMostRecent(
+        pageable: Pageable
+    ): Result<Page<SeriesItem>> = withContext(dispatcher) {
         Result.of {
             api.getSeries(
                 filterIds = arrayOf("Active"),
                 orderBy = SeriesApi.OrderBy.LastEventDate,
                 orderDescending = true,
-                page = page,
-            ).content.map(SeriesItemMapper)
+                page = pageable.page,
+                size = pageable.size,
+            ).let(SeriesItemMapper.pageMapper)
         }
     }
 
     override suspend fun getCollection(
         region: String?,
         category: String?,
-        page: Int
-    ): Result<List<SeriesItem>> = withContext(dispatcher) {
+        pageable: Pageable
+    ): Result<Page<SeriesItem>> = withContext(dispatcher) {
         Result.of {
             api.getCollection(
                 region = region,
                 category = category,
-                page = page,
-            ).content.map(SeriesItemMapper)
+                page = pageable.page,
+                size = pageable.size,
+            ).let(SeriesItemMapper.pageMapper)
         }
     }
 }

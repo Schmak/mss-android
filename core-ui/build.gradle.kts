@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import Projects.Core
+import Projects.Domain
 
 plugins {
     id("com.android.library")
@@ -36,6 +37,7 @@ android {
 
 dependencies {
     implementation(project(Core.UTILS))
+    implementation(project(Domain.MODEL))
 
     api(Deps.Compose.material)
     api(Deps.Compose.paging)
@@ -44,4 +46,6 @@ dependencies {
     api(Deps.UI.material)
     api(Deps.UI.coil)
     debugApi(Deps.Compose.uiTooling)
+
+    testImplementation(project(Core.TEST_HELPERS))
 }

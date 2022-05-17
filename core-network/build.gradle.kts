@@ -1,4 +1,5 @@
 import Projects.Core
+import Projects.Domain
 
 plugins {
     kotlin("jvm")
@@ -7,6 +8,8 @@ plugins {
 
 dependencies {
     api(project(Core.NETWORK_MODEL))
+    api(project(Core.UTILS))
+    api(project(Domain.MODEL))
 
     implementation(Deps.Network.Retrofit.core)
     implementation(Deps.Network.Retrofit.gson)

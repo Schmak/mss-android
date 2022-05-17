@@ -19,6 +19,7 @@ interface SeriesApi {
         @Query("orderBy") orderBy: OrderBy?,
         @Query("orderDescending") orderDescending: Boolean?,
         @Query("page") page: Int?,
+        @Query("size") size: Int?,
     ): PageDto<SeriesItemDto>
 
     @GET("/web/3.0.0/series/golden")
@@ -29,6 +30,7 @@ interface SeriesApi {
         @Query("region") region: String?,
         @Query("category") category: String?,
         @Query("page") page: Int?,
+        @Query("size") size: Int?,
     ): PageDto<SeriesItemDto>
 
     enum class OrderBy {

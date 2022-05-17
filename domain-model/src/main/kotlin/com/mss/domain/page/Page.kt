@@ -17,5 +17,12 @@ data class Page<T>(
                 totalPages = (this.size + pageable.size - 1) / pageable.size,
             )
         }
+
+        fun <T, R> Page<T>.map(transform: (T) -> R): Page<R> = Page(
+            content = content.map(transform),
+            totalElements = totalElements,
+            totalPages = totalPages,
+            pageNumber = pageNumber,
+        )
     }
 }

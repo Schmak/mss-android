@@ -5,6 +5,8 @@ import com.mss.annotation.UnitTest
 import com.mss.core.utils.Result
 import com.mss.domain.SeriesItem
 import com.mss.domain.create
+import com.mss.domain.page.Page
+import com.mss.domain.page.Pageable
 import com.mss.domain.ref.SeriesReference
 import com.mss.domain.ref.create
 import com.mss.features.series.domain.repository.SeriesRepository
@@ -37,8 +39,7 @@ import kotlin.time.Duration.Companion.days
 internal class SeriesRepositoryImplTest {
     private val seriesApi: SeriesApi = mockk()
     private val repository: SeriesRepository = SeriesRepositoryImpl(
-        api = seriesApi,
-        dispatcher = TestDispatchers.IO
+        api = seriesApi, dispatcher = TestDispatchers.IO
     )
 
     @ParameterizedTest
@@ -94,46 +95,69 @@ internal class SeriesRepositoryImplTest {
                     )
                 )
             ),
-            repositoryQuery = { repository.getLeadingSeries(page = 0) },
-            expectedRepositoryResponse = listOf(
-                SeriesReference.create(
-                    name = SERIES,
-                    picture = "$SERIES pic"
-                )
-            ),
+            repositoryQuery = { repository.getLeadingSeries(pageable = page(0)) },
+            expectedRepositoryResponse = Page(
+                content = listOf(
+                    SeriesReference.create(
+                        name = SERIES, picture = "$SERIES pic"
+                    )
+                ),
+                totalElements = 1,
+                totalPages = 1,
+                pageNumber = 0,
+            )
         ),
         TestCase(
-            name = "getCollection",
-            apiQuery = {
+            name = "getCollection", apiQuery = {
                 seriesApi.getCollection(
                     region = REGIONS[0],
                     category = CATEGORIES[0],
-                    page = 12
+                    page = 12,
+                    size = PAGE_SIZE,
                 )
             },
-            apiResponse = PageDto.create(listOf(SERIES_ITEM_DTO)),
+            apiResponse = PageDto.create(
+                listOf(SERIES_ITEM_DTO),
+                totalPages = TOTAL_PAGES,
+                totalElements = TOTAL_ELEMENTS,
+                number = 12,
+            ),
             repositoryQuery = {
                 repository.getCollection(
-                    region = REGIONS[0],
-                    category = CATEGORIES[0],
-                    page = 12
+                    region = REGIONS[0], category = CATEGORIES[0], pageable = page(12)
                 )
             },
-            expectedRepositoryResponse = listOf(EXPECTED_SERIES_ITEM),
+            expectedRepositoryResponse = Page(
+                content = listOf(EXPECTED_SERIES_ITEM),
+                totalElements = TOTAL_ELEMENTS,
+                totalPages = TOTAL_PAGES,
+                pageNumber = 12
+            )
         ),
         TestCase(
             name = "getMostRecent",
             apiQuery = {
                 seriesApi.getSeries(
                     page = 23,
+                    size = PAGE_SIZE,
                     filterIds = any(),
                     orderBy = any(),
                     orderDescending = any()
                 )
             },
-            apiResponse = PageDto.create(listOf(SERIES_ITEM_DTO)),
-            repositoryQuery = { repository.getMostRecent(page = 23) },
-            expectedRepositoryResponse = listOf(EXPECTED_SERIES_ITEM),
+            apiResponse = PageDto.create(
+                content = listOf(SERIES_ITEM_DTO),
+                totalPages = TOTAL_PAGES,
+                totalElements = TOTAL_ELEMENTS,
+                number = 23,
+            ),
+            repositoryQuery = { repository.getMostRecent(pageable = page(23)) },
+            expectedRepositoryResponse = Page(
+                content = listOf(EXPECTED_SERIES_ITEM),
+                totalElements = TOTAL_ELEMENTS,
+                totalPages = TOTAL_PAGES,
+                pageNumber = 23,
+            ),
         ),
     )
 
@@ -149,6 +173,9 @@ internal class SeriesRepositoryImplTest {
 
     private companion object {
         private const val SERIES = "Formula One"
+        private const val PAGE_SIZE = 17
+        private const val TOTAL_PAGES = 18
+        private const val TOTAL_ELEMENTS = 199L
 
         private val EXCEPTION = RuntimeException("Some exception")
 
@@ -173,5 +200,7 @@ internal class SeriesRepositoryImplTest {
                 date = DEFAULT_LOCAL_DATE,
             )
         )
+
+        private fun page(page: Int) = Pageable.page(page, PAGE_SIZE)
     }
 }
