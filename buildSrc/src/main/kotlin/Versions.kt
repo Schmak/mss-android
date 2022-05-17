@@ -24,7 +24,7 @@ object Versions {
     }
 
     object GradlePlugin {
-        const val android = "7.0.4"
+        const val android = "7.2.0"
         const val detekt = "1.20.0"
         const val desugaring = "1.1.5"
         const val dependencyUpdates = "0.42.0"
