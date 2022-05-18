@@ -3,6 +3,7 @@ package com.mss.features.series.presentation.ui.landing
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.mss.core.ui.utils.mapPage
 import com.mss.core.utils.Result.Success
@@ -11,13 +12,16 @@ import com.mss.features.series.domain.usecases.*
 import com.mss.features.series.presentation.mapper.LeadingSeriesItemMapper
 import com.mss.features.series.presentation.mapper.MostRecentSeriesItemMapper
 import com.mss.features.series.presentation.mapper.SeriesItemMapper
+import com.mss.features.series.presentation.model.UiSeriesItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
+@OptIn(ExperimentalCoroutinesApi::class)
 class SeriesLandingViewModel @Inject constructor(
     private val getSeriesCategories: GetSeriesCategories,
     private val getSeriesRegions: GetSeriesRegions,
@@ -37,30 +41,42 @@ class SeriesLandingViewModel @Inject constructor(
             initialValue = viewModelState.value.toUiState()
         )
 
+    private val actions = MutableSharedFlow<UiAction>()
+
+    val mostRecent: Flow<PagingData<UiSeriesItem>> =
+        actions.onSubscription { emit(UiAction.Refresh) }
+            .filterIsInstance<UiAction.Refresh>()
+            .flatMapLatest { getMostRecentSeries() }
+            .mapPage(MostRecentSeriesItemMapper)
+            .cachedIn(viewModelScope)
+
     init {
-        refresh()
+        handleAction(UiAction.Refresh)
     }
 
-    fun handleAction(action: UiAction) = when (action) {
-        is UiAction.Refresh -> refresh()
-        is UiAction.SelectCategory ->
-            viewModelState.update {
-                it.copy(
-                    selectedCategoryIdx = action.idx,
-                    categorySeries = getCategorySeries(it.categories[action.idx])
-                        .mapPage(SeriesItemMapper)
-                        .cachedIn(viewModelScope)
-                )
-            }
-        is UiAction.SelectRegion ->
-            viewModelState.update {
-                it.copy(
-                    selectedRegionIdx = action.idx,
-                    regionSeries = getRegionSeries(it.regions[action.idx])
-                        .mapPage(SeriesItemMapper)
-                        .cachedIn(viewModelScope)
-                )
-            }
+    fun handleAction(action: UiAction) = run {
+        viewModelScope.launch { actions.emit(action) }
+        when (action) {
+            is UiAction.Refresh -> refresh()
+            is UiAction.SelectCategory ->
+                viewModelState.update {
+                    it.copy(
+                        selectedCategoryIdx = action.idx,
+                        categorySeries = getCategorySeries(it.categories[action.idx])
+                            .mapPage(SeriesItemMapper)
+                            .cachedIn(viewModelScope)
+                    )
+                }
+            is UiAction.SelectRegion ->
+                viewModelState.update {
+                    it.copy(
+                        selectedRegionIdx = action.idx,
+                        regionSeries = getRegionSeries(it.regions[action.idx])
+                            .mapPage(SeriesItemMapper)
+                            .cachedIn(viewModelScope)
+                    )
+                }
+        }
     }
 
     private fun refresh() {
@@ -71,7 +87,6 @@ class SeriesLandingViewModel @Inject constructor(
                 leadingSeries = emptyFlow(),
                 regionSeries = emptyFlow(),
                 categorySeries = emptyFlow(),
-                mostRecent = emptyFlow(),
             )
         }
 
@@ -97,9 +112,6 @@ class SeriesLandingViewModel @Inject constructor(
                         selectedRegionIdx = 0,
                         regionSeries = getRegionSeries(regions.data[0])
                             .mapPage(SeriesItemMapper)
-                            .cachedIn(viewModelScope),
-                        mostRecent = getMostRecentSeries()
-                            .mapPage(MostRecentSeriesItemMapper)
                             .cachedIn(viewModelScope),
                         isLoading = false,
                         errorMessage = null,

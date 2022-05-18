@@ -11,7 +11,6 @@ data class SeriesLandingUiState(
     val leadingSeries: Flow<PagingData<UiSeriesItem>> = emptyFlow(),
     val categorySeries: Flow<PagingData<UiSeriesItem>> = emptyFlow(),
     val regionSeries: Flow<PagingData<UiSeriesItem>> = emptyFlow(),
-    val mostRecent: Flow<PagingData<UiSeriesItem>> = emptyFlow(),
     val selectedRegionIdx: Int = 0,
     val selectedCategoryIdx: Int = 0,
     val isLoading: Boolean = false,

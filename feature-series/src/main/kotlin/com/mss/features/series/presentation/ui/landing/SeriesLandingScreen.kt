@@ -29,6 +29,7 @@ import com.mss.features.series.R
 import com.mss.features.series.data.mock.MockSeriesData
 import com.mss.features.series.presentation.model.UiSeriesItem
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
@@ -42,6 +43,7 @@ fun SeriesLandingScreen(
     SeriesLandingScreen(
         uiState = uiState,
         onAction = viewModel::handleAction,
+        mostRecent = viewModel.mostRecent,
         modifier = modifier
     )
 }
@@ -49,6 +51,7 @@ fun SeriesLandingScreen(
 @Composable
 fun SeriesLandingScreen(
     uiState: SeriesLandingUiState,
+    mostRecent: Flow<PagingData<UiSeriesItem>>,
     onAction: (UiAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -58,6 +61,7 @@ fun SeriesLandingScreen(
                 uiState = uiState,
                 onAction = onAction,
                 modifier = modifier,
+                mostRecent = mostRecent,
             )
         uiState.isLoading ->
             Box(
@@ -90,6 +94,7 @@ fun SeriesLandingScreen(
 private fun ReadySeriesLandingScreen(
     modifier: Modifier,
     uiState: SeriesLandingUiState,
+    mostRecent: Flow<PagingData<UiSeriesItem>>,
     onAction: (UiAction) -> Unit
 ) {
     val screenModifier = Modifier.padding(horizontal = Screen.horizontalPadding)
@@ -143,7 +148,7 @@ private fun ReadySeriesLandingScreen(
             )
             SeriesList(
                 title = stringResource(R.string.most_recent),
-                seriesFlow = uiState.mostRecent,
+                seriesFlow = mostRecent,
                 modifier = screenModifier,
             )
             Spacer(Modifier.navigationBarsHeight())
@@ -243,11 +248,11 @@ fun PreviewSeriesScreen() {
                     leadingSeries = flowOf(PagingData.from(MockSeriesData.leadingSeries)),
                     categorySeries = flowOf(PagingData.from(MockSeriesData.categorySeries)),
                     regionSeries = flowOf(PagingData.from(MockSeriesData.regionSeries)),
-                    mostRecent = flowOf(PagingData.from(MockSeriesData.mostRecent)),
                     categories = MockSeriesData.categories,
                     regions = MockSeriesData.regions,
                     hasData = true,
                 ),
+                mostRecent = flowOf(PagingData.from(MockSeriesData.mostRecent)),
                 onAction = {},
             )
         }
@@ -263,6 +268,7 @@ fun PreviewLoading() {
             SeriesLandingScreen(
                 uiState = SeriesLandingUiState(isLoading = true),
                 onAction = {},
+                mostRecent = emptyFlow(),
             )
         }
     }
@@ -277,6 +283,7 @@ fun PreviewError() {
             SeriesLandingScreen(
                 uiState = SeriesLandingUiState(errorMessage = "Some message"),
                 onAction = {},
+                mostRecent = emptyFlow(),
             )
         }
     }
