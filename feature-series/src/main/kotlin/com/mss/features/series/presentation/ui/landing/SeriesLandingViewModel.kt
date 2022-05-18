@@ -60,6 +60,10 @@ class SeriesLandingViewModel @Inject constructor(
             it.copy(
                 isLoading = true,
                 errorMessage = null,
+                leadingSeries = emptyFlow(),
+                regionSeries = emptyFlow(),
+                categorySeries = emptyFlow(),
+                mostRecent = emptyFlow(),
             )
         }
 
