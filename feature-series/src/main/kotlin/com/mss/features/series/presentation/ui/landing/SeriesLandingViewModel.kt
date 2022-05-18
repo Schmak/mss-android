@@ -13,6 +13,8 @@ import com.mss.features.series.presentation.mapper.LeadingSeriesItemMapper
 import com.mss.features.series.presentation.mapper.MostRecentSeriesItemMapper
 import com.mss.features.series.presentation.mapper.SeriesItemMapper
 import com.mss.features.series.presentation.model.UiSeriesItem
+import com.mss.features.series.presentation.ui.landing.state.SeriesFlows
+import com.mss.features.series.presentation.ui.landing.state.SeriesLandingModelState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -30,7 +32,7 @@ class SeriesLandingViewModel @Inject constructor(
     private val getCategorySeries: GetCategorySeries,
     private val getRegionSeries: GetRegionSeries,
     private val application: Application,
-) : ViewModel() {
+) : ViewModel(), SeriesFlows {
     private val viewModelState = MutableStateFlow(SeriesLandingModelState(isLoading = true))
 
     val uiState = viewModelState
@@ -43,11 +45,18 @@ class SeriesLandingViewModel @Inject constructor(
 
     private val actions = MutableSharedFlow<UiAction>()
 
-    val mostRecent: Flow<PagingData<UiSeriesItem>> =
+    override val mostRecent: Flow<PagingData<UiSeriesItem>> =
         actions.onSubscription { emit(UiAction.Refresh) }
             .filterIsInstance<UiAction.Refresh>()
             .flatMapLatest { getMostRecentSeries() }
             .mapPage(MostRecentSeriesItemMapper)
+            .cachedIn(viewModelScope)
+
+    override val leadingSeries: Flow<PagingData<UiSeriesItem>> =
+        actions.onSubscription { emit(UiAction.Refresh) }
+            .filterIsInstance<UiAction.Refresh>()
+            .flatMapLatest { getLeadingSeries() }
+            .mapPage(LeadingSeriesItemMapper)
             .cachedIn(viewModelScope)
 
     init {
@@ -84,7 +93,6 @@ class SeriesLandingViewModel @Inject constructor(
             it.copy(
                 isLoading = true,
                 errorMessage = null,
-                leadingSeries = emptyFlow(),
                 regionSeries = emptyFlow(),
                 categorySeries = emptyFlow(),
             )
@@ -100,9 +108,6 @@ class SeriesLandingViewModel @Inject constructor(
             viewModelState.update {
                 if (categories is Success && regions is Success) {
                     it.copy(
-                        leadingSeries = getLeadingSeries()
-                            .mapPage(LeadingSeriesItemMapper)
-                            .cachedIn(viewModelScope),
                         categories = categories.data,
                         selectedCategoryIdx = 0,
                         categorySeries = getCategorySeries(categories.data[0])
