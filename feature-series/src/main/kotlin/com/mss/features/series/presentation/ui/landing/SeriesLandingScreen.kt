@@ -49,7 +49,7 @@ fun SeriesLandingScreen(
 @Composable
 fun SeriesLandingScreen(
     uiState: SeriesLandingUiState,
-    onAction: (SeriesLandingAction) -> Unit,
+    onAction: (UiAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     when {
@@ -78,7 +78,7 @@ fun SeriesLandingScreen(
                         maxLines = 1,
                         modifier = Modifier.padding(16.dp)
                     )
-                    Button(onClick = { onAction(SeriesLandingAction.Refresh) }) {
+                    Button(onClick = { onAction(UiAction.Refresh) }) {
                         Text(text = stringResource(R.string.retry))
                     }
                 }
@@ -90,12 +90,12 @@ fun SeriesLandingScreen(
 private fun ReadySeriesLandingScreen(
     modifier: Modifier,
     uiState: SeriesLandingUiState,
-    onAction: (SeriesLandingAction) -> Unit
+    onAction: (UiAction) -> Unit
 ) {
     val screenModifier = Modifier.padding(horizontal = Screen.horizontalPadding)
     SwipeRefresh(
         state = rememberSwipeRefreshState(uiState.isLoading),
-        onRefresh = { onAction(SeriesLandingAction.Refresh) },
+        onRefresh = { onAction(UiAction.Refresh) },
     ) {
         Column(
             modifier = modifier
@@ -120,7 +120,7 @@ private fun ReadySeriesLandingScreen(
                         categoryTitle = stringResource(R.string.select_category),
                         categories = uiState.categories,
                         selectedCategoryIdx = uiState.selectedCategoryIdx,
-                        onCategorySelected = { onAction(SeriesLandingAction.SelectCategory(it)) },
+                        onCategorySelected = { onAction(UiAction.SelectCategory(it)) },
                         modifier = screenModifier,
                     )
                 },
@@ -134,7 +134,7 @@ private fun ReadySeriesLandingScreen(
                         categoryTitle = stringResource(R.string.select_region),
                         categories = uiState.regions,
                         selectedCategoryIdx = uiState.selectedRegionIdx,
-                        onCategorySelected = { onAction(SeriesLandingAction.SelectRegion(it)) },
+                        onCategorySelected = { onAction(UiAction.SelectRegion(it)) },
                         modifier = screenModifier,
                     )
                 },

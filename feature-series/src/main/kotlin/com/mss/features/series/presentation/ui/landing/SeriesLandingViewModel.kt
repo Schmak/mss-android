@@ -41,9 +41,9 @@ class SeriesLandingViewModel @Inject constructor(
         refresh()
     }
 
-    fun handleAction(action: SeriesLandingAction) = when (action) {
-        is SeriesLandingAction.Refresh -> refresh()
-        is SeriesLandingAction.SelectCategory ->
+    fun handleAction(action: UiAction) = when (action) {
+        is UiAction.Refresh -> refresh()
+        is UiAction.SelectCategory ->
             viewModelState.update {
                 it.copy(
                     selectedCategoryIdx = action.idx,
@@ -52,7 +52,7 @@ class SeriesLandingViewModel @Inject constructor(
                         .cachedIn(viewModelScope)
                 )
             }
-        is SeriesLandingAction.SelectRegion ->
+        is UiAction.SelectRegion ->
             viewModelState.update {
                 it.copy(
                     selectedRegionIdx = action.idx,
