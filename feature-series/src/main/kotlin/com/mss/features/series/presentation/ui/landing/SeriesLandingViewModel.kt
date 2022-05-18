@@ -4,9 +4,13 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.mss.core.ui.utils.mapPage
 import com.mss.core.utils.Result.Success
 import com.mss.features.series.R
 import com.mss.features.series.domain.usecases.*
+import com.mss.features.series.presentation.mapper.LeadingSeriesItemMapper
+import com.mss.features.series.presentation.mapper.MostRecentSeriesItemMapper
+import com.mss.features.series.presentation.mapper.SeriesItemMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
@@ -43,14 +47,18 @@ class SeriesLandingViewModel @Inject constructor(
             viewModelState.update {
                 it.copy(
                     selectedCategoryIdx = action.idx,
-                    categorySeries = getCategorySeries(it.categories[action.idx]).cachedIn(viewModelScope)
+                    categorySeries = getCategorySeries(it.categories[action.idx])
+                        .mapPage(SeriesItemMapper)
+                        .cachedIn(viewModelScope)
                 )
             }
         is SeriesLandingAction.SelectRegion ->
             viewModelState.update {
                 it.copy(
                     selectedRegionIdx = action.idx,
-                    regionSeries = getRegionSeries(it.regions[action.idx]).cachedIn(viewModelScope)
+                    regionSeries = getRegionSeries(it.regions[action.idx])
+                        .mapPage(SeriesItemMapper)
+                        .cachedIn(viewModelScope)
                 )
             }
     }
@@ -77,14 +85,22 @@ class SeriesLandingViewModel @Inject constructor(
             viewModelState.update {
                 if (categories is Success && regions is Success) {
                     it.copy(
-                        leadingSeries = getLeadingSeries().cachedIn(viewModelScope),
+                        leadingSeries = getLeadingSeries()
+                            .mapPage(LeadingSeriesItemMapper)
+                            .cachedIn(viewModelScope),
                         categories = categories.data,
                         selectedCategoryIdx = 0,
-                        categorySeries = getCategorySeries(categories.data[0]).cachedIn(viewModelScope),
+                        categorySeries = getCategorySeries(categories.data[0])
+                            .mapPage(SeriesItemMapper)
+                            .cachedIn(viewModelScope),
                         regions = regions.data,
                         selectedRegionIdx = 0,
-                        regionSeries = getRegionSeries(regions.data[0]).cachedIn(viewModelScope),
-                        mostRecent = getMostRecentSeries().cachedIn(viewModelScope),
+                        regionSeries = getRegionSeries(regions.data[0])
+                            .mapPage(SeriesItemMapper)
+                            .cachedIn(viewModelScope),
+                        mostRecent = getMostRecentSeries()
+                            .mapPage(MostRecentSeriesItemMapper)
+                            .cachedIn(viewModelScope),
                         isLoading = false,
                         errorMessage = null,
                     )
