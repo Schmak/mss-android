@@ -46,17 +46,28 @@ class SeriesLandingViewModel @Inject constructor(
     private val actions = MutableSharedFlow<UiAction>()
 
     override val mostRecent: Flow<PagingData<UiSeriesItem>> =
-        actions.onSubscription { emit(UiAction.Refresh) }
+        actions
+            .onSubscription { emit(UiAction.Refresh) }
             .filterIsInstance<UiAction.Refresh>()
             .flatMapLatest { getMostRecentSeries() }
             .mapPage(MostRecentSeriesItemMapper)
             .cachedIn(viewModelScope)
 
     override val leadingSeries: Flow<PagingData<UiSeriesItem>> =
-        actions.onSubscription { emit(UiAction.Refresh) }
+        actions
+            .onSubscription { emit(UiAction.Refresh) }
             .filterIsInstance<UiAction.Refresh>()
             .flatMapLatest { getLeadingSeries() }
             .mapPage(LeadingSeriesItemMapper)
+            .cachedIn(viewModelScope)
+
+    override val categorySeries: Flow<PagingData<UiSeriesItem>> =
+        actions
+            .onSubscription { emit(UiAction.SelectCategory(viewModelState.value.selectedCategoryIdx)) }
+            .filterIsInstance<UiAction.SelectCategory>()
+            .distinctUntilChanged()
+            .flatMapLatest { getCategorySeries(category = viewModelState.value.categories[it.idx]) }
+            .mapPage(SeriesItemMapper)
             .cachedIn(viewModelScope)
 
     init {
@@ -68,14 +79,7 @@ class SeriesLandingViewModel @Inject constructor(
         when (action) {
             is UiAction.Refresh -> refresh()
             is UiAction.SelectCategory ->
-                viewModelState.update {
-                    it.copy(
-                        selectedCategoryIdx = action.idx,
-                        categorySeries = getCategorySeries(it.categories[action.idx])
-                            .mapPage(SeriesItemMapper)
-                            .cachedIn(viewModelScope)
-                    )
-                }
+                viewModelState.update { it.copy(selectedCategoryIdx = action.idx) }
             is UiAction.SelectRegion ->
                 viewModelState.update {
                     it.copy(
@@ -94,7 +98,6 @@ class SeriesLandingViewModel @Inject constructor(
                 isLoading = true,
                 errorMessage = null,
                 regionSeries = emptyFlow(),
-                categorySeries = emptyFlow(),
             )
         }
 
@@ -105,27 +108,28 @@ class SeriesLandingViewModel @Inject constructor(
             val categories = categoriesDeferred.await()
             val regions = regionsDeferred.await()
 
-            viewModelState.update {
-                if (categories is Success && regions is Success) {
-                    it.copy(
-                        categories = categories.data,
-                        selectedCategoryIdx = 0,
-                        categorySeries = getCategorySeries(categories.data[0])
-                            .mapPage(SeriesItemMapper)
-                            .cachedIn(viewModelScope),
-                        regions = regions.data,
-                        selectedRegionIdx = 0,
-                        regionSeries = getRegionSeries(regions.data[0])
-                            .mapPage(SeriesItemMapper)
-                            .cachedIn(viewModelScope),
-                        isLoading = false,
-                        errorMessage = null,
-                    )
-                } else
+            if (categories !is Success || regions !is Success) {
+                viewModelState.update {
                     it.copy(
                         errorMessage = application.getString(R.string.try_again),
                         isLoading = false,
                     )
+                }
+                return@launch
+            }
+
+            viewModelState.update {
+                it.copy(
+                    categories = categories.data,
+                    selectedCategoryIdx = 0,
+                    regions = regions.data,
+                    selectedRegionIdx = 0,
+                    regionSeries = getRegionSeries(regions.data[0])
+                        .mapPage(SeriesItemMapper)
+                        .cachedIn(viewModelScope),
+                    isLoading = false,
+                    errorMessage = null,
+                )
             }
         }
     }

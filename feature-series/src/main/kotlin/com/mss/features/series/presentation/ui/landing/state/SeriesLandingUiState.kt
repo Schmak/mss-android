@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.emptyFlow
 data class SeriesLandingUiState(
     val regions: List<String> = emptyList(),
     val categories: List<String> = emptyList(),
-    val categorySeries: Flow<PagingData<UiSeriesItem>> = emptyFlow(),
     val regionSeries: Flow<PagingData<UiSeriesItem>> = emptyFlow(),
     val selectedRegionIdx: Int = 0,
     val selectedCategoryIdx: Int = 0,
