@@ -144,7 +144,7 @@ private fun ReadySeriesLandingScreen(
                         modifier = screenModifier,
                     )
                 },
-                seriesFlow = uiState.regionSeries,
+                seriesFlow = seriesFlows.regionSeries,
                 modifier = screenModifier,
             )
             SeriesList(
@@ -241,6 +241,7 @@ private fun LazySeriesRow(
 private val mockSeriesFlows = object : SeriesFlows {
     override val leadingSeries = flowOf(PagingData.from(MockSeriesData.leadingSeries))
     override val categorySeries = flowOf(PagingData.from(MockSeriesData.categorySeries))
+    override val regionSeries = flowOf(PagingData.from(MockSeriesData.regionSeries))
     override val mostRecent = flowOf(PagingData.from(MockSeriesData.mostRecent))
 }
 
@@ -252,7 +253,6 @@ fun PreviewSeriesScreen() {
         Surface {
             SeriesLandingScreen(
                 uiState = SeriesLandingUiState(
-                    regionSeries = flowOf(PagingData.from(MockSeriesData.regionSeries)),
                     categories = MockSeriesData.categories,
                     regions = MockSeriesData.regions,
                     hasData = true,

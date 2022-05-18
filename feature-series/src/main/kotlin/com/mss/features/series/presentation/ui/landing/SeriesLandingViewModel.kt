@@ -70,6 +70,15 @@ class SeriesLandingViewModel @Inject constructor(
             .mapPage(SeriesItemMapper)
             .cachedIn(viewModelScope)
 
+    override val regionSeries: Flow<PagingData<UiSeriesItem>> =
+        actions
+            .onSubscription { emit(UiAction.SelectRegion(viewModelState.value.selectedRegionIdx)) }
+            .filterIsInstance<UiAction.SelectRegion>()
+            .distinctUntilChanged()
+            .flatMapLatest { getRegionSeries(region = viewModelState.value.regions[it.idx]) }
+            .mapPage(SeriesItemMapper)
+            .cachedIn(viewModelScope)
+
     init {
         handleAction(UiAction.Refresh)
     }
@@ -81,14 +90,7 @@ class SeriesLandingViewModel @Inject constructor(
             is UiAction.SelectCategory ->
                 viewModelState.update { it.copy(selectedCategoryIdx = action.idx) }
             is UiAction.SelectRegion ->
-                viewModelState.update {
-                    it.copy(
-                        selectedRegionIdx = action.idx,
-                        regionSeries = getRegionSeries(it.regions[action.idx])
-                            .mapPage(SeriesItemMapper)
-                            .cachedIn(viewModelScope)
-                    )
-                }
+                viewModelState.update { it.copy(selectedRegionIdx = action.idx) }
         }
     }
 
@@ -97,7 +99,6 @@ class SeriesLandingViewModel @Inject constructor(
             it.copy(
                 isLoading = true,
                 errorMessage = null,
-                regionSeries = emptyFlow(),
             )
         }
 
@@ -124,9 +125,6 @@ class SeriesLandingViewModel @Inject constructor(
                     selectedCategoryIdx = 0,
                     regions = regions.data,
                     selectedRegionIdx = 0,
-                    regionSeries = getRegionSeries(regions.data[0])
-                        .mapPage(SeriesItemMapper)
-                        .cachedIn(viewModelScope),
                     isLoading = false,
                     errorMessage = null,
                 )
