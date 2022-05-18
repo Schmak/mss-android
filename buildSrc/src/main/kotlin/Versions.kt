@@ -40,6 +40,7 @@ object Versions {
     }
 
     object Network {
+        const val okHttp = "4.9.3"
         const val retrofit = "2.9.0"
     }
 

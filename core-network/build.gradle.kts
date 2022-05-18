@@ -11,6 +11,7 @@ dependencies {
     api(project(Core.UTILS))
     api(project(Domain.MODEL))
 
+    implementation(Deps.Network.okHttp)
     implementation(Deps.Network.Retrofit.core)
     implementation(Deps.Network.Retrofit.gson)
 
