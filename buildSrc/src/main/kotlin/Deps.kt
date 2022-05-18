@@ -8,10 +8,11 @@ object Deps {
         const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
 
         object Accompanist {
-            const val prefix = "com.google.accompanist:accompanist"
+            private const val prefix = "com.google.accompanist:accompanist"
             const val insets = "$prefix-insets:${Versions.AndroidX.accompanist}"
             const val systemUiController = "$prefix-systemuicontroller:${Versions.AndroidX.accompanist}"
             const val swipeRefresh = "$prefix-swiperefresh:${Versions.AndroidX.accompanist}"
+            const val placeholder = "$prefix-placeholder:${Versions.AndroidX.accompanist}"
         }
 
         object Test {
@@ -57,10 +58,6 @@ object Deps {
             const val testing = "com.google.dagger:hilt-android-testing:${Versions.Hilt.core}"
             const val compiler = "com.google.dagger:hilt-android-compiler:${Versions.Hilt.core}"
         }
-    }
-
-    object Kotlin {
-        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     }
 
     object Logging {

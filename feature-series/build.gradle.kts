@@ -52,6 +52,7 @@ dependencies {
     //AndroidX
     implementation(Deps.AndroidX.Accompanist.insets)
     implementation(Deps.AndroidX.Accompanist.swipeRefresh)
+    implementation(Deps.AndroidX.Accompanist.placeholder)
     implementation(Deps.AndroidX.lifecycleViewModel)
 
     //Desugaring
