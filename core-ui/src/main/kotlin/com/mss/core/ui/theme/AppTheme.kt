@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.mss.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -25,6 +27,12 @@ val Colors.imageBackground: Color
 
 val Colors.divider: Color
     get() = if (isLight) Black10 else White10
+
+val Colors.stubColor
+    get() = if (isLight) Gray95 else Gray90
+
+val Colors.stubHighlightColor
+    get() = White
 
 @Composable
 fun AppTheme(

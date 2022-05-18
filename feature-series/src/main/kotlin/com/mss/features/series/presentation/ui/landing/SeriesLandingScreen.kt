@@ -7,14 +7,13 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -31,6 +30,7 @@ import com.mss.features.series.data.mock.MockSeriesData
 import com.mss.features.series.presentation.model.UiSeriesItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
 
 @Composable
 fun SeriesLandingScreen(
@@ -111,7 +111,7 @@ private fun ReadySeriesLandingScreen(
                 title = stringResource(R.string.leading_series),
                 seriesFlow = uiState.leadingSeries,
                 modifier = screenModifier,
-                firstList = true,
+                firstList = true, itemsHaveSubtitle = false,
             )
             SeriesList(
                 title = stringResource(R.string.categories),
@@ -177,8 +177,8 @@ private fun SeriesList(
     seriesFlow: Flow<PagingData<UiSeriesItem>>,
     modifier: Modifier,
     firstList: Boolean = false,
+    itemsHaveSubtitle: Boolean = true,
 ) {
-    val series = seriesFlow.collectAsLazyPagingItems()
     val dividerModifier = modifier.padding(vertical = 10.dp)
     if (!firstList)
         Divider(color = MaterialTheme.colors.divider, modifier = dividerModifier)
@@ -189,14 +189,45 @@ private fun SeriesList(
     )
     Divider(color = MaterialTheme.colors.divider, modifier = dividerModifier)
     categories()
+    LazySeriesRow(seriesFlow, itemsHaveSubtitle)
+}
+
+@Composable
+private fun LazySeriesRow(
+    seriesFlow: Flow<PagingData<UiSeriesItem>>,
+    itemsHaveSubtitle: Boolean
+) {
+    val series = seriesFlow.collectAsLazyPagingItems()
+    val loadState = series.loadState.refresh
+    val appendState = series.loadState.append
+    val state = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+    //TODO #11 add load list error handler
+    val loading by derivedStateOf { series.itemCount == 0 || loadState is LoadState.Loading }
+    LaunchedEffect(key1 = loadState) {
+        if (loadState is LoadState.Loading)
+            coroutineScope.launch {
+                state.animateScrollToItem(0)
+            }
+    }
     LazyRow(
-        state = rememberLazyListState(),
+        state = state,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
+        userScrollEnabled = !loading
     ) {
-        items(series) {
-            if (it != null)
-                SeriesTile(it)
+        if (loading)
+            items(Int.MAX_VALUE) {
+                SeriesTile(item = null, hasSubtitle = itemsHaveSubtitle)
+            }
+        else {
+            items(series) {
+                SeriesTile(it, hasSubtitle = itemsHaveSubtitle)
+            }
+            if (appendState is LoadState.Loading)
+                item {
+                    SeriesTile(item = null, hasSubtitle = itemsHaveSubtitle)
+                }
         }
     }
 }
