@@ -43,48 +43,47 @@ class SeriesLandingViewModel @Inject constructor(
             initialValue = viewModelState.value.toUiState()
         )
 
-    private val actions = MutableSharedFlow<UiAction>()
+    private val _actions = MutableSharedFlow<UiAction>()
+    private val actions = _actions.asSharedFlow()
+        .onSubscription { emit(UiAction.Refresh) }
+    private val refreshActions = actions.filterIsInstance<UiAction.Refresh>()
 
     override val mostRecent: Flow<PagingData<UiSeriesItem>> =
-        actions
-            .onSubscription { emit(UiAction.Refresh) }
-            .filterIsInstance<UiAction.Refresh>()
+        refreshActions
             .flatMapLatest { getMostRecentSeries() }
             .mapPage(MostRecentSeriesItemMapper)
             .cachedIn(viewModelScope)
 
     override val leadingSeries: Flow<PagingData<UiSeriesItem>> =
-        actions
-            .onSubscription { emit(UiAction.Refresh) }
-            .filterIsInstance<UiAction.Refresh>()
+        refreshActions
             .flatMapLatest { getLeadingSeries() }
             .mapPage(LeadingSeriesItemMapper)
             .cachedIn(viewModelScope)
 
     override val categorySeries: Flow<PagingData<UiSeriesItem>> =
         actions
-            .onSubscription { emit(UiAction.SelectCategory(viewModelState.value.selectedCategoryIdx)) }
+            .onSubscription { emit(UiAction.SelectCategory(0)) }
             .filterIsInstance<UiAction.SelectCategory>()
-            .distinctUntilChanged()
-            .flatMapLatest { getCategorySeries(category = viewModelState.value.categories[it.idx]) }
+            .mapNotNull { viewModelState.value.categories.getOrNull(it.idx) }
+            .flatMapLatest { getCategorySeries(it) }
             .mapPage(SeriesItemMapper)
             .cachedIn(viewModelScope)
 
     override val regionSeries: Flow<PagingData<UiSeriesItem>> =
         actions
-            .onSubscription { emit(UiAction.SelectRegion(viewModelState.value.selectedRegionIdx)) }
+            .onSubscription { emit(UiAction.SelectRegion(0)) }
             .filterIsInstance<UiAction.SelectRegion>()
-            .distinctUntilChanged()
-            .flatMapLatest { getRegionSeries(region = viewModelState.value.regions[it.idx]) }
+            .mapNotNull { viewModelState.value.regions.getOrNull(it.idx) }
+            .flatMapLatest { getRegionSeries(it) }
             .mapPage(SeriesItemMapper)
             .cachedIn(viewModelScope)
 
     init {
-        handleAction(UiAction.Refresh)
+        refresh()
     }
 
-    fun handleAction(action: UiAction) = run {
-        viewModelScope.launch { actions.emit(action) }
+    fun handleAction(action: UiAction) {
+        viewModelScope.launch { _actions.emit(action) }
         when (action) {
             is UiAction.Refresh -> refresh()
             is UiAction.SelectCategory ->
@@ -122,13 +121,13 @@ class SeriesLandingViewModel @Inject constructor(
             viewModelState.update {
                 it.copy(
                     categories = categories.data,
-                    selectedCategoryIdx = 0,
                     regions = regions.data,
-                    selectedRegionIdx = 0,
                     isLoading = false,
                     errorMessage = null,
                 )
             }
+            handleAction(UiAction.SelectRegion(0))
+            handleAction(UiAction.SelectCategory(0))
         }
     }
 }
