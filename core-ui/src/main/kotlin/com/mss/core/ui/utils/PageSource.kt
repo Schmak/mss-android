@@ -1,22 +1,31 @@
 package com.mss.core.ui.utils
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.mss.core.utils.Result
+import com.mss.domain.page.Page
+import com.mss.domain.page.Pageable
+import com.mss.domain.page.Pageable.Companion.page
 
 class PageSource<T : Any>(
-    private val getPage: suspend (Int) -> Result<List<T>>,
+    private val targetPageSize: Int = 10,
+    private val getPage: suspend (Pageable) -> Result<Page<T>>,
 ) : PagingSource<Int, T>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
         val pageNum = params.key ?: 0
-        return when (val page = getPage(pageNum)) {
-            is Result.Success -> LoadResult.Page(
-                data = page.data,
-                prevKey = if (pageNum == 0) null else pageNum - 1,
-                nextKey = if (page.data.isEmpty()) null else pageNum + 1,
-            )
-            is Result.Error -> LoadResult.Error(page.exception)
+        val pageable = page(page = pageNum, size = targetPageSize)
+        return when (val result = getPage(pageable)) {
+            is Result.Success -> {
+                val page = result.data
+                LoadResult.Page(
+                    data = page.content,
+                    prevKey = (pageNum - 1).takeIf { it >= 0 },
+                    nextKey = (pageNum + 1).takeIf { it < page.totalPages },
+                )
+            }
+            is Result.Error -> LoadResult.Error(result.exception)
         }
     }
 
-    override fun getRefreshKey(state: androidx.paging.PagingState<Int, T>): Int? = null
+    override fun getRefreshKey(state: PagingState<Int, T>): Int? = null
 }

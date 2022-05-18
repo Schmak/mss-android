@@ -14,6 +14,6 @@ class GetCategorySeries @Inject constructor(
 ) {
     operator fun invoke(category: String, pageSize: Int = 10): Flow<PagingData<SeriesItem>> =
         Pager(PagingConfig(pageSize)) {
-            PageSource { repository.getCollection(category = category, page = it) }
+            PageSource { repository.getCollection(category = category, pageable = it) }
         }.flow
 }

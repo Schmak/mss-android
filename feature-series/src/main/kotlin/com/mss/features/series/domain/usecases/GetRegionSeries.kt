@@ -14,6 +14,6 @@ class GetRegionSeries @Inject constructor(
 ) {
     operator fun invoke(region: String, pageSize: Int = 10): Flow<PagingData<SeriesItem>> =
         Pager(PagingConfig(pageSize)) {
-            PageSource { repository.getCollection(region = region, page = it) }
+            PageSource { repository.getCollection(region = region, pageable = it) }
         }.flow
 }
