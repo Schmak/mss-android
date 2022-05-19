@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.mss.core.ui.model.UiItem
 import com.mss.core.ui.utils.mapPage
 import com.mss.core.utils.Result.Success
 import com.mss.features.series.R
@@ -12,7 +13,6 @@ import com.mss.features.series.domain.usecases.*
 import com.mss.features.series.presentation.mapper.LeadingSeriesItemMapper
 import com.mss.features.series.presentation.mapper.MostRecentSeriesItemMapper
 import com.mss.features.series.presentation.mapper.SeriesItemMapper
-import com.mss.features.series.presentation.model.UiSeriesItem
 import com.mss.features.series.presentation.ui.landing.state.SeriesFlows
 import com.mss.features.series.presentation.ui.landing.state.SeriesLandingModelState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,19 +48,19 @@ class SeriesLandingViewModel @Inject constructor(
         .onSubscription { emit(UiAction.Refresh) }
     private val refreshActions = actions.filterIsInstance<UiAction.Refresh>()
 
-    override val mostRecent: Flow<PagingData<UiSeriesItem>> =
+    override val mostRecent: Flow<PagingData<UiItem>> =
         refreshActions
             .flatMapLatest { getMostRecentSeries() }
             .mapPage(MostRecentSeriesItemMapper)
             .cachedIn(viewModelScope)
 
-    override val leadingSeries: Flow<PagingData<UiSeriesItem>> =
+    override val leadingSeries: Flow<PagingData<UiItem>> =
         refreshActions
             .flatMapLatest { getLeadingSeries() }
             .mapPage(LeadingSeriesItemMapper)
             .cachedIn(viewModelScope)
 
-    override val categorySeries: Flow<PagingData<UiSeriesItem>> =
+    override val categorySeries: Flow<PagingData<UiItem>> =
         actions
             .onSubscription { emit(UiAction.SelectCategory(0)) }
             .filterIsInstance<UiAction.SelectCategory>()
@@ -69,7 +69,7 @@ class SeriesLandingViewModel @Inject constructor(
             .mapPage(SeriesItemMapper)
             .cachedIn(viewModelScope)
 
-    override val regionSeries: Flow<PagingData<UiSeriesItem>> =
+    override val regionSeries: Flow<PagingData<UiItem>> =
         actions
             .onSubscription { emit(UiAction.SelectRegion(0)) }
             .filterIsInstance<UiAction.SelectRegion>()

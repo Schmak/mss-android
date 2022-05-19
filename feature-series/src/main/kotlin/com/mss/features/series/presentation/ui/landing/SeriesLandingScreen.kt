@@ -22,12 +22,12 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.mss.core.ui.components.DropdownList
+import com.mss.core.ui.model.UiItem
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions.Screen
 import com.mss.core.ui.theme.divider
 import com.mss.features.series.R
 import com.mss.features.series.data.mock.MockSeriesData
-import com.mss.features.series.presentation.model.UiSeriesItem
 import com.mss.features.series.presentation.ui.landing.state.SeriesFlows
 import com.mss.features.series.presentation.ui.landing.state.SeriesLandingUiState
 import kotlinx.coroutines.flow.Flow
@@ -180,7 +180,7 @@ private fun CategoryList(
 private fun SeriesList(
     title: String,
     categories: @Composable () -> Unit = {},
-    seriesFlow: Flow<PagingData<UiSeriesItem>>,
+    seriesFlow: Flow<PagingData<UiItem>>,
     modifier: Modifier,
     firstList: Boolean = false,
     itemsHaveSubtitle: Boolean = true,
@@ -200,7 +200,7 @@ private fun SeriesList(
 
 @Composable
 private fun LazySeriesRow(
-    seriesFlow: Flow<PagingData<UiSeriesItem>>,
+    seriesFlow: Flow<PagingData<UiItem>>,
     itemsHaveSubtitle: Boolean
 ) {
     val series = seriesFlow.collectAsLazyPagingItems()

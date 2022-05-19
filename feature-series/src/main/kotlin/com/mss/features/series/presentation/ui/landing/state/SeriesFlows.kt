@@ -1,22 +1,22 @@
 package com.mss.features.series.presentation.ui.landing.state
 
 import androidx.paging.PagingData
-import com.mss.features.series.presentation.model.UiSeriesItem
+import com.mss.core.ui.model.UiItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
 interface SeriesFlows {
-    val leadingSeries: Flow<PagingData<UiSeriesItem>>
-    val categorySeries: Flow<PagingData<UiSeriesItem>>
-    val regionSeries: Flow<PagingData<UiSeriesItem>>
-    val mostRecent: Flow<PagingData<UiSeriesItem>>
+    val leadingSeries: Flow<PagingData<UiItem>>
+    val categorySeries: Flow<PagingData<UiItem>>
+    val regionSeries: Flow<PagingData<UiItem>>
+    val mostRecent: Flow<PagingData<UiItem>>
 
     companion object {
         val Empty = object : SeriesFlows {
-            override val leadingSeries = emptyFlow<PagingData<UiSeriesItem>>()
-            override val categorySeries = emptyFlow<PagingData<UiSeriesItem>>()
-            override val regionSeries = emptyFlow<PagingData<UiSeriesItem>>()
-            override val mostRecent = emptyFlow<PagingData<UiSeriesItem>>()
+            override val leadingSeries = emptyFlow<PagingData<UiItem>>()
+            override val categorySeries = emptyFlow<PagingData<UiItem>>()
+            override val regionSeries = emptyFlow<PagingData<UiItem>>()
+            override val mostRecent = emptyFlow<PagingData<UiItem>>()
         }
     }
 }

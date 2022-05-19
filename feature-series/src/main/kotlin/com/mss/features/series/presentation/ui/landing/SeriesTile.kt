@@ -24,17 +24,17 @@ import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.placeholder
 import com.google.accompanist.placeholder.shimmer
 import com.mss.core.ui.R
+import com.mss.core.ui.model.UiItem
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions.Tile
 import com.mss.core.ui.theme.imageBackground
 import com.mss.core.ui.theme.stubColor
 import com.mss.core.ui.theme.stubHighlightColor
 import com.mss.features.series.data.mock.MockSeriesData
-import com.mss.features.series.presentation.model.UiSeriesItem
 
 @Composable
 fun SeriesTile(
-    item: UiSeriesItem?,
+    item: UiItem?,
     hasSubtitle: Boolean,
     modifier: Modifier = Modifier,
 ) {
@@ -93,7 +93,7 @@ fun SeriesTile(
 }
 
 @Composable
-private fun PreviewTile(item: UiSeriesItem?, hasSubtitle: Boolean) {
+private fun PreviewTile(item: UiItem?, hasSubtitle: Boolean) {
     AppTheme {
         Surface {
             SeriesTile(item = item, hasSubtitle = hasSubtitle)
