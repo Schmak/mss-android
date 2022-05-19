@@ -26,7 +26,7 @@ android {
         }
 
         buildConfigField("String", "SERVER_URL", """"https://api.motorsportstats.com"""")
-        buildConfigField("String", "API_KEY", """"${System.getenv("x-api-key")}"""")
+        buildConfigField("String", "API_KEY", """"${System.getenv("X_API_KEY")}"""")
     }
 
     buildTypes {
