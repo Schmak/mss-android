@@ -13,14 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.paging.PagingData
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.mss.core.ui.components.DropdownList
-import com.mss.core.ui.components.landing.LandingRow
+import com.mss.core.ui.components.landing.LandingBlock
 import com.mss.core.ui.data.mock.MockSeriesData
+import com.mss.core.ui.model.LandingBlockState
 import com.mss.core.ui.model.UiItem
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions.Screen
@@ -29,7 +28,6 @@ import com.mss.core.ui.utils.asPageFlow
 import com.mss.features.series.R
 import com.mss.features.series.presentation.ui.landing.state.SeriesFlows
 import com.mss.features.series.presentation.ui.landing.state.SeriesLandingUiState
-import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun SeriesLandingScreen(
@@ -89,6 +87,7 @@ fun SeriesLandingScreen(
 }
 
 @Composable
+@Suppress("LongMethod")
 private fun ReadySeriesLandingScreen(
     modifier: Modifier,
     uiState: SeriesLandingUiState,
@@ -100,6 +99,7 @@ private fun ReadySeriesLandingScreen(
         state = rememberSwipeRefreshState(uiState.isLoading),
         onRefresh = { onAction(UiAction.Refresh) },
     ) {
+        val dividerModifier = modifier.padding(vertical = 10.dp)
         Column(
             modifier = modifier
                 .verticalScroll(state = rememberScrollState())
@@ -110,89 +110,54 @@ private fun ReadySeriesLandingScreen(
                 style = MaterialTheme.typography.h1,
                 modifier = screenModifier.padding(vertical = 10.dp),
             )
-            SeriesList(
-                title = stringResource(R.string.leading_series),
-                seriesFlow = seriesFlows.leadingSeries,
-                modifier = screenModifier,
-                firstList = true, itemConfig = UiItem.Configuration.NoSubtitle,
-            )
-            SeriesList(
-                title = stringResource(R.string.categories),
-                categories = {
-                    CategoryList(
-                        categoryTitle = stringResource(R.string.select_category),
-                        categories = uiState.categories,
-                        selectedCategoryIdx = uiState.selectedCategoryIdx,
-                        onCategorySelected = { onAction(UiAction.SelectCategory(it)) },
-                        modifier = screenModifier,
-                    )
-                },
-                seriesFlow = seriesFlows.categorySeries,
+            LandingBlock(
+                state = LandingBlockState(
+                    titleId = R.string.leading_series,
+                    itemsFlow = seriesFlows.leadingSeries,
+                    itemsConfig = UiItem.Configuration.NoSubtitle,
+                ),
                 modifier = screenModifier,
             )
-            SeriesList(
-                title = stringResource(R.string.regions),
-                categories = {
-                    CategoryList(
-                        categoryTitle = stringResource(R.string.select_region),
-                        categories = uiState.regions,
-                        selectedCategoryIdx = uiState.selectedRegionIdx,
-                        onCategorySelected = { onAction(UiAction.SelectRegion(it)) },
-                        modifier = screenModifier,
-                    )
-                },
-                seriesFlow = seriesFlows.regionSeries,
+            Divider(color = MaterialTheme.colors.divider, modifier = dividerModifier)
+            LandingBlock(
+                state = LandingBlockState(
+                    titleId = R.string.categories,
+                    selector = LandingBlockState.Selector(
+                        titleId = R.string.select_category,
+                        values = uiState.categories,
+                        selectedIdx = uiState.selectedCategoryIdx,
+                    ),
+                    itemsFlow = seriesFlows.categorySeries,
+                ),
+                onCategorySelected = { onAction(UiAction.SelectCategory(it)) },
                 modifier = screenModifier,
             )
-            SeriesList(
-                title = stringResource(R.string.most_recent),
-                seriesFlow = seriesFlows.mostRecent,
+            Divider(color = MaterialTheme.colors.divider, modifier = dividerModifier)
+            LandingBlock(
+                state = LandingBlockState(
+                    titleId = R.string.regions,
+                    selector = LandingBlockState.Selector(
+                        titleId = R.string.select_region,
+                        values = uiState.regions,
+                        selectedIdx = uiState.selectedRegionIdx,
+                    ),
+                    itemsFlow = seriesFlows.regionSeries,
+                ),
+                onCategorySelected = { onAction(UiAction.SelectRegion(it)) },
+                modifier = screenModifier,
+            )
+            Divider(color = MaterialTheme.colors.divider, modifier = dividerModifier)
+            LandingBlock(
+                state = LandingBlockState(
+                    titleId = R.string.most_recent,
+                    itemsFlow = seriesFlows.mostRecent,
+                    itemsConfig = UiItem.Configuration.NoSubtitle,
+                ),
                 modifier = screenModifier,
             )
             Spacer(Modifier.navigationBarsHeight())
         }
     }
-}
-
-@Composable
-private fun CategoryList(
-    categoryTitle: String = "",
-    categories: List<String> = emptyList(),
-    selectedCategoryIdx: Int = 0,
-    onCategorySelected: (Int) -> Unit = {},
-    modifier: Modifier
-) {
-    DropdownList(
-        title = categoryTitle,
-        items = categories,
-        initiallyExpanded = false,
-        selectedIdx = selectedCategoryIdx,
-        onItemSelected = onCategorySelected,
-        modifier = modifier
-    )
-    Divider(color = MaterialTheme.colors.divider, modifier = modifier.padding(vertical = 10.dp))
-}
-
-@Composable
-private fun SeriesList(
-    title: String,
-    categories: @Composable () -> Unit = {},
-    seriesFlow: Flow<PagingData<UiItem>>,
-    modifier: Modifier,
-    firstList: Boolean = false,
-    itemConfig: UiItem.Configuration = UiItem.Configuration.Default,
-) {
-    val dividerModifier = modifier.padding(vertical = 10.dp)
-    if (!firstList)
-        Divider(color = MaterialTheme.colors.divider, modifier = dividerModifier)
-    Text(
-        text = title,
-        style = MaterialTheme.typography.h2,
-        modifier = modifier
-    )
-    Divider(color = MaterialTheme.colors.divider, modifier = dividerModifier)
-    categories()
-    LandingRow(itemsFlow = seriesFlow, itemConfig = itemConfig)
 }
 
 private val mockSeriesFlows = object : SeriesFlows {
