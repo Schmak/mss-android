@@ -25,11 +25,11 @@ import com.mss.core.ui.model.UiItem
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions.Screen
 import com.mss.core.ui.theme.divider
+import com.mss.core.ui.utils.asPageFlow
 import com.mss.features.series.R
 import com.mss.features.series.presentation.ui.landing.state.SeriesFlows
 import com.mss.features.series.presentation.ui.landing.state.SeriesLandingUiState
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun SeriesLandingScreen(
@@ -196,10 +196,10 @@ private fun SeriesList(
 }
 
 private val mockSeriesFlows = object : SeriesFlows {
-    override val leadingSeries = flowOf(PagingData.from(MockSeriesData.leadingSeries))
-    override val categorySeries = flowOf(PagingData.from(MockSeriesData.categorySeries))
-    override val regionSeries = flowOf(PagingData.from(MockSeriesData.regionSeries))
-    override val mostRecent = flowOf(PagingData.from(MockSeriesData.mostRecent))
+    override val leadingSeries = MockSeriesData.leadingSeries.asPageFlow()
+    override val categorySeries = MockSeriesData.categorySeries.asPageFlow()
+    override val regionSeries = MockSeriesData.regionSeries.asPageFlow()
+    override val mostRecent = MockSeriesData.mostRecent.asPageFlow()
 }
 
 @Preview("Series landing screen")

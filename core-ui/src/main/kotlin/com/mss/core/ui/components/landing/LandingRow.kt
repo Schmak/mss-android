@@ -17,6 +17,7 @@ import androidx.paging.compose.items
 import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.model.UiItem
 import com.mss.core.ui.theme.AppTheme
+import com.mss.core.ui.utils.asPageFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -84,7 +85,7 @@ fun PreviewLandingRowWithSubtitle() {
     AppTheme {
         Surface {
             LandingRow(
-                itemsFlow = flowOf(PagingData.from(MockSeriesData.leadingSeries)),
+                itemsFlow = MockSeriesData.leadingSeries.asPageFlow(),
                 itemConfig = UiItem.Configuration.Default
             )
         }
