@@ -22,12 +22,13 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.mss.core.ui.components.DropdownList
+import com.mss.core.ui.components.landing.Tile
+import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.model.UiItem
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions.Screen
 import com.mss.core.ui.theme.divider
 import com.mss.features.series.R
-import com.mss.features.series.data.mock.MockSeriesData
 import com.mss.features.series.presentation.ui.landing.state.SeriesFlows
 import com.mss.features.series.presentation.ui.landing.state.SeriesLandingUiState
 import kotlinx.coroutines.flow.Flow
@@ -224,15 +225,15 @@ private fun LazySeriesRow(
     ) {
         if (loading)
             items(Int.MAX_VALUE) {
-                SeriesTile(item = null, hasSubtitle = itemsHaveSubtitle)
+                Tile(item = null, hasSubtitle = itemsHaveSubtitle)
             }
         else {
             items(series) {
-                SeriesTile(it, hasSubtitle = itemsHaveSubtitle)
+                Tile(it, hasSubtitle = itemsHaveSubtitle)
             }
             if (appendState is LoadState.Loading)
                 item {
-                    SeriesTile(item = null, hasSubtitle = itemsHaveSubtitle)
+                    Tile(item = null, hasSubtitle = itemsHaveSubtitle)
                 }
         }
     }
