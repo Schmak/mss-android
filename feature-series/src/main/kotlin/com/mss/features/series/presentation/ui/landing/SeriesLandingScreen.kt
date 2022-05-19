@@ -28,6 +28,8 @@ import com.mss.core.ui.theme.divider
 import com.mss.features.series.R
 import com.mss.features.series.data.mock.MockSeriesData
 import com.mss.features.series.presentation.model.UiSeriesItem
+import com.mss.features.series.presentation.ui.landing.state.SeriesFlows
+import com.mss.features.series.presentation.ui.landing.state.SeriesLandingUiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -42,6 +44,7 @@ fun SeriesLandingScreen(
     SeriesLandingScreen(
         uiState = uiState,
         onAction = viewModel::handleAction,
+        seriesFlows = viewModel,
         modifier = modifier
     )
 }
@@ -49,7 +52,8 @@ fun SeriesLandingScreen(
 @Composable
 fun SeriesLandingScreen(
     uiState: SeriesLandingUiState,
-    onAction: (SeriesLandingAction) -> Unit,
+    seriesFlows: SeriesFlows,
+    onAction: (UiAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     when {
@@ -57,6 +61,7 @@ fun SeriesLandingScreen(
             ReadySeriesLandingScreen(
                 uiState = uiState,
                 onAction = onAction,
+                seriesFlows = seriesFlows,
                 modifier = modifier,
             )
         uiState.isLoading ->
@@ -78,7 +83,7 @@ fun SeriesLandingScreen(
                         maxLines = 1,
                         modifier = Modifier.padding(16.dp)
                     )
-                    Button(onClick = { onAction(SeriesLandingAction.Refresh) }) {
+                    Button(onClick = { onAction(UiAction.Refresh) }) {
                         Text(text = stringResource(R.string.retry))
                     }
                 }
@@ -90,12 +95,13 @@ fun SeriesLandingScreen(
 private fun ReadySeriesLandingScreen(
     modifier: Modifier,
     uiState: SeriesLandingUiState,
-    onAction: (SeriesLandingAction) -> Unit
+    seriesFlows: SeriesFlows,
+    onAction: (UiAction) -> Unit
 ) {
     val screenModifier = Modifier.padding(horizontal = Screen.horizontalPadding)
     SwipeRefresh(
         state = rememberSwipeRefreshState(uiState.isLoading),
-        onRefresh = { onAction(SeriesLandingAction.Refresh) },
+        onRefresh = { onAction(UiAction.Refresh) },
     ) {
         Column(
             modifier = modifier
@@ -109,7 +115,7 @@ private fun ReadySeriesLandingScreen(
             )
             SeriesList(
                 title = stringResource(R.string.leading_series),
-                seriesFlow = uiState.leadingSeries,
+                seriesFlow = seriesFlows.leadingSeries,
                 modifier = screenModifier,
                 firstList = true, itemsHaveSubtitle = false,
             )
@@ -120,11 +126,11 @@ private fun ReadySeriesLandingScreen(
                         categoryTitle = stringResource(R.string.select_category),
                         categories = uiState.categories,
                         selectedCategoryIdx = uiState.selectedCategoryIdx,
-                        onCategorySelected = { onAction(SeriesLandingAction.SelectCategory(it)) },
+                        onCategorySelected = { onAction(UiAction.SelectCategory(it)) },
                         modifier = screenModifier,
                     )
                 },
-                seriesFlow = uiState.categorySeries,
+                seriesFlow = seriesFlows.categorySeries,
                 modifier = screenModifier,
             )
             SeriesList(
@@ -134,16 +140,16 @@ private fun ReadySeriesLandingScreen(
                         categoryTitle = stringResource(R.string.select_region),
                         categories = uiState.regions,
                         selectedCategoryIdx = uiState.selectedRegionIdx,
-                        onCategorySelected = { onAction(SeriesLandingAction.SelectRegion(it)) },
+                        onCategorySelected = { onAction(UiAction.SelectRegion(it)) },
                         modifier = screenModifier,
                     )
                 },
-                seriesFlow = uiState.regionSeries,
+                seriesFlow = seriesFlows.regionSeries,
                 modifier = screenModifier,
             )
             SeriesList(
                 title = stringResource(R.string.most_recent),
-                seriesFlow = uiState.mostRecent,
+                seriesFlow = seriesFlows.mostRecent,
                 modifier = screenModifier,
             )
             Spacer(Modifier.navigationBarsHeight())
@@ -232,6 +238,13 @@ private fun LazySeriesRow(
     }
 }
 
+private val mockSeriesFlows = object : SeriesFlows {
+    override val leadingSeries = flowOf(PagingData.from(MockSeriesData.leadingSeries))
+    override val categorySeries = flowOf(PagingData.from(MockSeriesData.categorySeries))
+    override val regionSeries = flowOf(PagingData.from(MockSeriesData.regionSeries))
+    override val mostRecent = flowOf(PagingData.from(MockSeriesData.mostRecent))
+}
+
 @Preview("Series landing screen")
 @Preview("Series landing screen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -240,14 +253,11 @@ fun PreviewSeriesScreen() {
         Surface {
             SeriesLandingScreen(
                 uiState = SeriesLandingUiState(
-                    leadingSeries = flowOf(PagingData.from(MockSeriesData.leadingSeries)),
-                    categorySeries = flowOf(PagingData.from(MockSeriesData.categorySeries)),
-                    regionSeries = flowOf(PagingData.from(MockSeriesData.regionSeries)),
-                    mostRecent = flowOf(PagingData.from(MockSeriesData.mostRecent)),
                     categories = MockSeriesData.categories,
                     regions = MockSeriesData.regions,
                     hasData = true,
                 ),
+                seriesFlows = mockSeriesFlows,
                 onAction = {},
             )
         }
@@ -263,6 +273,7 @@ fun PreviewLoading() {
             SeriesLandingScreen(
                 uiState = SeriesLandingUiState(isLoading = true),
                 onAction = {},
+                seriesFlows = SeriesFlows.Empty,
             )
         }
     }
@@ -277,6 +288,7 @@ fun PreviewError() {
             SeriesLandingScreen(
                 uiState = SeriesLandingUiState(errorMessage = "Some message"),
                 onAction = {},
+                seriesFlows = SeriesFlows.Empty,
             )
         }
     }
