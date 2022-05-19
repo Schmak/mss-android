@@ -10,6 +10,7 @@ dependencies {
     api(project(Core.NETWORK_MODEL))
     api(project(Core.UTILS))
     api(project(Domain.MODEL))
+    testImplementation(project(Core.TEST_HELPERS))
 
     implementation(Deps.Network.okHttp)
     implementation(Deps.Network.Retrofit.core)
