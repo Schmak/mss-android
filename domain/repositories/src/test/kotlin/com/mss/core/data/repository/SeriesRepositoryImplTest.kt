@@ -53,6 +53,7 @@ internal class SeriesRepositoryImplTest : BaseRepositoryTest() {
                     series = SeriesReferenceDto.create(
                         name = SERIES,
                         picture = "$SERIES pic",
+                        uuid = "$SERIES slug",
                     )
                 )
             ),
@@ -60,7 +61,9 @@ internal class SeriesRepositoryImplTest : BaseRepositoryTest() {
             expectedRepositoryResponse = Page(
                 content = listOf(
                     SeriesReference.create(
-                        name = SERIES, picture = "$SERIES pic"
+                        name = SERIES,
+                        picture = "$SERIES pic",
+                        slug = "$SERIES slug",
                     )
                 ),
                 totalElements = 1,

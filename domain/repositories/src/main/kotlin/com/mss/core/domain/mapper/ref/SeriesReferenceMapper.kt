@@ -7,6 +7,7 @@ import com.mss.network.model.ref.SeriesReferenceDto
 internal object SeriesReferenceMapper : Mapper<SeriesReferenceDto, SeriesReference> {
     override fun SeriesReferenceDto.map() =
         SeriesReference(
+            slug = uuid,
             name = name,
             picture = picture
         )
