@@ -23,7 +23,7 @@ fun MssLogo(modifier: Modifier = Modifier) {
     )
 }
 
-@Preview("MSS logo (dark)", uiMode = UI_MODE_NIGHT_YES)
+@Preview("night", uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMssLogo() {
     AppTheme {

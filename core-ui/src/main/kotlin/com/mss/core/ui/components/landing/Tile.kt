@@ -1,6 +1,5 @@
 package com.mss.core.ui.components.landing
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -16,7 +15,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -24,6 +22,7 @@ import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.placeholder
 import com.google.accompanist.placeholder.shimmer
 import com.mss.core.ui.R
+import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.model.UiItem
 import com.mss.core.ui.theme.AppTheme
@@ -101,29 +100,25 @@ private fun PreviewTile(item: UiItem?, itemConfig: UiItem.Configuration) {
     }
 }
 
-@Preview("Leading series tile")
-@Preview("Leading series tile (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@MultiPreview
 @Composable
 fun PreviewLeadingSeriesTile() {
     PreviewTile(MockSeriesData.leadingSeries.first(), UiItem.Configuration.NoSubtitle)
 }
 
-@Preview("Regions series tile")
-@Preview("Regions series tile (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@MultiPreview
 @Composable
 fun PreviewCategoriesSeriesTile() {
     PreviewTile(MockSeriesData.regionSeries.first(), UiItem.Configuration.Default)
 }
 
-@Preview("Stub tile")
-@Preview("Stub tile (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@MultiPreview
 @Composable
 fun PreviewStubTile() {
     PreviewTile(null, UiItem.Configuration.NoSubtitle)
 }
 
-@Preview("Stub tile with subtitle")
-@Preview("Stub tile with subtitle (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@MultiPreview
 @Composable
 fun PreviewStubTileWithSubtitle() {
     PreviewTile(null, UiItem.Configuration.Default)
