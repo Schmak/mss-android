@@ -24,10 +24,6 @@ object MockTeamData {
         "Pons Racing 40", "Rich Energy BTC Racing", "Team BMW",
     )
 
-    val collections = listOf(
-        "Series leaders", "Recent winners"
-    )
-
     val currentSeasonTeams = getTeamList()
     val champions = getTeamList()
     val winners = getTeamList()

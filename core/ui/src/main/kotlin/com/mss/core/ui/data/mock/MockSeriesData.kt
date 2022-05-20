@@ -1,5 +1,8 @@
 package com.mss.core.ui.data.mock
 
+import com.mss.core.domain.SeriesInfo
+import com.mss.core.domain.ref.SeasonReference
+import com.mss.core.domain.ref.SeriesReference
 import com.mss.core.ui.model.UiItem
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -33,7 +36,19 @@ object MockSeriesData {
         "GT World Challenge Europe Sprint Cup",
     )
 
-    val goldenSeries = names.take(10)
+    val goldenSeries = names.take(10).map { name ->
+        SeriesInfo(
+            series = SeriesReference(
+                slug = "",
+                name = name,
+                picture = null
+            ),
+            currentSeason = SeasonReference(
+                slug = "",
+                name = "2022 $name",
+            )
+        )
+    }
 
     private val eventNames = listOf(
         "Fuji",

@@ -41,6 +41,10 @@ dependencies {
     implementation(project(Core.UTILS))
     implementation(project(Domain.REPOSITORIES))
 
+    implementation(Deps.Logging.timber)
+    //AndroidX
+    implementation(Deps.AndroidX.lifecycleViewModel)
+
     //DI
     implementation(Deps.Hilt.Android.core)
     kapt(Deps.Hilt.compiler)
