@@ -5,5 +5,5 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Core.NETWORK_MODEL))
+    implementation(project(Core.Network.MODEL))
 }

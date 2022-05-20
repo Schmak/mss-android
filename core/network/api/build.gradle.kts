@@ -6,7 +6,8 @@ plugins {
 }
 
 dependencies {
-    api(project(Core.NETWORK_MODEL))
+    implementation(project(Core.Network.CREDENTIALS))
+    implementation(project(Core.Network.MODEL))
     testImplementation(project(Core.TEST_HELPERS))
 
     implementation(Deps.Network.okHttp)

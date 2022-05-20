@@ -72,9 +72,8 @@ android {
 }
 
 dependencies {
-    implementation(project(Core.NETWORK))
+    implementation(project(Core.Network.CREDENTIALS))
     implementation(project(Core.UI))
-    implementation(project(Core.UTILS))
     implementation(project(Features.SERIES))
     implementation(project(Features.TEAM))
     testImplementation(project(Core.TEST_HELPERS))
