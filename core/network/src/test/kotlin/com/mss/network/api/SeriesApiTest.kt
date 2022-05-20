@@ -3,6 +3,8 @@ package com.mss.network.api
 import com.mss.annotation.IntegrationTest
 import com.mss.network.di.ApiModule
 import com.mss.network.model.PageDto
+import com.mss.network.model.sort.OrderByDto.Companion.asc
+import com.mss.network.model.sort.OrderByDto.Companion.desc
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
@@ -28,7 +30,7 @@ internal class SeriesApiTest {
     fun getLeadingSeries() = test {
         api.getSeries(
             filterIds = arrayOf("Active"),
-            orderBy = SeriesApi.OrderBy.LastEventDate,
+            orderBy = SeriesApi.SeriesOrder.LastEventDate,
             orderDescending = true,
             page = 0,
             size = 10,
@@ -50,6 +52,28 @@ internal class SeriesApiTest {
         api.getCollection(
             region = null,
             category = "Single Seater",
+            page = 0,
+            size = 10,
+        )
+    }
+
+    @Test
+    fun getTeamsOrderedByTeamWins() = test {
+        api.getTeams(
+            series = "formula-one",
+            hideZeros = true,
+            orderBy = SeriesApi.TeamOrder.TeamWins.desc,
+            page = 0,
+            size = 10,
+        )
+    }
+
+    @Test
+    fun getTeamsOrderedByChampWins() = test {
+        api.getTeams(
+            series = "formula-one",
+            hideZeros = true,
+            orderBy = SeriesApi.TeamOrder.ChampionshipWins.asc,
             page = 0,
             size = 10,
         )

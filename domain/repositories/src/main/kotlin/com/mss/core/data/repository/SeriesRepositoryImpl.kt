@@ -35,7 +35,7 @@ internal class SeriesRepositoryImpl @Inject constructor(
         Result.of {
             api.getSeries(
                 filterIds = arrayOf("Active"),
-                orderBy = SeriesApi.OrderBy.LastEventDate,
+                orderBy = SeriesApi.SeriesOrder.LastEventDate,
                 orderDescending = true,
                 page = pageable.page,
                 size = pageable.size,
