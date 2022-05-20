@@ -16,6 +16,6 @@ object Projects {
     }
 
     object Features {
-        const val SERIES = ":feature-series"
+        const val SERIES = ":feature:series"
     }
 }
