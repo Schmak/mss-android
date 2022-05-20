@@ -18,5 +18,6 @@ object Projects {
 
     object Features {
         const val SERIES = ":feature:series"
+        const val TEAM = ":feature:team"
     }
 }
