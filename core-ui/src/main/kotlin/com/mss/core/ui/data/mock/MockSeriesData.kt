@@ -1,6 +1,6 @@
-package com.mss.features.series.data.mock
+package com.mss.core.ui.data.mock
 
-import com.mss.features.series.presentation.model.UiSeriesItem
+import com.mss.core.ui.model.UiItem
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
@@ -18,37 +18,71 @@ object MockSeriesData {
     ).map { "https://content.motorsportstats.com/seriesProfilePicture/seriesProfilePicture-$it.png" }
 
     private val names = listOf(
-        "Formula One", "MotoGP", "World Rally Championship", "Formula E", "World Endurance Championship",
-        "NASCAR Cup Series", "Indy Car Series", "World Rallycross Championship", "FIA World Touring Car Cup",
-        "Deutsche Tourenwagen Masters", "Super GT", "British Superbike Championship",
+        "Formula One",
+        "MotoGP",
+        "World Rally Championship",
+        "Formula E",
+        "World Endurance Championship",
+        "NASCAR Cup Series",
+        "Indy Car Series",
+        "World Rallycross Championship",
+        "FIA World Touring Car Cup",
+        "Deutsche Tourenwagen Masters",
+        "Super GT",
+        "British Superbike Championship",
         "GT World Challenge Europe Sprint Cup",
     )
 
     private val eventNames = listOf(
-        "Fuji", "Oulton Park", "Portimão", "Estoril",
-        "Spain", "Brands Hatch", "Hyundai Monterey Sports Car Championship", "Honday Indy Grand Prix of Alabama",
+        "Fuji",
+        "Oulton Park",
+        "Portimão",
+        "Estoril",
+        "Spain",
+        "Brands Hatch",
+        "Hyundai Monterey Sports Car Championship",
+        "Honday Indy Grand Prix of Alabama",
         "Barber Motorsports Park",
     )
 
     val regions = listOf(
-        "Worldwide", "Europe", "North America", "Asia", "Australasia", "France", "Germany", "Great Britain",
-        "Japan", "Macau", "United States of America"
+        "Worldwide",
+        "Europe",
+        "North America",
+        "Asia",
+        "Australasia",
+        "France",
+        "Germany",
+        "Great Britain",
+        "Japan",
+        "Macau",
+        "United States of America"
     )
 
     val categories = listOf(
-        "Single Seater", "Motorcycle", "Sportscar", "Touring Car", "Stock Car", "Rally", "Rallycross",
-        "One Make", "Endurance", "GT & Touringcar", "Pickup Truck Racing", "eSports"
+        "Single Seater",
+        "Motorcycle",
+        "Sportscar",
+        "Touring Car",
+        "Stock Car",
+        "Rally",
+        "Rallycross",
+        "One Make",
+        "Endurance",
+        "GT & Touringcar",
+        "Pickup Truck Racing",
+        "eSports"
     )
 
     val leadingSeries = List(10) {
-        UiSeriesItem(
+        UiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
         )
     }
 
     val categorySeries = List(10) {
-        UiSeriesItem(
+        UiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
             subtitle = categories.random(random),
@@ -56,7 +90,7 @@ object MockSeriesData {
     }
 
     val regionSeries = List(10) {
-        UiSeriesItem(
+        UiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
             subtitle = regions.random(random),
@@ -64,10 +98,11 @@ object MockSeriesData {
     }
 
     val mostRecent = List(10) {
-        UiSeriesItem(
+        UiItem(
             imageUrl = pictures.random(random),
             title = eventNames.random(random),
-            subtitle = LocalDate.now().minusDays(it.toLong()).format(DateTimeFormatter.ofPattern("dd MMM yyyy")),
+            subtitle = LocalDate.now().minusDays(it.toLong())
+                .format(DateTimeFormatter.ofPattern("dd MMM yyyy")),
         )
     }
 }

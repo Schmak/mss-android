@@ -1,4 +1,4 @@
-package com.mss.features.series.presentation.ui.landing
+package com.mss.core.ui.components.landing
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -24,18 +24,18 @@ import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.placeholder
 import com.google.accompanist.placeholder.shimmer
 import com.mss.core.ui.R
+import com.mss.core.ui.data.mock.MockSeriesData
+import com.mss.core.ui.model.UiItem
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions.Tile
 import com.mss.core.ui.theme.imageBackground
 import com.mss.core.ui.theme.stubColor
 import com.mss.core.ui.theme.stubHighlightColor
-import com.mss.features.series.data.mock.MockSeriesData
-import com.mss.features.series.presentation.model.UiSeriesItem
 
 @Composable
-fun SeriesTile(
-    item: UiSeriesItem?,
-    hasSubtitle: Boolean,
+fun Tile(
+    item: UiItem?,
+    itemConfig: UiItem.Configuration,
     modifier: Modifier = Modifier,
 ) {
     @Composable
@@ -76,7 +76,7 @@ fun SeriesTile(
                 .padding(top = 4.dp)
                 .placeholder()
         )
-        if (hasSubtitle)
+        if (itemConfig.hasSubtitle)
             Text(
                 text = item?.subtitle.orEmpty(),
                 textAlign = TextAlign.Center,
@@ -93,10 +93,10 @@ fun SeriesTile(
 }
 
 @Composable
-private fun PreviewTile(item: UiSeriesItem?, hasSubtitle: Boolean) {
+private fun PreviewTile(item: UiItem?, itemConfig: UiItem.Configuration) {
     AppTheme {
         Surface {
-            SeriesTile(item = item, hasSubtitle = hasSubtitle)
+            Tile(item = item, itemConfig = itemConfig)
         }
     }
 }
@@ -105,26 +105,26 @@ private fun PreviewTile(item: UiSeriesItem?, hasSubtitle: Boolean) {
 @Preview("Leading series tile (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewLeadingSeriesTile() {
-    PreviewTile(MockSeriesData.leadingSeries.first(), false)
+    PreviewTile(MockSeriesData.leadingSeries.first(), UiItem.Configuration.NoSubtitle)
 }
 
 @Preview("Regions series tile")
 @Preview("Regions series tile (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewCategoriesSeriesTile() {
-    PreviewTile(MockSeriesData.regionSeries.first(), true)
+    PreviewTile(MockSeriesData.regionSeries.first(), UiItem.Configuration.Default)
 }
 
 @Preview("Stub tile")
 @Preview("Stub tile (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewStubTile() {
-    PreviewTile(null, false)
+    PreviewTile(null, UiItem.Configuration.NoSubtitle)
 }
 
 @Preview("Stub tile with subtitle")
 @Preview("Stub tile with subtitle (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewStubTileWithSubtitle() {
-    PreviewTile(null, true)
+    PreviewTile(null, UiItem.Configuration.Default)
 }

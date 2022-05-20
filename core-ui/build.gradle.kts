@@ -23,6 +23,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -46,6 +47,13 @@ dependencies {
     api(Deps.UI.material)
     api(Deps.UI.coil)
     debugApi(Deps.Compose.uiTooling)
+
+    implementation(Deps.AndroidX.Accompanist.placeholder)
+    implementation(Deps.AndroidX.Accompanist.insets)
+    implementation(Deps.AndroidX.Accompanist.swipeRefresh)
+
+    //Desugaring
+    coreLibraryDesugaring(Deps.GradlePlugins.desugaring)
 
     testImplementation(project(Core.TEST_HELPERS))
 }
