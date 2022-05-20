@@ -6,6 +6,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(Core.Network.CREDENTIALS))
     implementation(project(Core.Network.MODEL))
     testImplementation(project(Core.TEST_HELPERS))
 

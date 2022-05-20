@@ -72,7 +72,7 @@ android {
 }
 
 dependencies {
-    implementation(project(Core.Network.API))
+    implementation(project(Core.Network.CREDENTIALS))
     implementation(project(Core.UI))
     implementation(project(Features.SERIES))
     implementation(project(Features.TEAM))
