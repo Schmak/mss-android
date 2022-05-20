@@ -8,7 +8,7 @@ plugins {
 
 dependencies {
     api(project(Domain.MODEL))
-    implementation(project(Core.NETWORK))
+    implementation(project(Core.Network.API))
     implementation(project(Core.NETWORK_MODEL))
     implementation(project(Core.UTILS))
     testImplementation(project(Core.NETWORK_TEST_HELPERS))

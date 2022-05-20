@@ -2,7 +2,10 @@
 
 object Projects {
     object Core {
-        const val NETWORK = ":core:network"
+        object Network {
+            const val API = ":core:network:api"
+        }
+
         const val NETWORK_MODEL = ":core:network-model"
         const val NETWORK_TEST_HELPERS = ":core:network-test-helpers"
         const val TEST_HELPERS = ":core:test-helpers"
