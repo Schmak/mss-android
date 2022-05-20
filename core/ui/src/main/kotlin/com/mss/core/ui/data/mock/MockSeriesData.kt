@@ -33,6 +33,8 @@ object MockSeriesData {
         "GT World Challenge Europe Sprint Cup",
     )
 
+    val goldenSeries = names.take(10)
+
     private val eventNames = listOf(
         "Fuji",
         "Oulton Park",
