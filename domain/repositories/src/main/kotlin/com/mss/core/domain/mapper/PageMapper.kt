@@ -1,4 +1,4 @@
-package com.mss.network.utils.mapper
+package com.mss.core.domain.mapper
 
 import com.mss.core.domain.page.Page
 import com.mss.core.utils.Mapper

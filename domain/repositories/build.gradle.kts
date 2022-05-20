@@ -9,6 +9,7 @@ plugins {
 dependencies {
     api(project(Domain.MODEL))
     implementation(project(Core.NETWORK))
+    implementation(project(Core.UTILS))
     testImplementation(project(Core.NETWORK_TEST_HELPERS))
     testImplementation(project(Core.TEST_HELPERS))
     testImplementation(project(Domain.TEST_HELPERS))
