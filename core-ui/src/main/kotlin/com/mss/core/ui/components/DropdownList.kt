@@ -1,6 +1,5 @@
 package com.mss.core.ui.components
 
-import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.expandVertically
@@ -21,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mss.core.ui.R
+import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.theme.AppTheme
 
 @Composable
@@ -115,15 +114,13 @@ private fun PreviewDropdownList(expanded: Boolean) {
     }
 }
 
-@Preview("Collapsed list", widthDp = 150)
-@Preview("Collapsed list (dark)", widthDp = 150, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@MultiPreview
 @Composable
 fun PreviewCollapsedDropdownList() {
     PreviewDropdownList(expanded = true)
 }
 
-@Preview("Expanded list", widthDp = 150)
-@Preview("Expanded list (dark)", widthDp = 150, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@MultiPreview
 @Composable
 fun PreviewExpandedDropdownList() {
     PreviewDropdownList(expanded = false)

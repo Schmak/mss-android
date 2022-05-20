@@ -1,6 +1,5 @@
 package com.mss.core.ui.components.landing
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyRow
@@ -8,12 +7,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.model.UiItem
 import com.mss.core.ui.theme.AppTheme
@@ -64,8 +63,7 @@ fun LandingRow(
     }
 }
 
-@Preview
-@Preview("dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@MultiPreview
 @Composable
 fun PreviewLandingRow() {
     AppTheme {
@@ -78,8 +76,7 @@ fun PreviewLandingRow() {
     }
 }
 
-@Preview
-@Preview("dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@MultiPreview
 @Composable
 fun PreviewLandingRowWithSubtitle() {
     AppTheme {
