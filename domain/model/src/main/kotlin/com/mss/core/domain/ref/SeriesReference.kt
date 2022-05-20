@@ -1,4 +1,4 @@
-package com.mss.domain.ref
+package com.mss.core.domain.ref
 
 data class SeriesReference(
     val name: String,

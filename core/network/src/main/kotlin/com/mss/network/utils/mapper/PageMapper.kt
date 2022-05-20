@@ -1,7 +1,7 @@
 package com.mss.network.utils.mapper
 
+import com.mss.core.domain.page.Page
 import com.mss.core.utils.Mapper
-import com.mss.domain.page.Page
 import com.mss.network.model.PageDto
 
 class PageMapper<T, R>(private val mapper: Mapper<T, R>) : Mapper<PageDto<T>, Page<R>> {

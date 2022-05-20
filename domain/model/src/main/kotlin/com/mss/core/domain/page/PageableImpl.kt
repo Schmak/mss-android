@@ -1,4 +1,4 @@
-package com.mss.domain.page
+package com.mss.core.domain.page
 
 internal data class PageableImpl(
     override val page: Int,

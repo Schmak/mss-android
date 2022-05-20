@@ -1,4 +1,4 @@
-package com.mss.domain.ref
+package com.mss.core.domain.ref
 
 fun SeriesReference.Companion.create(
     name: String = "Series name",

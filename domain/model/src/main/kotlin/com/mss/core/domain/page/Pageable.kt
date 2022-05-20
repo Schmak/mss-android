@@ -1,4 +1,4 @@
-package com.mss.domain.page
+package com.mss.core.domain.page
 
 interface Pageable {
     val page: Int

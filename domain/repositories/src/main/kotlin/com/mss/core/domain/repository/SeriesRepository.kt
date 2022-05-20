@@ -1,10 +1,10 @@
 package com.mss.core.domain.repository
 
+import com.mss.core.domain.SeriesItem
+import com.mss.core.domain.page.Page
+import com.mss.core.domain.page.Pageable
+import com.mss.core.domain.ref.SeriesReference
 import com.mss.core.utils.Result
-import com.mss.domain.SeriesItem
-import com.mss.domain.page.Page
-import com.mss.domain.page.Pageable
-import com.mss.domain.ref.SeriesReference
 
 interface SeriesRepository {
     suspend fun getRegions(): Result<List<String>>

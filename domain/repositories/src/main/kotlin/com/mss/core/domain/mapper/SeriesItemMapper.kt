@@ -1,7 +1,7 @@
 package com.mss.core.domain.mapper
 
+import com.mss.core.domain.SeriesItem
 import com.mss.core.utils.Mapper
-import com.mss.domain.SeriesItem
 import com.mss.network.model.SeriesItemDto
 import com.mss.network.utils.mapper.PageMapper
 import java.time.LocalDate

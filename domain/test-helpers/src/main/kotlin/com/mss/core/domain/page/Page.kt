@@ -1,4 +1,4 @@
-package com.mss.domain.page
+package com.mss.core.domain.page
 
 fun <T> Page.Companion.create(
     content: List<T> = emptyList(),

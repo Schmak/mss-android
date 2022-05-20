@@ -1,12 +1,11 @@
-package com.mss.domain
+package com.mss.core.domain
 
 import com.mss.annotation.UnitTest
-import com.mss.domain.page.Page
-import com.mss.domain.page.Page.Companion.getPage
-import com.mss.domain.page.Pageable
-import com.mss.domain.page.Pageable.Companion.page
+import com.mss.core.domain.page.Page
+import com.mss.core.domain.page.Page.Companion.getPage
+import com.mss.core.domain.page.Pageable
 import com.mss.junit5.AbstractTestCaseWithOrigin
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 
@@ -16,23 +15,23 @@ internal class PageTest {
     @MethodSource("cases")
     fun getPage(case: TestCase) {
         val actual = case.list.getPage(case.request)
-        assertThat(actual).isEqualTo(case.expected)
+        Assertions.assertThat(actual).isEqualTo(case.expected)
     }
 
     @Suppress("LongMethod")
     private fun cases() = listOf(
         TestCase(
             list = emptyList(),
-            request = page(page = 0, size = 10),
+            request = Pageable.page(page = 0, size = 10),
             expected = emptyPage,
         ),
         TestCase(
             list = emptyList(),
-            request = page(page = 1, size = 10),
+            request = Pageable.page(page = 1, size = 10),
             expected = emptyPage.copy(pageNumber = 1),
         ),
         TestCase(
-            request = page(page = 0, size = 10),
+            request = Pageable.page(page = 0, size = 10),
             expected = Page(
                 content = (1..10).toList(),
                 totalElements = TOTAL,
@@ -41,7 +40,7 @@ internal class PageTest {
             ),
         ),
         TestCase(
-            request = page(page = 1, size = 10),
+            request = Pageable.page(page = 1, size = 10),
             expected = Page(
                 content = (11..20).toList(),
                 totalElements = TOTAL,
@@ -50,7 +49,7 @@ internal class PageTest {
             ),
         ),
         TestCase(
-            request = page(page = 9, size = 10),
+            request = Pageable.page(page = 9, size = 10),
             expected = Page(
                 content = (91..95).toList(),
                 totalElements = TOTAL,
@@ -59,7 +58,7 @@ internal class PageTest {
             ),
         ),
         TestCase(
-            request = page(page = 10, size = 10),
+            request = Pageable.page(page = 10, size = 10),
             expected = Page(
                 content = emptyList(),
                 totalElements = TOTAL,
@@ -68,7 +67,7 @@ internal class PageTest {
             ),
         ),
         TestCase(
-            request = page(page = 0, size = 1000),
+            request = Pageable.page(page = 0, size = 1000),
             expected = Page(
                 content = defaultList,
                 totalElements = TOTAL,
@@ -77,7 +76,7 @@ internal class PageTest {
             ),
         ),
         TestCase(
-            request = page(page = 1, size = 1000),
+            request = Pageable.page(page = 1, size = 1000),
             expected = Page(
                 content = emptyList(),
                 totalElements = TOTAL,

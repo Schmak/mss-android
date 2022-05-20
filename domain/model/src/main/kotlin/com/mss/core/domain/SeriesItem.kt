@@ -1,4 +1,4 @@
-package com.mss.domain
+package com.mss.core.domain
 
 import java.time.LocalDate
 
