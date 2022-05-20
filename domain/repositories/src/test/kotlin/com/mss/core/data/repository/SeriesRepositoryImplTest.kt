@@ -1,9 +1,11 @@
 package com.mss.core.data.repository
 
+import com.mss.core.domain.SeriesInfo
 import com.mss.core.domain.SeriesItem
 import com.mss.core.domain.create
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
+import com.mss.core.domain.ref.SeasonReference
 import com.mss.core.domain.ref.SeriesReference
 import com.mss.core.domain.ref.create
 import com.mss.core.domain.repository.SeriesRepository
@@ -13,6 +15,7 @@ import com.mss.network.model.SeriesInfoDto
 import com.mss.network.model.SeriesItemDto
 import com.mss.network.model.create
 import com.mss.network.model.ref.EventReferenceDto
+import com.mss.network.model.ref.SeasonReferenceDto
 import com.mss.network.model.ref.SeriesReferenceDto
 import com.mss.network.model.ref.create
 import com.mss.test.BaseRepositoryTest
@@ -54,21 +57,26 @@ internal class SeriesRepositoryImplTest : BaseRepositoryTest() {
                         name = SERIES,
                         picture = "$SERIES pic",
                         uuid = "$SERIES slug",
+                    ),
+                    currentSeason = SeasonReferenceDto.create(
+                        name = SEASON,
+                        uuid = "$SEASON slug"
                     )
                 )
             ),
-            repositoryQuery = { repository.getLeadingSeries(pageable = page(0)) },
-            expectedRepositoryResponse = Page(
-                content = listOf(
-                    SeriesReference.create(
+            repositoryQuery = { repository.getLeadingSeries() },
+            expectedRepositoryResponse = listOf(
+                SeriesInfo.create(
+                    series = SeriesReference.create(
                         name = SERIES,
                         picture = "$SERIES pic",
                         slug = "$SERIES slug",
+                    ),
+                    currentSeason = SeasonReference.create(
+                        name = SEASON,
+                        slug = "$SEASON slug"
                     )
-                ),
-                totalElements = 1,
-                totalPages = 1,
-                pageNumber = 0,
+                )
             )
         ),
         TestCase(
@@ -127,6 +135,7 @@ internal class SeriesRepositoryImplTest : BaseRepositoryTest() {
 
     private companion object {
         private const val SERIES = "Formula One"
+        private const val SEASON = "F1 2022"
         private const val PAGE_SIZE = 17
         private const val TOTAL_PAGES = 18
         private const val TOTAL_ELEMENTS = 199L

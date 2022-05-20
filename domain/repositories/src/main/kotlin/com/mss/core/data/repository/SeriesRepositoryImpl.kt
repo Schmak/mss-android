@@ -1,13 +1,11 @@
 package com.mss.core.data.repository
 
+import com.mss.core.domain.SeriesInfo
 import com.mss.core.domain.SeriesItem
+import com.mss.core.domain.mapper.SeriesInfoMapper
 import com.mss.core.domain.mapper.SeriesItemMapper
-import com.mss.core.domain.mapper.ref.SeriesReferenceMapper
 import com.mss.core.domain.page.Page
-import com.mss.core.domain.page.Page.Companion.getPage
-import com.mss.core.domain.page.Page.Companion.map
 import com.mss.core.domain.page.Pageable
-import com.mss.core.domain.ref.SeriesReference
 import com.mss.core.domain.repository.SeriesRepository
 import com.mss.core.utils.Result
 import com.mss.network.api.SeriesApi
@@ -27,14 +25,8 @@ internal class SeriesRepositoryImpl @Inject constructor(
         Result.of { api.getCategories() }
     }
 
-    override suspend fun getLeadingSeries(
-        pageable: Pageable
-    ): Result<Page<SeriesReference>> = withContext(dispatcher) {
-        Result.of {
-            api.getGoldenSeries()
-                .getPage(pageable)
-                .map { SeriesReferenceMapper(it.series) }
-        }
+    override suspend fun getLeadingSeries(): Result<List<SeriesInfo>> = withContext(dispatcher) {
+        Result.of { api.getGoldenSeries().map(SeriesInfoMapper) }
     }
 
     override suspend fun getMostRecent(

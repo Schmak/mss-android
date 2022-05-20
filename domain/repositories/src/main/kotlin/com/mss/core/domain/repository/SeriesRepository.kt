@@ -1,9 +1,9 @@
 package com.mss.core.domain.repository
 
+import com.mss.core.domain.SeriesInfo
 import com.mss.core.domain.SeriesItem
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
-import com.mss.core.domain.ref.SeriesReference
 import com.mss.core.utils.Result
 
 interface SeriesRepository {
@@ -19,5 +19,5 @@ interface SeriesRepository {
         pageable: Pageable
     ): Result<Page<SeriesItem>>
 
-    suspend fun getLeadingSeries(pageable: Pageable): Result<Page<SeriesReference>>
+    suspend fun getLeadingSeries(): Result<List<SeriesInfo>>
 }
