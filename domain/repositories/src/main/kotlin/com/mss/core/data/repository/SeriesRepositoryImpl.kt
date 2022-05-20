@@ -2,7 +2,7 @@ package com.mss.core.data.repository
 
 import com.mss.core.domain.SeriesItem
 import com.mss.core.domain.mapper.SeriesItemMapper
-import com.mss.core.domain.mapper.SeriesReferenceMapper
+import com.mss.core.domain.mapper.ref.SeriesReferenceMapper
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Page.Companion.getPage
 import com.mss.core.domain.page.Page.Companion.map
