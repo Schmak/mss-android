@@ -11,7 +11,7 @@ object Projects {
     }
 
     object Domain {
-        const val MODEL = ":domain-model"
+        const val MODEL = ":domain:model"
         const val TEST_HELPERS = ":domain-test-helpers"
     }
 
