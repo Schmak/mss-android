@@ -38,16 +38,10 @@ android {
 }
 
 dependencies {
-    implementation(project(Core.NETWORK))
     implementation(project(Core.UI))
     implementation(project(Core.UTILS))
-    implementation(project(Domain.MODEL))
+    implementation(project(Domain.REPOSITORIES))
 
-    testImplementation(project(Core.TEST_HELPERS))
-    testImplementation(project(Core.NETWORK_TEST_HELPERS))
-    testImplementation(project(Domain.TEST_HELPERS))
-
-    implementation(Deps.Coroutines.core)
     implementation(Deps.Logging.timber)
 
     //AndroidX

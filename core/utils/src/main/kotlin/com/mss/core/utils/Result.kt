@@ -13,5 +13,10 @@ sealed class Result<out R> {
         } catch (e: Exception) {
             Error(e)
         }
+
+        suspend fun <T, R> Result<T>.map(transform: (T) -> R): Result<R> = when (this) {
+            is Success -> of { this.data.let(transform) }
+            is Error -> this
+        }
     }
 }

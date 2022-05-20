@@ -2,10 +2,10 @@ package com.mss.core.ui.utils
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.mss.core.domain.page.Page
+import com.mss.core.domain.page.Pageable
+import com.mss.core.domain.page.Pageable.Companion.page
 import com.mss.core.utils.Result
-import com.mss.domain.page.Page
-import com.mss.domain.page.Pageable
-import com.mss.domain.page.Pageable.Companion.page
 
 class PageSource<T : Any>(
     private val targetPageSize: Int = 10,
