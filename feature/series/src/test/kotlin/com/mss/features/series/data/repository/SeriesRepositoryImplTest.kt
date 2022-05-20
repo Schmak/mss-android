@@ -1,8 +1,5 @@
 package com.mss.features.series.data.repository
 
-import com.mss.annotation.CoroutineTest
-import com.mss.annotation.UnitTest
-import com.mss.core.utils.Result
 import com.mss.domain.SeriesItem
 import com.mss.domain.create
 import com.mss.domain.page.Page
@@ -10,7 +7,6 @@ import com.mss.domain.page.Pageable
 import com.mss.domain.ref.SeriesReference
 import com.mss.domain.ref.create
 import com.mss.features.series.domain.repository.SeriesRepository
-import com.mss.junit5.AbstractTestCaseWithOrigin
 import com.mss.network.api.SeriesApi
 import com.mss.network.model.PageDto
 import com.mss.network.model.SeriesInfoDto
@@ -19,57 +15,22 @@ import com.mss.network.model.create
 import com.mss.network.model.ref.EventReferenceDto
 import com.mss.network.model.ref.SeriesReferenceDto
 import com.mss.network.model.ref.create
+import com.mss.test.BaseRepositoryTest
 import com.mss.utils.DEFAULT_LOCAL_DATE
 import com.mss.utils.coroutines.TestDispatchers
-import com.mss.utils.coroutines.verify
-import io.mockk.MockKMatcherScope
-import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.MethodSource
 import kotlin.time.Duration.Companion.days
 
-@UnitTest
-@CoroutineTest
-@OptIn(ExperimentalCoroutinesApi::class)
-internal class SeriesRepositoryImplTest {
+internal class SeriesRepositoryImplTest : BaseRepositoryTest() {
     private val seriesApi: SeriesApi = mockk()
-    private val repository: SeriesRepository = SeriesRepositoryImpl(
-        api = seriesApi, dispatcher = TestDispatchers.IO
-    )
-
-    @ParameterizedTest
-    @MethodSource("cases")
-    fun `check dispatcher`(case: TestCase<*, *>) = runTest {
-        verify { case.apiQuery(this) } isCalledFrom case.repositoryQuery with TestDispatchers.IO
-    }
-
-    @ParameterizedTest
-    @MethodSource("cases")
-    fun success(case: TestCase<*, *>) = runTest {
-        coEvery { case.apiQuery(this) } returns case.apiResponse
-
-        val actual = case.repositoryQuery()
-        coVerify(exactly = 1) { case.apiQuery(this) }
-        assertThat(actual).isEqualTo(Result.Success(case.expectedRepositoryResponse))
-    }
-
-    @ParameterizedTest
-    @MethodSource("cases")
-    fun failing(case: TestCase<*, *>) = runTest {
-        coEvery { case.apiQuery(this) } throws EXCEPTION
-
-        val actual = case.repositoryQuery()
-        coVerify(exactly = 1) { case.apiQuery(this) }
-        assertThat(actual).isEqualTo(Result.Error(EXCEPTION))
-    }
+    private val repository: SeriesRepository =
+        SeriesRepositoryImpl(
+            api = seriesApi,
+            dispatcher = TestDispatchers.IO,
+        )
 
     @Suppress("LongMethod")
-    private fun cases() = listOf(
+    override fun cases() = listOf(
         TestCase(
             name = "getCategories",
             apiQuery = { seriesApi.getCategories() },
@@ -161,23 +122,11 @@ internal class SeriesRepositoryImplTest {
         ),
     )
 
-    data class TestCase<A, R>(
-        val name: String,
-        val apiQuery: suspend MockKMatcherScope.() -> A,
-        val apiResponse: A,
-        val repositoryQuery: suspend () -> R,
-        val expectedRepositoryResponse: R,
-    ) : AbstractTestCaseWithOrigin() {
-        override fun toString() = name
-    }
-
     private companion object {
         private const val SERIES = "Formula One"
         private const val PAGE_SIZE = 17
         private const val TOTAL_PAGES = 18
         private const val TOTAL_ELEMENTS = 199L
-
-        private val EXCEPTION = RuntimeException("Some exception")
 
         private val CATEGORIES = listOf("Single Seater", "Motorcycle")
         private val REGIONS = listOf("Worldwide", "Europe", "United States")
