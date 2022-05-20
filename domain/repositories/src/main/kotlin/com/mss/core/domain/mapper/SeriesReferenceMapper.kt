@@ -1,4 +1,4 @@
-package com.mss.features.series.domain.mapper
+package com.mss.core.domain.mapper
 
 import com.mss.core.utils.Mapper
 import com.mss.domain.ref.SeriesReference

@@ -1,7 +1,7 @@
 package com.mss.features.series.domain.usecases
 
+import com.mss.core.domain.repository.SeriesRepository
 import com.mss.core.utils.Result
-import com.mss.features.series.domain.repository.SeriesRepository
 import javax.inject.Inject
 
 class GetSeriesCategories @Inject constructor(

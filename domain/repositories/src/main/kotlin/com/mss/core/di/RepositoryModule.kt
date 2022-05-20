@@ -1,8 +1,8 @@
-package com.mss.features.series.di
+package com.mss.core.di
 
 import com.mss.core.coroutines.di.qualifiers.IoDispatcher
-import com.mss.features.series.data.repository.SeriesRepositoryImpl
-import com.mss.features.series.domain.repository.SeriesRepository
+import com.mss.core.data.repository.SeriesRepositoryImpl
+import com.mss.core.domain.repository.SeriesRepository
 import com.mss.network.api.SeriesApi
 import dagger.Module
 import dagger.Provides

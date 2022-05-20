@@ -1,4 +1,4 @@
-package com.mss.features.series.domain.repository
+package com.mss.core.domain.repository
 
 import com.mss.core.utils.Result
 import com.mss.domain.SeriesItem

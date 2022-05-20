@@ -1,5 +1,8 @@
-package com.mss.features.series.data.repository
+package com.mss.core.data.repository
 
+import com.mss.core.domain.mapper.SeriesItemMapper
+import com.mss.core.domain.mapper.SeriesReferenceMapper
+import com.mss.core.domain.repository.SeriesRepository
 import com.mss.core.utils.Result
 import com.mss.domain.SeriesItem
 import com.mss.domain.page.Page
@@ -7,15 +10,12 @@ import com.mss.domain.page.Page.Companion.getPage
 import com.mss.domain.page.Page.Companion.map
 import com.mss.domain.page.Pageable
 import com.mss.domain.ref.SeriesReference
-import com.mss.features.series.domain.mapper.SeriesItemMapper
-import com.mss.features.series.domain.mapper.SeriesReferenceMapper
-import com.mss.features.series.domain.repository.SeriesRepository
 import com.mss.network.api.SeriesApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class SeriesRepositoryImpl @Inject constructor(
+internal class SeriesRepositoryImpl @Inject constructor(
     private val api: SeriesApi,
     private val dispatcher: CoroutineDispatcher,
 ) : SeriesRepository {

@@ -1,12 +1,12 @@
-package com.mss.features.series.data.repository
+package com.mss.core.data.repository
 
+import com.mss.core.domain.repository.SeriesRepository
 import com.mss.domain.SeriesItem
 import com.mss.domain.create
 import com.mss.domain.page.Page
 import com.mss.domain.page.Pageable
 import com.mss.domain.ref.SeriesReference
 import com.mss.domain.ref.create
-import com.mss.features.series.domain.repository.SeriesRepository
 import com.mss.network.api.SeriesApi
 import com.mss.network.model.PageDto
 import com.mss.network.model.SeriesInfoDto
