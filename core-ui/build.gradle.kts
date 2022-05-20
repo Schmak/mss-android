@@ -49,6 +49,8 @@ dependencies {
     debugApi(Deps.Compose.uiTooling)
 
     implementation(Deps.AndroidX.Accompanist.placeholder)
+    implementation(Deps.AndroidX.Accompanist.insets)
+    implementation(Deps.AndroidX.Accompanist.swipeRefresh)
 
     //Desugaring
     coreLibraryDesugaring(Deps.GradlePlugins.desugaring)

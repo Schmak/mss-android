@@ -11,6 +11,7 @@ data class LandingBlockState(
     val itemsConfig: UiItem.Configuration = UiItem.Configuration.Default,
 ) {
     data class Selector(
+        val id: Any? = null,
         @StringRes val titleId: Int,
         val values: List<String>,
         val selectedIdx: Int = 0,
