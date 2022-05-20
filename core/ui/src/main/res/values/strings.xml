@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="try_again">Try again</string>
+    <string name="champions">Champions</string>
+    <string name="collections">Collections</string>
+    <string name="drivers">Drivers</string>
+    <string name="results">Results</string>
     <string name="retry">Retry</string>
+    <string name="select_collection">Select collection</string>
+    <string name="select_series">Select series</string>
+    <string name="series">Series</string>
+    <string name="teams">Teams</string>
+    <string name="try_again">Try again</string>
+    <string name="venues">Venues</string>
+    <string name="winners">Winners</string>
 </resources>

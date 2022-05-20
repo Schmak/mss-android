@@ -1,10 +1,10 @@
 package com.mss.features.series.presentation.ui.landing
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.mss.core.ui.components.landing.UiAction
 import com.mss.core.ui.components.landing.UiAction.Companion.filterByCategory
+import com.mss.core.ui.components.landing.viewmodel.AbstractLandingViewModel
 import com.mss.core.ui.utils.mapPage
 import com.mss.core.utils.Result.Success
 import com.mss.features.series.R
@@ -30,7 +30,8 @@ class SeriesLandingViewModel @Inject constructor(
     private val getMostRecentSeries: GetMostRecentSeries,
     private val getCategorySeries: GetCategorySeries,
     private val getRegionSeries: GetRegionSeries,
-) : ViewModel() {
+) : AbstractLandingViewModel() {
+    override val categories = BlockId.values().toList()
     private val viewModelState = MutableStateFlow(SeriesLandingModelState(isLoading = true))
 
     val uiState = viewModelState
@@ -40,10 +41,6 @@ class SeriesLandingViewModel @Inject constructor(
             started = SharingStarted.Eagerly,
             initialValue = viewModelState.value.toUiState()
         )
-
-    private val _actions = MutableSharedFlow<UiAction>()
-    private val actions = _actions.asSharedFlow().onSubscription { emit(UiAction.Refresh) }
-    private val refreshActions = actions.filterIsInstance<UiAction.Refresh>()
 
     init {
         viewModelState.update { state ->
@@ -71,21 +68,13 @@ class SeriesLandingViewModel @Inject constructor(
         refresh()
     }
 
-    fun handleAction(action: UiAction) {
-        viewModelScope.launch { _actions.emit(action) }
-        when (action) {
-            is UiAction.Refresh -> refresh()
-            is UiAction.SelectCategory -> selectCategory(action)
-        }
-    }
-
-    private fun selectCategory(action: UiAction.SelectCategory) = when (action.blockId) {
+    override fun selectCategory(action: UiAction.SelectCategory) = when (action.blockId) {
         BlockId.Category -> viewModelState.update { it.copy(selectedCategoryIdx = action.idx) }
         BlockId.Region -> viewModelState.update { it.copy(selectedRegionIdx = action.idx) }
         else -> Timber.e("'${action.blockId}' block is not supported")
     }
 
-    private fun refresh() {
+    override fun refresh() {
         viewModelState.update {
             it.copy(
                 isLoading = true,
@@ -118,8 +107,7 @@ class SeriesLandingViewModel @Inject constructor(
                     errorMessageId = null,
                 )
             }
-            handleAction(UiAction.SelectCategory(BlockId.Category, 0))
-            handleAction(UiAction.SelectCategory(BlockId.Region, 0))
+            resetCategories()
         }
     }
 }

@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">MSS</string>
-    <string name="series">Series</string>
-    <string name="results">Results</string>
-    <string name="drivers">Drivers</string>
-    <string name="teams">Teams</string>
-    <string name="venues">Venues</string>
     <string name="menu">Menu</string>
     <string name="search">Search</string>
 </resources>
