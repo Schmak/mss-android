@@ -48,6 +48,8 @@ dependencies {
     api(Deps.UI.coil)
     debugApi(Deps.Compose.uiTooling)
 
+    //AndroidX
+    implementation(Deps.AndroidX.lifecycleViewModel)
     implementation(Deps.AndroidX.Accompanist.placeholder)
     implementation(Deps.AndroidX.Accompanist.insets)
     implementation(Deps.AndroidX.Accompanist.swipeRefresh)
