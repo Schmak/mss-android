@@ -2,8 +2,13 @@ import Projects.Core
 
 plugins {
     kotlin("jvm")
+    id("java-test-fixtures")
 }
 
 dependencies {
-    testImplementation(project(Core.TEST_HELPERS))
+    //TEST FIXTURES
+    testFixturesImplementation(testFixtures(project(Core.UTILS)))
+
+    //UNIT TESTS
+    testImplementation(testFixtures(project(Core.UTILS)))
 }

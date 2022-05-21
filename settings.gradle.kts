@@ -11,8 +11,7 @@ rootProject.name = "android-mss"
 include(
     ":app",
     ":core:network:api", ":core:network:credentials",
-    ":core:network:model", ":core:network:test-helpers",
-    ":core:test-helpers", ":core:ui", ":core:utils",
-    ":domain:model", ":domain:repositories", ":domain:test-helpers",
+    ":core:network:model", ":core:ui", ":core:utils",
+    ":domain:model", ":domain:repositories",
     ":feature:series", ":feature:team",
 )

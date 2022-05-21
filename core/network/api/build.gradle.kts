@@ -8,7 +8,6 @@ plugins {
 dependencies {
     implementation(project(Core.Network.CREDENTIALS))
     implementation(project(Core.Network.MODEL))
-    testImplementation(project(Core.TEST_HELPERS))
 
     implementation(Deps.Network.okHttp)
     implementation(Deps.Network.Retrofit.core)
@@ -17,4 +16,7 @@ dependencies {
     //DI
     implementation(Deps.Hilt.core)
     kapt(Deps.Hilt.compiler)
+
+    //UNIT TESTS
+    testImplementation(testFixtures(project(Core.UTILS)))
 }
