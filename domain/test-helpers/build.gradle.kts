@@ -6,6 +6,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Core.TEST_HELPERS))
+    implementation(testFixtures(project(Core.UTILS)))
     implementation(project(Domain.MODEL))
 }

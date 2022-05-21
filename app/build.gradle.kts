@@ -76,7 +76,6 @@ dependencies {
     implementation(project(Core.UI))
     implementation(project(Features.SERIES))
     implementation(project(Features.TEAM))
-    testImplementation(project(Core.TEST_HELPERS))
 
     //Desugaring
     coreLibraryDesugaring(Deps.GradlePlugins.desugaring)
@@ -106,7 +105,10 @@ dependencies {
     //Debug
     debugImplementation(Deps.leakCanary)
 
-    //Integration tests
+    //UNIT TESTS
+    testImplementation(testFixtures(project(Core.UTILS)))
+
+    //INSTRUMENTATION TESTS
     androidTestImplementation(Deps.AndroidX.Test.junit)
     androidTestImplementation(Deps.AndroidX.Test.espresso)
     androidTestImplementation(Deps.Compose.uiTest)

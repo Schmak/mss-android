@@ -5,5 +5,6 @@ plugins {
 }
 
 dependencies {
-    testImplementation(project(Core.TEST_HELPERS))
+    //UNIT TESTS
+    testImplementation(testFixtures(project(Core.UTILS)))
 }
