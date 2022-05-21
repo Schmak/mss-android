@@ -12,6 +12,6 @@ include(
     ":app",
     ":core:network:api", ":core:network:credentials",
     ":core:network:model", ":core:ui", ":core:utils",
-    ":domain:model", ":domain:repositories", ":domain:test-helpers",
+    ":domain:model", ":domain:repositories",
     ":feature:series", ":feature:team",
 )

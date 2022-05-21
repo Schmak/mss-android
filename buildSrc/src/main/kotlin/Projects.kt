@@ -15,7 +15,6 @@ object Projects {
     object Domain {
         const val MODEL = ":domain:model"
         const val REPOSITORIES = ":domain:repositories"
-        const val TEST_HELPERS = ":domain:test-helpers"
     }
 
     object Features {
