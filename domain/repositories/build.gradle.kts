@@ -20,6 +20,6 @@ dependencies {
 
     //UNIT TESTS
     testImplementation(testFixtures(project(Core.UTILS)))
-    testImplementation(project(Core.Network.TEST_HELPERS))
+    testImplementation(testFixtures(project(Core.Network.MODEL)))
     testImplementation(project(Domain.TEST_HELPERS))
 }

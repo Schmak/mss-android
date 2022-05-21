@@ -6,7 +6,6 @@ object Projects {
             const val API = ":core:network:api"
             const val CREDENTIALS = ":core:network:credentials"
             const val MODEL = ":core:network:model"
-            const val TEST_HELPERS = ":core:network:test-helpers"
         }
 
         const val UI = ":core:ui"
