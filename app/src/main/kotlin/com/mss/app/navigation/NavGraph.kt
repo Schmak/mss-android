@@ -11,6 +11,7 @@ import com.mss.app.R
 import com.mss.app.navigation.Route.Companion.composable
 import com.mss.features.series.presentation.ui.landing.SeriesLandingScreen
 import com.mss.features.team.presentation.ui.landing.TeamLandingScreen
+import com.mss.features.venue.presentation.ui.landing.VenueLandingScreen
 
 @Composable
 fun NavGraph(
@@ -27,6 +28,6 @@ fun NavGraph(
         composable(Route.Results) { Text(stringResource(R.string.results)) }
         composable(Route.Drivers) { Text(stringResource(R.string.drivers)) }
         composable(Route.Teams) { TeamLandingScreen(hiltViewModel()) }
-        composable(Route.Venues) { Text(stringResource(R.string.venues)) }
+        composable(Route.Venues) { VenueLandingScreen(hiltViewModel()) }
     }
 }

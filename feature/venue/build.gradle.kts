@@ -43,6 +43,7 @@ dependencies {
     implementation(project(Domain.USE_CASES))
 
     implementation(Deps.Logging.timber)
+
     //AndroidX
     implementation(Deps.AndroidX.lifecycleViewModel)
 

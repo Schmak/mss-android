@@ -1,20 +1,12 @@
 package com.mss.network.api
 
-import com.mss.annotation.IntegrationTest
 import com.mss.network.di.ApiModule
-import com.mss.network.model.PageDto
 import com.mss.network.model.sort.OrderByDto.Companion.asc
 import com.mss.network.model.sort.OrderByDto.Companion.desc
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
 import utils.testRetrofit
 
-@ExperimentalCoroutinesApi
-@IntegrationTest
-internal class SeriesApiTest {
+internal class SeriesApiTest : AbstractApiTest() {
     private val api = ApiModule.provideSeriesApi(testRetrofit)
 
     @Test
@@ -77,13 +69,5 @@ internal class SeriesApiTest {
             page = 0,
             size = 10,
         )
-    }
-
-    private fun test(apiCall: suspend () -> Any) = runTest {
-        when (val actual = assertDoesNotThrow { apiCall() }) {
-            is PageDto<*> -> assertThat(actual.content).isNotEmpty
-            is List<*> -> assertThat(actual).isNotEmpty
-            else -> assertThat(actual).isNotNull
-        }
     }
 }

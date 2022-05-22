@@ -3,6 +3,7 @@ package com.mss.network.di
 import com.mss.network.api.SeasonApi
 import com.mss.network.api.SeriesApi
 import com.mss.network.api.TeamApi
+import com.mss.network.api.VenueApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,4 +22,7 @@ object ApiModule {
 
     @Provides
     fun provideTeamApi(retrofit: Retrofit): TeamApi = retrofit.create()
+
+    @Provides
+    fun provideVenueApi(retrofit: Retrofit): VenueApi = retrofit.create()
 }
