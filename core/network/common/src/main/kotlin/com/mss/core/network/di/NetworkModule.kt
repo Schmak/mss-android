@@ -1,4 +1,4 @@
-package com.mss.network.di
+package com.mss.core.network.di
 
 import com.mss.network.ApiServer
 import dagger.Module

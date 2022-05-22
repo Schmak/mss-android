@@ -1,6 +1,6 @@
-package utils
+package com.mss.core.network.utils
 
-import com.mss.network.di.NetworkModule
+import com.mss.core.network.di.NetworkModule
 
 val testRetrofit = NetworkModule.provideRetrofit(
     client = NetworkModule.provideHttpClient(apiServer = TestApiServer),

@@ -6,12 +6,10 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Core.Network.CREDENTIALS))
     implementation(project(Core.Network.MODEL))
+    implementation(project(Core.Network.COMMON))
 
-    implementation(Deps.Network.okHttp)
     implementation(Deps.Network.Retrofit.core)
-    implementation(Deps.Network.Retrofit.gson)
 
     //DI
     implementation(Deps.Hilt.core)
@@ -19,4 +17,5 @@ dependencies {
 
     //UNIT TESTS
     testImplementation(testFixtures(project(Core.UTILS)))
+    testImplementation(testFixtures(project(Core.Network.COMMON)))
 }

@@ -1,4 +1,4 @@
-package utils
+package com.mss.core.network.utils
 
 import com.mss.network.ApiServer
 
