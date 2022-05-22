@@ -9,7 +9,6 @@ object Projects {
 
             const val COMMON = ":core:network:common"
             const val CREDENTIALS = ":core:network:credentials"
-            const val MODEL = ":core:network:model"
         }
 
         const val UI = ":core:ui"

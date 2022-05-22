@@ -9,7 +9,6 @@ plugins {
 dependencies {
     api(project(Domain.MODEL))
     implementation(project(Core.Network.Api.V3))
-    implementation(project(Core.Network.MODEL))
     implementation(project(Core.UTILS))
 
     implementation(Deps.Coroutines.core)
@@ -20,6 +19,6 @@ dependencies {
 
     //UNIT TESTS
     testImplementation(testFixtures(project(Core.UTILS)))
-    testImplementation(testFixtures(project(Core.Network.MODEL)))
+    testImplementation(testFixtures(project(Core.Network.Api.V3)))
     testImplementation(testFixtures(project(Domain.MODEL)))
 }

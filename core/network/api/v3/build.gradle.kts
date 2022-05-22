@@ -3,10 +3,10 @@ import Projects.Core
 plugins {
     kotlin("jvm")
     kotlin("kapt")
+    id("java-test-fixtures")
 }
 
 dependencies {
-    implementation(project(Core.Network.MODEL))
     implementation(project(Core.Network.COMMON))
 
     implementation(Deps.Network.Retrofit.core)
