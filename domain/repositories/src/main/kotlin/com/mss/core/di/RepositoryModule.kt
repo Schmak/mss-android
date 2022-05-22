@@ -1,16 +1,15 @@
 package com.mss.core.di
 
 import com.mss.core.coroutines.di.qualifiers.IoDispatcher
+import com.mss.core.data.repository.DriverRepositoryImpl
 import com.mss.core.data.repository.SeriesRepositoryImpl
 import com.mss.core.data.repository.TeamRepositoryImpl
 import com.mss.core.data.repository.VenueRepositoryImpl
+import com.mss.core.domain.repository.DriverRepository
 import com.mss.core.domain.repository.SeriesRepository
 import com.mss.core.domain.repository.TeamRepository
 import com.mss.core.domain.repository.VenueRepository
-import com.mss.network.api.SeasonApi
-import com.mss.network.api.SeriesApi
-import com.mss.network.api.TeamApi
-import com.mss.network.api.VenueApi
+import com.mss.network.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,6 +28,22 @@ object RepositoryModule {
         dispatcher: CoroutineDispatcher,
     ): SeriesRepository =
         SeriesRepositoryImpl(seriesApi, dispatcher)
+
+    @Provides
+    @Singleton
+    fun providesDriverRepository(
+        seriesApi: SeriesApi,
+        seasonApi: SeasonApi,
+        driverApi: DriverApi,
+        @IoDispatcher
+        dispatcher: CoroutineDispatcher,
+    ): DriverRepository =
+        DriverRepositoryImpl(
+            seriesApi = seriesApi,
+            seasonApi = seasonApi,
+            driverApi = driverApi,
+            dispatcher = dispatcher
+        )
 
     @Provides
     @Singleton
