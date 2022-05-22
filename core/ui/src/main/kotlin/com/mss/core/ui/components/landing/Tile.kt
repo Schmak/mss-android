@@ -50,6 +50,7 @@ fun Tile(
                 .error(R.drawable.ic_mss)
                 .build(),
             contentScale = ContentScale.Crop,
+            alignment = Alignment.TopCenter,
             contentDescription = item?.title,
             modifier = Modifier
                 .size(Tile.imageSize)
