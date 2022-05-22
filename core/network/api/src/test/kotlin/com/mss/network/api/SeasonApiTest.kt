@@ -11,7 +11,7 @@ internal class SeasonApiTest : AbstractApiTest() {
     @Test
     fun getTeams() = test {
         api.getTeams(
-            season = "formula-one_2022",
+            season = SEASON,
             hideZeros = false,
             page = 0,
             size = 10,
@@ -20,11 +20,27 @@ internal class SeasonApiTest : AbstractApiTest() {
     }
 
     @Test
+    fun getDrivers() = test {
+        api.getDrivers(
+            season = SEASON,
+            hideZeros = false,
+            page = 0,
+            size = 10,
+            orderBy = SeasonApi.DriverOrder.ChampionshipPosition,
+            orderDescending = false,
+        )
+    }
+
+    @Test
     fun getVenues() = test {
         api.getVenues(
-            season = "formula-one_2022",
+            season = SEASON,
             page = 0,
             size = 10,
         )
+    }
+
+    companion object {
+        private const val SEASON = "formula-one_2022"
     }
 }
