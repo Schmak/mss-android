@@ -13,5 +13,5 @@ include(
     ":core:network:api", ":core:network:credentials",
     ":core:network:model", ":core:ui", ":core:utils",
     ":domain:model", ":domain:repositories", ":domain:use-cases",
-    ":feature:series", ":feature:team", ":feature:venue",
+    ":feature:driver", ":feature:series", ":feature:team", ":feature:venue",
 )
