@@ -3,7 +3,10 @@
 object Projects {
     object Core {
         object Network {
-            const val API = ":core:network:api"
+            object Api {
+                const val V3 = ":core:network:api:v3"
+            }
+
             const val COMMON = ":core:network:common"
             const val CREDENTIALS = ":core:network:credentials"
             const val MODEL = ":core:network:model"
