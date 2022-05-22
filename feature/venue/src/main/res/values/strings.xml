@@ -1,0 +1,7 @@
+<resources>
+    <string name="current_season_circuits">Current Season Circuits</string>
+    <string name="race_circuit">Race Circuit</string>
+    <string name="rallycross">Rallycross</string>
+    <string name="road_circuit">Road Circuit</string>
+    <string name="street_circuit">Street Circuit</string>
+</resources>
