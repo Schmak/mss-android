@@ -18,4 +18,13 @@ internal class SeasonApiTest : AbstractApiTest() {
             orderBy = SeasonApi.TeamOrder.ChampionshipPosition.asc,
         )
     }
+
+    @Test
+    fun getVenues() = test {
+        api.getVenues(
+            season = "formula-one_2022",
+            page = 0,
+            size = 10,
+        )
+    }
 }
