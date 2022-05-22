@@ -9,6 +9,6 @@ object SeriesItemMapper : Mapper<SeriesItem, UiItem> {
         UiItem(
             imageUrl = picture.orEmpty(),
             title = name,
-            subtitle = region,
+            subtitles = listOf(region),
         )
 }

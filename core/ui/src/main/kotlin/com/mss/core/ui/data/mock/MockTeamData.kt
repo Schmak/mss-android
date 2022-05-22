@@ -17,7 +17,7 @@ object MockTeamData {
         "error"
     ).map { "https://content.motorsportstats.com/teamProfilePicture/teamProfilePicture-$it.jpg" }
 
-    private val names = listOf(
+    val names = listOf(
         "Gresini Racing MotoGP", "Mercedes-EQ Formula E Team", "Prema Racing", "Team WRT",
         "23XI Racing", "Red Bull KTM Ajo", "AKKODIS ASP Team", "Carlin", "Full Motorsport",
         "Hitech Grand Prix", "Dynavolt Intact GP MotoE", "Konica Minolta Acura",
@@ -33,7 +33,7 @@ object MockTeamData {
         UiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
-            subtitle = countries.random()
+            subtitles = listOf(countries.random()),
         )
     }
 }
