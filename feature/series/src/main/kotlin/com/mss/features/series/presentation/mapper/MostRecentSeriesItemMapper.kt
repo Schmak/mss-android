@@ -10,6 +10,6 @@ object MostRecentSeriesItemMapper : Mapper<SeriesItem, UiItem> {
         UiItem(
             imageUrl = picture.orEmpty(),
             title = lastEvent?.name.orEmpty(),
-            subtitle = lastEvent?.date?.format(DateTimeFormatter.ofPattern("dd MMM yyyy")),
+            subtitles = listOf(lastEvent?.date?.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))),
         )
 }

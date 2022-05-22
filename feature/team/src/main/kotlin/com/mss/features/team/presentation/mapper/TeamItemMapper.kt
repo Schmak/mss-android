@@ -9,6 +9,6 @@ object TeamItemMapper : Mapper<TeamItem, UiItem> {
         UiItem(
             imageUrl = picture.orEmpty(),
             title = name,
-            subtitle = country?.name.orEmpty(),
+            subtitles = listOf(country?.name.orEmpty()),
         )
 }

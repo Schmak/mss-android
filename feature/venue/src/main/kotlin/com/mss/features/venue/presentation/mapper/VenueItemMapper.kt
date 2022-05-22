@@ -9,6 +9,6 @@ object VenueItemMapper : Mapper<VenueItem, UiItem> {
         UiItem(
             imageUrl = picture.orEmpty(),
             title = name,
-            subtitle = country.name,
+            subtitles = listOf(country.name),
         )
 }

@@ -102,7 +102,7 @@ object MockSeriesData {
         UiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
-            subtitle = categories.random(random),
+            subtitles = listOf(categories.random(random)),
         )
     }
 
@@ -110,7 +110,7 @@ object MockSeriesData {
         UiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
-            subtitle = regions.random(random),
+            subtitles = listOf(regions.random(random)),
         )
     }
 
@@ -118,8 +118,10 @@ object MockSeriesData {
         UiItem(
             imageUrl = pictures.random(random),
             title = eventNames.random(random),
-            subtitle = LocalDate.now().minusDays(it.toLong())
-                .format(DateTimeFormatter.ofPattern("dd MMM yyyy")),
+            subtitles = listOf(
+                LocalDate.now().minusDays(it.toLong())
+                    .format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+            ),
         )
     }
 }

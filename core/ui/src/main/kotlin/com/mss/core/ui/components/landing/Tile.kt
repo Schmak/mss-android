@@ -10,7 +10,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -23,13 +25,13 @@ import com.google.accompanist.placeholder.placeholder
 import com.google.accompanist.placeholder.shimmer
 import com.mss.core.ui.R
 import com.mss.core.ui.annotation.MultiPreview
+import com.mss.core.ui.data.mock.MockDriverData
 import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.model.UiItem
-import com.mss.core.ui.theme.AppTheme
+import com.mss.core.ui.model.UiItem.Configuration.SubtitleColor.Capri
+import com.mss.core.ui.model.UiItem.Configuration.SubtitleColor.Cyan
+import com.mss.core.ui.theme.*
 import com.mss.core.ui.theme.Dimensions.Tile
-import com.mss.core.ui.theme.imageBackground
-import com.mss.core.ui.theme.stubColor
-import com.mss.core.ui.theme.stubHighlightColor
 
 @Composable
 fun Tile(
@@ -37,15 +39,7 @@ fun Tile(
     itemConfig: UiItem.Configuration,
     modifier: Modifier = Modifier,
 ) {
-    @Composable
-    fun Modifier.placeholder() =
-        this.placeholder(
-            visible = item == null,
-            color = MaterialTheme.colors.stubColor,
-            shape = RoundedCornerShape(4.dp),
-            highlight = PlaceholderHighlight.shimmer(highlightColor = MaterialTheme.colors.stubHighlightColor),
-        )
-
+    val placeholderVisible = item == null
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.width(Tile.width)
@@ -61,7 +55,7 @@ fun Tile(
                 .size(Tile.imageSize)
                 .clip(CircleShape)
                 .background(MaterialTheme.colors.imageBackground)
-                .placeholder(),
+                .placeholder(visible = placeholderVisible),
         )
 
         Text(
@@ -73,23 +67,50 @@ fun Tile(
             modifier = Modifier
                 .widthIn(min = Tile.titlePlaceHolderWidth)
                 .padding(top = 4.dp)
-                .placeholder()
+                .placeholder(visible = placeholderVisible)
         )
-        if (itemConfig.hasSubtitle)
-            Text(
-                text = item?.subtitle.orEmpty(),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.secondary,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .widthIn(min = Tile.subtitlePlaceHolderWidth)
-                    .padding(top = 2.dp)
-                    .placeholder()
+        itemConfig.subtitles.forEachIndexed { idx, config ->
+            Subtitle(
+                text = item?.subtitles?.getOrNull(idx),
+                color = when (config) {
+                    Capri -> MaterialTheme.colors.capriSubtitle
+                    Cyan -> MaterialTheme.colors.cyanSubtitle
+                },
+                placeholderVisible = placeholderVisible,
             )
+        }
     }
 }
+
+@Composable
+private fun Subtitle(
+    text: String?,
+    color: Color,
+    placeholderVisible: Boolean,
+) {
+    Text(
+        text = text.orEmpty(),
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.body1,
+        color = color,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier
+            .widthIn(min = Tile.subtitlePlaceHolderWidth)
+            .padding(top = 2.dp)
+            .placeholder(visible = placeholderVisible)
+    )
+}
+
+private fun Modifier.placeholder(visible: Boolean) =
+    composed {
+        this.placeholder(
+            visible = visible,
+            color = MaterialTheme.colors.stubColor,
+            shape = RoundedCornerShape(4.dp),
+            highlight = PlaceholderHighlight.shimmer(highlightColor = MaterialTheme.colors.stubHighlightColor),
+        )
+    }
 
 @Composable
 private fun PreviewTile(item: UiItem?, itemConfig: UiItem.Configuration) {
@@ -114,6 +135,12 @@ fun PreviewCategoriesSeriesTile() {
 
 @MultiPreview
 @Composable
+fun PreviewDriverTile() {
+    PreviewTile(MockDriverData.champions.first(), UiItem.Configuration.WithTwoSubtitles)
+}
+
+@MultiPreview
+@Composable
 fun PreviewStubTile() {
     PreviewTile(null, UiItem.Configuration.NoSubtitle)
 }
@@ -122,4 +149,10 @@ fun PreviewStubTile() {
 @Composable
 fun PreviewStubTileWithSubtitle() {
     PreviewTile(null, UiItem.Configuration.Default)
+}
+
+@MultiPreview
+@Composable
+fun PreviewStubWithTwoSubtitles() {
+    PreviewTile(null, UiItem.Configuration.WithTwoSubtitles)
 }

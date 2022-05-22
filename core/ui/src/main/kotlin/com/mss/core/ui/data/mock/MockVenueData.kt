@@ -36,7 +36,7 @@ object MockVenueData {
         UiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
-            subtitle = countries.random()
+            subtitles = listOf(countries.random()),
         )
     }
 }
