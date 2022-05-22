@@ -75,6 +75,7 @@ dependencies {
     implementation(project(Core.Network.CREDENTIALS))
     implementation(project(Core.UI))
     implementation(project(Features.SERIES))
+    implementation(project(Features.DRIVER))
     implementation(project(Features.TEAM))
     implementation(project(Features.VENUE))
 

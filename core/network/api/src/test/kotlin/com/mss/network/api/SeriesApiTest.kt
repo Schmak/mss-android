@@ -52,7 +52,7 @@ internal class SeriesApiTest : AbstractApiTest() {
     @Test
     fun getTeamsOrderedByTeamWins() = test {
         api.getTeams(
-            series = "formula-one",
+            series = SERIES,
             hideZeros = true,
             orderBy = SeriesApi.TeamOrder.TeamWins.desc,
             page = 0,
@@ -63,11 +63,39 @@ internal class SeriesApiTest : AbstractApiTest() {
     @Test
     fun getTeamsOrderedByChampWins() = test {
         api.getTeams(
-            series = "formula-one",
+            series = SERIES,
             hideZeros = true,
             orderBy = SeriesApi.TeamOrder.ChampionshipWins.asc,
             page = 0,
             size = 10,
         )
+    }
+
+    @Test
+    fun getDriversOrderedByDriverWins() = test {
+        api.getDrivers(
+            series = SERIES,
+            hideZeros = true,
+            orderBy = SeriesApi.DriverOrder.Wins,
+            orderDescending = false,
+            page = 0,
+            size = 10,
+        )
+    }
+
+    @Test
+    fun getDriversOrderedByChampWins() = test {
+        api.getDrivers(
+            series = SERIES,
+            hideZeros = true,
+            orderBy = SeriesApi.DriverOrder.ChampionshipWins,
+            orderDescending = true,
+            page = 0,
+            size = 10,
+        )
+    }
+
+    companion object {
+        private const val SERIES = "formula-one"
     }
 }

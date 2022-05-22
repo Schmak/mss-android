@@ -1,17 +1,17 @@
 package com.mss.network.api
 
-import com.mss.network.api.TeamApi.TeamCollection
+import com.mss.network.api.DriverApi.DriverCollection
 import com.mss.network.di.ApiModule
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import utils.testRetrofit
 
-internal class TeamApiTest : AbstractApiTest() {
-    private val api = ApiModule.provideTeamApi(testRetrofit)
+internal class DriverApiTest : AbstractApiTest() {
+    private val api = ApiModule.provideDriverApi(testRetrofit)
 
     @ParameterizedTest
-    @EnumSource(TeamCollection::class)
-    fun getCollection(collection: TeamCollection) = test {
+    @EnumSource(DriverCollection::class)
+    fun getCollection(collection: DriverCollection) = test {
         api.getCollection(
             collection = collection,
             page = 0,

@@ -1,9 +1,6 @@
 package com.mss.network.di
 
-import com.mss.network.api.SeasonApi
-import com.mss.network.api.SeriesApi
-import com.mss.network.api.TeamApi
-import com.mss.network.api.VenueApi
+import com.mss.network.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,6 +16,9 @@ object ApiModule {
 
     @Provides
     fun provideSeasonApi(retrofit: Retrofit): SeasonApi = retrofit.create()
+
+    @Provides
+    fun provideDriverApi(retrofit: Retrofit): DriverApi = retrofit.create()
 
     @Provides
     fun provideTeamApi(retrofit: Retrofit): TeamApi = retrofit.create()
