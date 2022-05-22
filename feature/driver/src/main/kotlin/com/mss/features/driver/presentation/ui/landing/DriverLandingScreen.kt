@@ -2,6 +2,9 @@ package com.mss.features.driver.presentation.ui.landing
 
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.components.landing.LandingScreen
 import com.mss.core.ui.data.mock.MockDriverData
@@ -9,6 +12,19 @@ import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.utils.asPageFlow
 import com.mss.features.driver.presentation.ui.landing.state.DriverLandingModelState
+
+@Composable
+fun DriverLandingScreen(
+    viewModel: DriverLandingViewModel,
+    modifier: Modifier = Modifier
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    LandingScreen(
+        uiState = uiState,
+        onAction = viewModel::handleAction,
+        modifier = modifier
+    )
+}
 
 @MultiPreview
 @Composable
