@@ -1,7 +1,7 @@
-package com.mss.network.di
+package com.mss.core.network.di
 
 import com.mss.app.BuildConfig
-import com.mss.network.ApiServer
+import com.mss.core.network.ApiServer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

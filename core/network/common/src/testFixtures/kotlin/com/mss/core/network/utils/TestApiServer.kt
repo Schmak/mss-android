@@ -1,6 +1,6 @@
 package com.mss.core.network.utils
 
-import com.mss.network.ApiServer
+import com.mss.core.network.ApiServer
 
 object TestApiServer : ApiServer {
     override val url = "https://api.motorsportstats.com"

@@ -1,4 +1,4 @@
-package com.mss.network
+package com.mss.core.network
 
 interface ApiServer {
     val url: String
