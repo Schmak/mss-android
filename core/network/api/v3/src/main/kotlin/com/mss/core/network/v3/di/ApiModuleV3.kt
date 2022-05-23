@@ -13,7 +13,7 @@ import retrofit2.create
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ApiModule {
+object ApiModuleV3 {
     @Provides
     fun provideSeriesApi(retrofit: Retrofit): SeriesApi = retrofit.create()
 
