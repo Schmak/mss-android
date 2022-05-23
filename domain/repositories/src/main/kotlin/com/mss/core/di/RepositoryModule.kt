@@ -1,20 +1,15 @@
 package com.mss.core.di
 
 import com.mss.core.coroutines.di.qualifiers.IoDispatcher
-import com.mss.core.data.repository.DriverRepositoryImpl
-import com.mss.core.data.repository.SeriesRepositoryImpl
-import com.mss.core.data.repository.TeamRepositoryImpl
-import com.mss.core.data.repository.VenueRepositoryImpl
-import com.mss.core.domain.repository.DriverRepository
-import com.mss.core.domain.repository.SeriesRepository
-import com.mss.core.domain.repository.TeamRepository
-import com.mss.core.domain.repository.VenueRepository
+import com.mss.core.data.repository.*
+import com.mss.core.domain.repository.*
 import com.mss.core.network.v3.api.DriverApiV3
 import com.mss.core.network.v3.api.SeasonApiV3
 import com.mss.core.network.v3.api.SeriesApiV3
 import com.mss.core.network.v3.api.VenueApiV3
 import com.mss.core.network.v4.api.SeasonApiV4
 import com.mss.core.network.v4.api.SeriesApiV4
+import com.mss.core.network.v4.api.SessionApiV4
 import com.mss.core.network.v4.api.TeamApiV4
 import dagger.Module
 import dagger.Provides
@@ -78,6 +73,18 @@ object RepositoryModule {
         VenueRepositoryImpl(
             seasonApiV3 = seasonApiV3,
             venueApiV3 = venueApiV3,
+            dispatcher = dispatcher
+        )
+
+    @Provides
+    @Singleton
+    fun providesSessionRepository(
+        sessionApiV4: SessionApiV4,
+        @IoDispatcher
+        dispatcher: CoroutineDispatcher,
+    ): SessionRepository =
+        SessionRepositoryImpl(
+            sessionApiV4 = sessionApiV4,
             dispatcher = dispatcher
         )
 }
