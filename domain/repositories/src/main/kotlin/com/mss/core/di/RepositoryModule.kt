@@ -9,7 +9,13 @@ import com.mss.core.domain.repository.DriverRepository
 import com.mss.core.domain.repository.SeriesRepository
 import com.mss.core.domain.repository.TeamRepository
 import com.mss.core.domain.repository.VenueRepository
-import com.mss.network.api.*
+import com.mss.core.network.v3.api.DriverApiV3
+import com.mss.core.network.v3.api.SeasonApiV3
+import com.mss.core.network.v3.api.SeriesApiV3
+import com.mss.core.network.v3.api.VenueApiV3
+import com.mss.core.network.v4.api.SeasonApiV4
+import com.mss.core.network.v4.api.SeriesApiV4
+import com.mss.core.network.v4.api.TeamApiV4
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,55 +29,55 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun providesSeriesRepository(
-        seriesApi: SeriesApi,
+        seriesApiV3: SeriesApiV3,
         @IoDispatcher
         dispatcher: CoroutineDispatcher,
     ): SeriesRepository =
-        SeriesRepositoryImpl(seriesApi, dispatcher)
+        SeriesRepositoryImpl(seriesApiV3, dispatcher)
 
     @Provides
     @Singleton
     fun providesDriverRepository(
-        seriesApi: SeriesApi,
-        seasonApi: SeasonApi,
-        driverApi: DriverApi,
+        seriesApiV3: SeriesApiV3,
+        seasonApiV3: SeasonApiV3,
+        driverApiV3: DriverApiV3,
         @IoDispatcher
         dispatcher: CoroutineDispatcher,
     ): DriverRepository =
         DriverRepositoryImpl(
-            seriesApi = seriesApi,
-            seasonApi = seasonApi,
-            driverApi = driverApi,
+            seriesApiV3 = seriesApiV3,
+            seasonApiV3 = seasonApiV3,
+            driverApiV3 = driverApiV3,
             dispatcher = dispatcher
         )
 
     @Provides
     @Singleton
     fun providesTeamRepository(
-        seriesApi: SeriesApi,
-        seasonApi: SeasonApi,
-        teamApi: TeamApi,
+        seriesApiV4: SeriesApiV4,
+        seasonApiV4: SeasonApiV4,
+        teamApiV4: TeamApiV4,
         @IoDispatcher
         dispatcher: CoroutineDispatcher,
     ): TeamRepository =
         TeamRepositoryImpl(
-            seriesApi = seriesApi,
-            seasonApi = seasonApi,
-            teamApi = teamApi,
+            seriesApiV4 = seriesApiV4,
+            seasonApiV4 = seasonApiV4,
+            teamApiV4 = teamApiV4,
             dispatcher = dispatcher
         )
 
     @Provides
     @Singleton
     fun providesVenueRepository(
-        venueApi: VenueApi,
-        seasonApi: SeasonApi,
+        venueApiV3: VenueApiV3,
+        seasonApiV3: SeasonApiV3,
         @IoDispatcher
         dispatcher: CoroutineDispatcher,
     ): VenueRepository =
         VenueRepositoryImpl(
-            seasonApi = seasonApi,
-            venueApi = venueApi,
+            seasonApiV3 = seasonApiV3,
+            venueApiV3 = venueApiV3,
             dispatcher = dispatcher
         )
 }

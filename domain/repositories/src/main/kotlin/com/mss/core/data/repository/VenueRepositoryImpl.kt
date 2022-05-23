@@ -1,19 +1,19 @@
 package com.mss.core.data.repository
 
 import com.mss.core.domain.VenueItem
-import com.mss.core.domain.mapper.VenueItemMapper
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
 import com.mss.core.domain.repository.VenueRepository
+import com.mss.core.network.v3.api.SeasonApiV3
+import com.mss.core.network.v3.api.VenueApiV3
+import com.mss.core.network.v3.mapper.VenueItemMapper
 import com.mss.core.utils.Result
-import com.mss.network.api.SeasonApi
-import com.mss.network.api.VenueApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 internal class VenueRepositoryImpl(
-    private val seasonApi: SeasonApi,
-    private val venueApi: VenueApi,
+    private val seasonApiV3: SeasonApiV3,
+    private val venueApiV3: VenueApiV3,
     private val dispatcher: CoroutineDispatcher,
 ) : VenueRepository {
     override suspend fun getSeasonVenues(
@@ -21,7 +21,7 @@ internal class VenueRepositoryImpl(
         pageable: Pageable
     ): Result<Page<VenueItem>> = withContext(dispatcher) {
         Result.of {
-            seasonApi.getVenues(
+            seasonApiV3.getVenues(
                 season = season,
                 page = pageable.page,
                 size = pageable.size,
@@ -34,7 +34,7 @@ internal class VenueRepositoryImpl(
         pageable: Pageable
     ): Result<Page<VenueItem>> = withContext(dispatcher) {
         Result.of {
-            venueApi.getVenues(
+            venueApiV3.getVenues(
                 filterIds = arrayOf(collection.title),
                 page = pageable.page,
                 size = pageable.size,
