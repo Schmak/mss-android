@@ -1,12 +1,12 @@
 package com.mss.core.ui.utils
 
 import androidx.paging.PagingSource
-import com.mss.annotation.UnitTest
 import com.mss.core.domain.page.Page.Companion.getPage
 import com.mss.core.domain.page.Pageable
 import com.mss.core.domain.page.Pageable.Companion.page
+import com.mss.core.test.annotation.UnitTest
+import com.mss.core.test.junit5.AbstractTestCaseWithOrigin
 import com.mss.core.utils.Result
-import com.mss.junit5.AbstractTestCaseWithOrigin
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat

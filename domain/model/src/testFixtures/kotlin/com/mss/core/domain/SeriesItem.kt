@@ -1,6 +1,6 @@
 package com.mss.core.domain
 
-import com.mss.utils.DEFAULT_LOCAL_DATE
+import com.mss.core.test.utils.DEFAULT_LOCAL_DATE
 import java.time.LocalDate
 
 fun SeriesItem.Companion.create(

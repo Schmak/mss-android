@@ -18,13 +18,12 @@ import com.mss.core.network.v3.model.ref.EventReferenceDto
 import com.mss.core.network.v3.model.ref.SeasonReferenceDto
 import com.mss.core.network.v3.model.ref.SeriesReferenceDto
 import com.mss.core.network.v3.model.ref.create
-import com.mss.test.BaseRepositoryTest
-import com.mss.utils.DEFAULT_LOCAL_DATE
-import com.mss.utils.coroutines.TestDispatchers
+import com.mss.core.test.utils.DEFAULT_LOCAL_DATE
+import com.mss.core.test.utils.coroutines.TestDispatchers
 import io.mockk.mockk
 import kotlin.time.Duration.Companion.days
 
-internal class SeriesRepositoryImplTest : BaseRepositoryTest() {
+internal class SeriesRepositoryImplTest : AbstractRepositoryTest() {
     private val seriesApiV3: SeriesApiV3 = mockk()
     private val repository: SeriesRepository =
         SeriesRepositoryImpl(

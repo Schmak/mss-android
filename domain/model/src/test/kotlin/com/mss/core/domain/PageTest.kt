@@ -1,10 +1,10 @@
 package com.mss.core.domain
 
-import com.mss.annotation.UnitTest
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Page.Companion.getPage
 import com.mss.core.domain.page.Pageable
-import com.mss.junit5.AbstractTestCaseWithOrigin
+import com.mss.core.test.annotation.UnitTest
+import com.mss.core.test.junit5.AbstractTestCaseWithOrigin
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource

@@ -1,7 +1,7 @@
 package com.mss.app.mockk
 
 import android.app.Activity
-import com.mss.annotation.UnitTest
+import com.mss.core.test.annotation.UnitTest
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
