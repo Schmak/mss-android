@@ -1,8 +1,7 @@
-package com.mss.extensions
+package com.mss.core.extensions
 
-import com.mss.core.extensions.formatAsHHMMSS
 import com.mss.core.test.junit5.AbstractTestCaseWithOrigin
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import kotlin.time.Duration
@@ -15,7 +14,7 @@ internal class DurationKtTest {
     @MethodSource("cases")
     fun `format as {hh}-mm-ss`(case: TestCase) {
         val actual = case.duration.formatAsHHMMSS()
-        assertThat(actual).isEqualTo(case.expected)
+        Assertions.assertThat(actual).isEqualTo(case.expected)
     }
 
     private fun cases() = listOf(

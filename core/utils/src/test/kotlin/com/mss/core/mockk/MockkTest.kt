@@ -1,9 +1,9 @@
-package com.mss.mockk
+package com.mss.core.mockk
 
 import com.mss.core.test.annotation.UnitTest
 import io.mockk.every
 import io.mockk.mockk
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 
 @UnitTest
@@ -15,7 +15,7 @@ class MockkTest {
     @Test
     fun `check that mockk is working`() {
         val actual = mocked.answer()
-        assertThat(actual).isEqualTo(MOCKED_ANSWER)
+        Assertions.assertThat(actual).isEqualTo(MOCKED_ANSWER)
     }
 
     companion object {
