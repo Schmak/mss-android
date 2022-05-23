@@ -5,6 +5,7 @@ import com.mss.core.ui.model.LandingBlockState
 import com.mss.core.ui.model.LandingUiState
 import com.mss.core.ui.model.UiItem
 import com.mss.features.results.R
+import com.mss.features.results.presentation.ui.landing.ActionBlockId
 import com.mss.features.results.presentation.ui.landing.BlockId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
@@ -26,11 +27,13 @@ data class ResultsLandingModelState(
                 LandingBlockState(
                     titleId = R.string.most_recent,
                     itemsFlow = mostRecent,
-                    itemsConfig = UiItem.Configuration.WithTwoSubtitles,
+                    action = action(ActionBlockId.MostRecent),
+                    itemsConfig = UiItem.Configuration.WithTwoSubtitles
                 ),
                 LandingBlockState(
                     titleId = R.string.forthcoming,
                     itemsFlow = forthcoming,
+                    action = action(ActionBlockId.Forthcoming),
                     itemsConfig = UiItem.Configuration.WithTwoSubtitles,
                 ),
                 LandingBlockState(
@@ -42,17 +45,27 @@ data class ResultsLandingModelState(
                         selectedIdx = selectedCategoryIdx,
                     ),
                     itemsFlow = categorySessions,
+                    action = action(ActionBlockId.Categories),
                     itemsConfig = UiItem.Configuration.WithTwoSubtitles,
                 ),
                 LandingBlockState(
                     titleId = R.string.most_popular,
                     itemsFlow = mostPopular,
+                    action = action(ActionBlockId.MostPopular),
                     itemsConfig = UiItem.Configuration.WithTwoSubtitles,
                 ),
             ),
             isLoading = isLoading,
             errorMessageId = errorMessageId,
             hasData = categories.isNotEmpty(),
+        )
+    }
+
+    companion object {
+        private fun action(blockId: ActionBlockId) = LandingBlockState.Action(
+            id = blockId,
+            drawableId = R.drawable.ic_clock,
+            descriptionId = R.string.switch_time_format
         )
     }
 }

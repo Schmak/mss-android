@@ -3,4 +3,5 @@
     <string name="forthcoming">Forthcoming</string>
     <string name="most_popular">Most popular</string>
     <string name="most_recent">Most Recent</string>
+    <string name="switch_time_format">Switch time format</string>
 </resources>
