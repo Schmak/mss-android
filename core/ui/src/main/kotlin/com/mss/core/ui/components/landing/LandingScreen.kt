@@ -94,6 +94,9 @@ private fun ReadyLandingScreen(
                             )
                         )
                     },
+                    onActionClicked = {
+                        onAction(UiAction.ActionButtonClick(blockId = block.action?.id))
+                    },
                     modifier = screenModifier,
                 )
                 if (idx != uiState.blocks.lastIndex)
@@ -114,18 +117,22 @@ fun PreviewLandingScreen() {
         Surface {
             LandingScreen(
                 uiState = LandingUiState(
-                    titleId = R.string.try_again,
+                    titleId = R.string.series,
                     blocks = listOf(
                         LandingBlockState(
-                            titleId = R.string.retry,
+                            titleId = R.string.categories,
                             selector = null,
+                            action = LandingBlockState.Action(
+                                drawableId = R.drawable.ic_mss,
+                                descriptionId = R.string.select_series,
+                            ),
                             itemsFlow = MockSeriesData.leadingSeries.asPageFlow(),
                             itemsConfig = UiItem.Configuration.NoSubtitle,
                         ),
                         LandingBlockState(
-                            titleId = R.string.retry,
+                            titleId = R.string.categories,
                             selector = LandingBlockState.Selector(
-                                titleId = R.string.try_again,
+                                titleId = R.string.series,
                                 values = MockSeriesData.regions,
                             ),
                             itemsFlow = MockSeriesData.regionSeries.asPageFlow(),

@@ -18,12 +18,14 @@ abstract class AbstractLandingViewModel : ViewModel() {
 
     protected abstract fun refresh()
     protected open fun selectCategory(action: UiAction.SelectCategory) {}
+    protected open fun handleActionButtonClick(blockId: Any?) {}
 
     fun handleAction(action: UiAction) {
         viewModelScope.launch { _actions.emit(action) }
         when (action) {
             is UiAction.Refresh -> refresh()
             is UiAction.SelectCategory -> selectCategory(action)
+            is UiAction.ActionButtonClick -> handleActionButtonClick(action.blockId)
         }
     }
 
