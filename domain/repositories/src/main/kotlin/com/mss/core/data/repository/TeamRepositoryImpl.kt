@@ -1,25 +1,25 @@
 package com.mss.core.data.repository
 
 import com.mss.core.domain.TeamItem
-import com.mss.core.domain.mapper.TeamCollectionMapper
-import com.mss.core.domain.mapper.TeamItemMapper
-import com.mss.core.domain.mapper.sort.SeasonTeamOrderMapper
-import com.mss.core.domain.mapper.sort.SeriesTeamOrderMapper
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
 import com.mss.core.domain.repository.TeamRepository
 import com.mss.core.domain.sort.OrderBy
+import com.mss.core.network.v4.api.SeasonApiV4
+import com.mss.core.network.v4.api.SeriesApiV4
+import com.mss.core.network.v4.api.TeamApiV4
+import com.mss.core.network.v4.mapper.TeamCollectionMapper
+import com.mss.core.network.v4.mapper.TeamItemMapper
+import com.mss.core.network.v4.mapper.sort.SeasonTeamOrderMapper
+import com.mss.core.network.v4.mapper.sort.SeriesTeamOrderMapper
 import com.mss.core.utils.Result
-import com.mss.network.api.SeasonApi
-import com.mss.network.api.SeriesApi
-import com.mss.network.api.TeamApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 internal class TeamRepositoryImpl(
-    private val seriesApi: SeriesApi,
-    private val seasonApi: SeasonApi,
-    private val teamApi: TeamApi,
+    private val seriesApiV4: SeriesApiV4,
+    private val seasonApiV4: SeasonApiV4,
+    private val teamApiV4: TeamApiV4,
     private val dispatcher: CoroutineDispatcher,
 ) : TeamRepository {
     override suspend fun getSeriesTeams(
@@ -28,7 +28,7 @@ internal class TeamRepositoryImpl(
         pageable: Pageable
     ): Result<Page<TeamItem>> = withContext(dispatcher) {
         Result.of {
-            seriesApi.getTeams(
+            seriesApiV4.getTeams(
                 series = series,
                 hideZeros = true,
                 orderBy = orderBy.let(SeriesTeamOrderMapper.orderByMapper),
@@ -44,7 +44,7 @@ internal class TeamRepositoryImpl(
         pageable: Pageable
     ): Result<Page<TeamItem>> = withContext(dispatcher) {
         Result.of {
-            seasonApi.getTeams(
+            seasonApiV4.getTeams(
                 season = season,
                 hideZeros = false,
                 orderBy = orderBy.let(SeasonTeamOrderMapper.orderByMapper),
@@ -59,7 +59,7 @@ internal class TeamRepositoryImpl(
         pageable: Pageable
     ): Result<Page<TeamItem>> = withContext(dispatcher) {
         Result.of {
-            teamApi.getCollection(
+            teamApiV4.getCollection(
                 collection = collection.let(TeamCollectionMapper),
                 page = pageable.page,
                 size = pageable.size,

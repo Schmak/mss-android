@@ -1,8 +1,9 @@
 package com.mss.network.api
 
-import com.mss.network.model.*
-import com.mss.network.model.sort.OrderByDto
-import com.mss.network.model.sort.SortFieldDto
+import com.mss.network.model.DriverItemDto
+import com.mss.network.model.PageDto
+import com.mss.network.model.SeriesInfoDto
+import com.mss.network.model.SeriesItemDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -44,15 +45,6 @@ interface SeriesApi {
         @Query("size") size: Int?,
     ): PageDto<DriverItemDto>
 
-    @GET("/web/4.0.0/series/{series}/teams")
-    suspend fun getTeams(
-        @Path("series") series: String,
-        @Query("hideZeros") hideZeros: Boolean,
-        @Query("orderBy") orderBy: OrderByDto<TeamOrder>,
-        @Query("page") page: Int?,
-        @Query("size") size: Int?,
-    ): PageDto<TeamItemDto>
-
     enum class SeriesOrder {
         LastEventDate,
     }
@@ -60,10 +52,5 @@ interface SeriesApi {
     enum class DriverOrder {
         ChampionshipWins,
         Wins,
-    }
-
-    enum class TeamOrder : SortFieldDto {
-        ChampionshipWins,
-        TeamWins,
     }
 }

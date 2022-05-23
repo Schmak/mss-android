@@ -9,7 +9,13 @@ import com.mss.core.domain.repository.DriverRepository
 import com.mss.core.domain.repository.SeriesRepository
 import com.mss.core.domain.repository.TeamRepository
 import com.mss.core.domain.repository.VenueRepository
-import com.mss.network.api.*
+import com.mss.core.network.v4.api.SeasonApiV4
+import com.mss.core.network.v4.api.SeriesApiV4
+import com.mss.core.network.v4.api.TeamApiV4
+import com.mss.network.api.DriverApi
+import com.mss.network.api.SeasonApi
+import com.mss.network.api.SeriesApi
+import com.mss.network.api.VenueApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,16 +54,16 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun providesTeamRepository(
-        seriesApi: SeriesApi,
-        seasonApi: SeasonApi,
-        teamApi: TeamApi,
+        seriesApiV4: SeriesApiV4,
+        seasonApiV4: SeasonApiV4,
+        teamApiV4: TeamApiV4,
         @IoDispatcher
         dispatcher: CoroutineDispatcher,
     ): TeamRepository =
         TeamRepositoryImpl(
-            seriesApi = seriesApi,
-            seasonApi = seasonApi,
-            teamApi = teamApi,
+            seriesApiV4 = seriesApiV4,
+            seasonApiV4 = seasonApiV4,
+            teamApiV4 = teamApiV4,
             dispatcher = dispatcher
         )
 

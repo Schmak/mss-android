@@ -1,12 +1,12 @@
-package com.mss.network.api
+package com.mss.core.network.v4.api
 
-import com.mss.network.model.PageDto
-import com.mss.network.model.TeamItemDto
+import com.mss.core.network.v4.model.PageDto
+import com.mss.core.network.v4.model.TeamItemDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface TeamApi {
+interface TeamApiV4 {
     @GET("/web/4.0.0/teams/collections/{collection}")
     suspend fun getCollection(
         @Path("collection") collection: TeamCollection,

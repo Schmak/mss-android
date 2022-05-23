@@ -1,13 +1,13 @@
-package com.mss.network.api
+package com.mss.core.network.v4.api
 
 import com.mss.core.network.utils.testRetrofit
-import com.mss.network.api.TeamApi.TeamCollection
-import com.mss.network.di.ApiModule
+import com.mss.core.network.v4.api.TeamApiV4.TeamCollection
+import com.mss.core.network.v4.di.ApiV4Module
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 
 internal class TeamApiTest : AbstractApiTest() {
-    private val api = ApiModule.provideTeamApi(testRetrofit)
+    private val api = ApiV4Module.provideTeamApi(testRetrofit)
 
     @ParameterizedTest
     @EnumSource(TeamCollection::class)

@@ -1,4 +1,4 @@
-package com.mss.network.model.sort
+package com.mss.core.network.v4.model.sort
 
 data class OrderByDto<T : SortFieldDto>(
     val field: T,

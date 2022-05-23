@@ -2,8 +2,6 @@ package com.mss.network.api
 
 import com.mss.core.network.utils.testRetrofit
 import com.mss.network.di.ApiModule
-import com.mss.network.model.sort.OrderByDto.Companion.asc
-import com.mss.network.model.sort.OrderByDto.Companion.desc
 import org.junit.jupiter.api.Test
 
 internal class SeriesApiTest : AbstractApiTest() {
@@ -44,28 +42,6 @@ internal class SeriesApiTest : AbstractApiTest() {
         api.getCollection(
             region = null,
             category = "Single Seater",
-            page = 0,
-            size = 10,
-        )
-    }
-
-    @Test
-    fun getTeamsOrderedByTeamWins() = test {
-        api.getTeams(
-            series = SERIES,
-            hideZeros = true,
-            orderBy = SeriesApi.TeamOrder.TeamWins.desc,
-            page = 0,
-            size = 10,
-        )
-    }
-
-    @Test
-    fun getTeamsOrderedByChampWins() = test {
-        api.getTeams(
-            series = SERIES,
-            hideZeros = true,
-            orderBy = SeriesApi.TeamOrder.ChampionshipWins.asc,
             page = 0,
             size = 10,
         )

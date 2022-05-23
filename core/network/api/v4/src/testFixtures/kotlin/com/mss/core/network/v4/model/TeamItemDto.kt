@@ -1,7 +1,7 @@
-package com.mss.network.model
+package com.mss.core.network.v4.model
 
-import com.mss.network.model.ref.CountryReferenceDto
-import com.mss.network.model.ref.create
+import com.mss.core.network.v4.model.ref.CountryReferenceDto
+import com.mss.core.network.v4.model.ref.create
 
 fun TeamItemDto.Companion.create(
     slug: String = "team-slug",

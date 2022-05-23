@@ -7,28 +7,28 @@ import com.mss.core.domain.page.Pageable
 import com.mss.core.domain.repository.TeamRepository
 import com.mss.core.domain.sort.OrderBy.Companion.asc
 import com.mss.core.domain.sort.OrderBy.Companion.desc
-import com.mss.network.api.SeasonApi
-import com.mss.network.api.SeriesApi
-import com.mss.network.api.TeamApi
-import com.mss.network.model.PageDto
-import com.mss.network.model.TeamItemDto
-import com.mss.network.model.create
-import com.mss.network.model.sort.OrderByDto.Companion.asc
-import com.mss.network.model.sort.OrderByDto.Companion.desc
+import com.mss.core.network.v4.api.SeasonApiV4
+import com.mss.core.network.v4.api.SeriesApiV4
+import com.mss.core.network.v4.api.TeamApiV4
+import com.mss.core.network.v4.model.PageDto
+import com.mss.core.network.v4.model.TeamItemDto
+import com.mss.core.network.v4.model.create
+import com.mss.core.network.v4.model.sort.OrderByDto.Companion.asc
+import com.mss.core.network.v4.model.sort.OrderByDto.Companion.desc
 import com.mss.test.BaseRepositoryTest
 import com.mss.utils.coroutines.TestDispatchers
 import io.mockk.mockk
 
 @UnitTest
 internal class TeamRepositoryImplTest : BaseRepositoryTest() {
-    private val seriesApi: SeriesApi = mockk()
-    private val teamApi: TeamApi = mockk()
-    private val seasonApi: SeasonApi = mockk()
+    private val seriesApiV4: SeriesApiV4 = mockk()
+    private val teamApiV4: TeamApiV4 = mockk()
+    private val seasonApiV4: SeasonApiV4 = mockk()
     private val repository: TeamRepository =
         TeamRepositoryImpl(
-            seriesApi = seriesApi,
-            seasonApi = seasonApi,
-            teamApi = teamApi,
+            seriesApiV4 = seriesApiV4,
+            seasonApiV4 = seasonApiV4,
+            teamApiV4 = teamApiV4,
             dispatcher = TestDispatchers.IO,
         )
 
@@ -37,10 +37,10 @@ internal class TeamRepositoryImplTest : BaseRepositoryTest() {
         TestCase(
             name = "getSeriesTeams",
             apiQuery = {
-                seriesApi.getTeams(
+                seriesApiV4.getTeams(
                     series = SERIES,
                     hideZeros = true,
-                    orderBy = SeriesApi.TeamOrder.TeamWins.desc,
+                    orderBy = SeriesApiV4.TeamOrder.TeamWins.desc,
                     page = 8,
                     size = PAGE_SIZE,
                 )
@@ -58,10 +58,10 @@ internal class TeamRepositoryImplTest : BaseRepositoryTest() {
         TestCase(
             name = "getSeasonTeams",
             apiQuery = {
-                seasonApi.getTeams(
+                seasonApiV4.getTeams(
                     season = SEASON,
                     hideZeros = false,
-                    orderBy = SeasonApi.TeamOrder.ChampionshipPosition.asc,
+                    orderBy = SeasonApiV4.TeamOrder.ChampionshipPosition.asc,
                     page = 12,
                     size = PAGE_SIZE,
                 )
@@ -79,8 +79,8 @@ internal class TeamRepositoryImplTest : BaseRepositoryTest() {
         TestCase(
             name = "getCollection",
             apiQuery = {
-                teamApi.getCollection(
-                    TeamApi.TeamCollection.RecentWinners,
+                teamApiV4.getCollection(
+                    TeamApiV4.TeamCollection.RecentWinners,
                     page = 16,
                     size = PAGE_SIZE
                 )
