@@ -2,13 +2,13 @@ package com.mss.core.data.repository
 
 import com.mss.core.domain.SeriesInfo
 import com.mss.core.domain.SeriesItem
-import com.mss.core.domain.mapper.SeriesInfoMapper
-import com.mss.core.domain.mapper.SeriesItemMapper
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
 import com.mss.core.domain.repository.SeriesRepository
+import com.mss.core.network.v3.api.SeriesApi
+import com.mss.core.network.v3.mapper.SeriesInfoMapper
+import com.mss.core.network.v3.mapper.SeriesItemMapper
 import com.mss.core.utils.Result
-import com.mss.network.api.SeriesApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

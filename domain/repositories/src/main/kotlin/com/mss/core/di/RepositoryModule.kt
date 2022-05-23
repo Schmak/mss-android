@@ -9,13 +9,13 @@ import com.mss.core.domain.repository.DriverRepository
 import com.mss.core.domain.repository.SeriesRepository
 import com.mss.core.domain.repository.TeamRepository
 import com.mss.core.domain.repository.VenueRepository
+import com.mss.core.network.v3.api.DriverApi
+import com.mss.core.network.v3.api.SeasonApi
+import com.mss.core.network.v3.api.SeriesApi
+import com.mss.core.network.v3.api.VenueApi
 import com.mss.core.network.v4.api.SeasonApiV4
 import com.mss.core.network.v4.api.SeriesApiV4
 import com.mss.core.network.v4.api.TeamApiV4
-import com.mss.network.api.DriverApi
-import com.mss.network.api.SeasonApi
-import com.mss.network.api.SeriesApi
-import com.mss.network.api.VenueApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
