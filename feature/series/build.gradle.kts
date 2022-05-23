@@ -41,6 +41,7 @@ dependencies {
     implementation(project(Core.UI))
     implementation(project(Core.UTILS))
     implementation(project(Domain.REPOSITORIES))
+    implementation(project(Domain.USE_CASES))
 
     implementation(Deps.Logging.timber)
 

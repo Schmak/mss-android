@@ -1,4 +1,4 @@
-package com.mss.features.series.domain.usecases
+package com.mss.core.domain.usecases
 
 import com.mss.core.domain.repository.SeriesRepository
 import com.mss.core.utils.Result
