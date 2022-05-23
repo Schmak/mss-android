@@ -20,7 +20,7 @@ internal class SeriesApiTest : AbstractApiTest() {
     fun getLeadingSeries() = test {
         api.getSeries(
             filterIds = arrayOf("Active"),
-            orderBy = SeriesApi.SeriesOrder.LastEventDate,
+            orderBy = SeriesApiV3.SeriesOrder.LastEventDate,
             orderDescending = true,
             page = 0,
             size = 10,
@@ -52,7 +52,7 @@ internal class SeriesApiTest : AbstractApiTest() {
         api.getDrivers(
             series = SERIES,
             hideZeros = true,
-            orderBy = SeriesApi.DriverOrder.Wins,
+            orderBy = SeriesApiV3.DriverOrder.Wins,
             orderDescending = false,
             page = 0,
             size = 10,
@@ -64,7 +64,7 @@ internal class SeriesApiTest : AbstractApiTest() {
         api.getDrivers(
             series = SERIES,
             hideZeros = true,
-            orderBy = SeriesApi.DriverOrder.ChampionshipWins,
+            orderBy = SeriesApiV3.DriverOrder.ChampionshipWins,
             orderDescending = true,
             page = 0,
             size = 10,

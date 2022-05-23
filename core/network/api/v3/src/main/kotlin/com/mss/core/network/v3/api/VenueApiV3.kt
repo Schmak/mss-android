@@ -5,7 +5,7 @@ import com.mss.core.network.v3.model.VenueItemDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface VenueApi {
+interface VenueApiV3 {
     @GET("/web/3.0.0/venues")
     suspend fun getVenues(
         @Query("filterIds") filterIds: Array<String>,

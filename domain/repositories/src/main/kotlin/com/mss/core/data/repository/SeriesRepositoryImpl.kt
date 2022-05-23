@@ -5,7 +5,7 @@ import com.mss.core.domain.SeriesItem
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
 import com.mss.core.domain.repository.SeriesRepository
-import com.mss.core.network.v3.api.SeriesApi
+import com.mss.core.network.v3.api.SeriesApiV3
 import com.mss.core.network.v3.mapper.SeriesInfoMapper
 import com.mss.core.network.v3.mapper.SeriesItemMapper
 import com.mss.core.utils.Result
@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 internal class SeriesRepositoryImpl @Inject constructor(
-    private val api: SeriesApi,
+    private val api: SeriesApiV3,
     private val dispatcher: CoroutineDispatcher,
 ) : SeriesRepository {
     override suspend fun getRegions(): Result<List<String>> = withContext(dispatcher) {
@@ -35,7 +35,7 @@ internal class SeriesRepositoryImpl @Inject constructor(
         Result.of {
             api.getSeries(
                 filterIds = arrayOf("Active"),
-                orderBy = SeriesApi.SeriesOrder.LastEventDate,
+                orderBy = SeriesApiV3.SeriesOrder.LastEventDate,
                 orderDescending = true,
                 page = pageable.page,
                 size = pageable.size,

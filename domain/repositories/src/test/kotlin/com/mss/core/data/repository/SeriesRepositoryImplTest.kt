@@ -9,7 +9,7 @@ import com.mss.core.domain.ref.SeasonReference
 import com.mss.core.domain.ref.SeriesReference
 import com.mss.core.domain.ref.create
 import com.mss.core.domain.repository.SeriesRepository
-import com.mss.core.network.v3.api.SeriesApi
+import com.mss.core.network.v3.api.SeriesApiV3
 import com.mss.core.network.v3.model.PageDto
 import com.mss.core.network.v3.model.SeriesInfoDto
 import com.mss.core.network.v3.model.SeriesItemDto
@@ -25,10 +25,10 @@ import io.mockk.mockk
 import kotlin.time.Duration.Companion.days
 
 internal class SeriesRepositoryImplTest : BaseRepositoryTest() {
-    private val seriesApi: SeriesApi = mockk()
+    private val seriesApiV3: SeriesApiV3 = mockk()
     private val repository: SeriesRepository =
         SeriesRepositoryImpl(
-            api = seriesApi,
+            api = seriesApiV3,
             dispatcher = TestDispatchers.IO,
         )
 
@@ -36,21 +36,21 @@ internal class SeriesRepositoryImplTest : BaseRepositoryTest() {
     override fun cases() = listOf(
         TestCase(
             name = "getCategories",
-            apiQuery = { seriesApi.getCategories() },
+            apiQuery = { seriesApiV3.getCategories() },
             apiResponse = CATEGORIES,
             repositoryQuery = { repository.getCategories() },
             expectedRepositoryResponse = CATEGORIES,
         ),
         TestCase(
             name = "getRegions",
-            apiQuery = { seriesApi.getRegions() },
+            apiQuery = { seriesApiV3.getRegions() },
             apiResponse = REGIONS,
             repositoryQuery = { repository.getRegions() },
             expectedRepositoryResponse = REGIONS,
         ),
         TestCase(
             name = "getLeadingSeries",
-            apiQuery = { seriesApi.getGoldenSeries() },
+            apiQuery = { seriesApiV3.getGoldenSeries() },
             apiResponse = listOf(
                 SeriesInfoDto.create(
                     series = SeriesReferenceDto.create(
@@ -81,7 +81,7 @@ internal class SeriesRepositoryImplTest : BaseRepositoryTest() {
         ),
         TestCase(
             name = "getCollection", apiQuery = {
-                seriesApi.getCollection(
+                seriesApiV3.getCollection(
                     region = REGIONS[0],
                     category = CATEGORIES[0],
                     page = 12,
@@ -109,7 +109,7 @@ internal class SeriesRepositoryImplTest : BaseRepositoryTest() {
         TestCase(
             name = "getMostRecent",
             apiQuery = {
-                seriesApi.getSeries(
+                seriesApiV3.getSeries(
                     page = 23,
                     size = PAGE_SIZE,
                     filterIds = any(),

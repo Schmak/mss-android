@@ -8,9 +8,9 @@ import com.mss.core.domain.page.Pageable
 import com.mss.core.domain.repository.DriverRepository
 import com.mss.core.domain.sort.OrderBy.Companion.asc
 import com.mss.core.domain.sort.OrderBy.Companion.desc
-import com.mss.core.network.v3.api.DriverApi
-import com.mss.core.network.v3.api.SeasonApi
-import com.mss.core.network.v3.api.SeriesApi
+import com.mss.core.network.v3.api.DriverApiV3
+import com.mss.core.network.v3.api.SeasonApiV3
+import com.mss.core.network.v3.api.SeriesApiV3
 import com.mss.core.network.v3.model.DriverItemDto
 import com.mss.core.network.v3.model.PageDto
 import com.mss.core.network.v3.model.create
@@ -20,14 +20,14 @@ import io.mockk.mockk
 
 @UnitTest
 internal class DriverRepositoryImplTest : BaseRepositoryTest() {
-    private val seriesApi: SeriesApi = mockk()
-    private val driverApi: DriverApi = mockk()
-    private val seasonApi: SeasonApi = mockk()
+    private val seriesApiV3: SeriesApiV3 = mockk()
+    private val driverApiV3: DriverApiV3 = mockk()
+    private val seasonApiV3: SeasonApiV3 = mockk()
     private val repository: DriverRepository =
         DriverRepositoryImpl(
-            seriesApi = seriesApi,
-            seasonApi = seasonApi,
-            driverApi = driverApi,
+            seriesApiV3 = seriesApiV3,
+            seasonApiV3 = seasonApiV3,
+            driverApiV3 = driverApiV3,
             dispatcher = TestDispatchers.IO,
         )
 
@@ -36,10 +36,10 @@ internal class DriverRepositoryImplTest : BaseRepositoryTest() {
         TestCase(
             name = "getSeriesDrivers",
             apiQuery = {
-                seriesApi.getDrivers(
+                seriesApiV3.getDrivers(
                     series = SERIES,
                     hideZeros = true,
-                    orderBy = SeriesApi.DriverOrder.Wins,
+                    orderBy = SeriesApiV3.DriverOrder.Wins,
                     orderDescending = true,
                     page = 8,
                     size = PAGE_SIZE,
@@ -58,10 +58,10 @@ internal class DriverRepositoryImplTest : BaseRepositoryTest() {
         TestCase(
             name = "getSeasonDrivers",
             apiQuery = {
-                seasonApi.getDrivers(
+                seasonApiV3.getDrivers(
                     season = SEASON,
                     hideZeros = false,
-                    orderBy = SeasonApi.DriverOrder.ChampionshipPosition,
+                    orderBy = SeasonApiV3.DriverOrder.ChampionshipPosition,
                     orderDescending = false,
                     page = 12,
                     size = PAGE_SIZE,
@@ -80,8 +80,8 @@ internal class DriverRepositoryImplTest : BaseRepositoryTest() {
         TestCase(
             name = "getCollection",
             apiQuery = {
-                driverApi.getCollection(
-                    DriverApi.DriverCollection.RecentWinners,
+                driverApiV3.getCollection(
+                    DriverApiV3.DriverCollection.RecentWinners,
                     page = 16,
                     size = PAGE_SIZE
                 )

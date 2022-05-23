@@ -7,8 +7,8 @@ import com.mss.core.domain.page.Pageable
 import com.mss.core.domain.ref.CountryReference
 import com.mss.core.domain.ref.create
 import com.mss.core.domain.repository.VenueRepository
-import com.mss.core.network.v3.api.SeasonApi
-import com.mss.core.network.v3.api.VenueApi
+import com.mss.core.network.v3.api.SeasonApiV3
+import com.mss.core.network.v3.api.VenueApiV3
 import com.mss.core.network.v3.model.PageDto
 import com.mss.core.network.v3.model.VenueItemDto
 import com.mss.core.network.v3.model.create
@@ -20,12 +20,12 @@ import io.mockk.mockk
 
 @UnitTest
 internal class VenueRepositoryImplTest : BaseRepositoryTest() {
-    private val venueApi: VenueApi = mockk()
-    private val seasonApi: SeasonApi = mockk()
+    private val venueApiV3: VenueApiV3 = mockk()
+    private val seasonApiV3: SeasonApiV3 = mockk()
     private val repository: VenueRepository =
         VenueRepositoryImpl(
-            seasonApi = seasonApi,
-            venueApi = venueApi,
+            seasonApiV3 = seasonApiV3,
+            venueApiV3 = venueApiV3,
             dispatcher = TestDispatchers.IO,
         )
 
@@ -34,7 +34,7 @@ internal class VenueRepositoryImplTest : BaseRepositoryTest() {
         TestCase(
             name = "getSeasonVenues",
             apiQuery = {
-                seasonApi.getVenues(
+                seasonApiV3.getVenues(
                     season = SEASON,
                     page = 12,
                     size = PAGE_SIZE,
@@ -52,7 +52,7 @@ internal class VenueRepositoryImplTest : BaseRepositoryTest() {
         TestCase(
             name = "getCollection",
             apiQuery = {
-                venueApi.getVenues(
+                venueApiV3.getVenues(
                     filterIds = arrayOf("Race Circuit"),
                     page = 16,
                     size = PAGE_SIZE

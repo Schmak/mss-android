@@ -1,14 +1,14 @@
 package com.mss.core.network.v3.mapper
 
 import com.mss.core.domain.repository.DriverRepository
-import com.mss.core.network.v3.api.DriverApi
+import com.mss.core.network.v3.api.DriverApiV3
 import com.mss.core.utils.Mapper
 
-object DriverCollectionMapper : Mapper<DriverRepository.Collection, DriverApi.DriverCollection> {
-    override fun DriverRepository.Collection.map(): DriverApi.DriverCollection = when (this) {
-        DriverRepository.Collection.Anniversaries -> DriverApi.DriverCollection.Anniversaries
-        DriverRepository.Collection.Debutants -> DriverApi.DriverCollection.Debutants
-        DriverRepository.Collection.RecentWinners -> DriverApi.DriverCollection.RecentWinners
-        DriverRepository.Collection.ChampionshipLeaders -> DriverApi.DriverCollection.ChampionshipLeaders
+object DriverCollectionMapper : Mapper<DriverRepository.Collection, DriverApiV3.DriverCollection> {
+    override fun DriverRepository.Collection.map(): DriverApiV3.DriverCollection = when (this) {
+        DriverRepository.Collection.Anniversaries -> DriverApiV3.DriverCollection.Anniversaries
+        DriverRepository.Collection.Debutants -> DriverApiV3.DriverCollection.Debutants
+        DriverRepository.Collection.RecentWinners -> DriverApiV3.DriverCollection.RecentWinners
+        DriverRepository.Collection.ChampionshipLeaders -> DriverApiV3.DriverCollection.ChampionshipLeaders
     }
 }

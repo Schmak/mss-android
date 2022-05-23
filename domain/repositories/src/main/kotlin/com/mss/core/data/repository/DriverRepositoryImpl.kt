@@ -6,9 +6,9 @@ import com.mss.core.domain.page.Pageable
 import com.mss.core.domain.repository.DriverRepository
 import com.mss.core.domain.sort.Direction
 import com.mss.core.domain.sort.OrderBy
-import com.mss.core.network.v3.api.DriverApi
-import com.mss.core.network.v3.api.SeasonApi
-import com.mss.core.network.v3.api.SeriesApi
+import com.mss.core.network.v3.api.DriverApiV3
+import com.mss.core.network.v3.api.SeasonApiV3
+import com.mss.core.network.v3.api.SeriesApiV3
 import com.mss.core.network.v3.mapper.DriverCollectionMapper
 import com.mss.core.network.v3.mapper.DriverItemMapper
 import com.mss.core.network.v3.mapper.sort.SeasonDriverOrderMapper
@@ -18,9 +18,9 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 internal class DriverRepositoryImpl(
-    private val seriesApi: SeriesApi,
-    private val seasonApi: SeasonApi,
-    private val driverApi: DriverApi,
+    private val seriesApiV3: SeriesApiV3,
+    private val seasonApiV3: SeasonApiV3,
+    private val driverApiV3: DriverApiV3,
     private val dispatcher: CoroutineDispatcher,
 ) : DriverRepository {
     override suspend fun getSeriesDrivers(
@@ -29,7 +29,7 @@ internal class DriverRepositoryImpl(
         pageable: Pageable
     ): Result<Page<DriverItem>> = withContext(dispatcher) {
         Result.of {
-            seriesApi.getDrivers(
+            seriesApiV3.getDrivers(
                 series = series,
                 hideZeros = true,
                 orderBy = orderBy.field.let(SeriesDriverOrderMapper),
@@ -46,7 +46,7 @@ internal class DriverRepositoryImpl(
         pageable: Pageable
     ): Result<Page<DriverItem>> = withContext(dispatcher) {
         Result.of {
-            seasonApi.getDrivers(
+            seasonApiV3.getDrivers(
                 season = season,
                 hideZeros = false,
                 orderBy = orderBy.field.let(SeasonDriverOrderMapper),
@@ -62,7 +62,7 @@ internal class DriverRepositoryImpl(
         pageable: Pageable
     ): Result<Page<DriverItem>> = withContext(dispatcher) {
         Result.of {
-            driverApi.getCollection(
+            driverApiV3.getCollection(
                 collection = collection.let(DriverCollectionMapper),
                 page = pageable.page,
                 size = pageable.size,

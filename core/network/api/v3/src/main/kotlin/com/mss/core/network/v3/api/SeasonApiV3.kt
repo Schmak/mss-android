@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface SeasonApi {
+interface SeasonApiV3 {
     @GET("/web/3.0.0/seasons/{season}/drivers")
     suspend fun getDrivers(
         @Path("season") season: String,

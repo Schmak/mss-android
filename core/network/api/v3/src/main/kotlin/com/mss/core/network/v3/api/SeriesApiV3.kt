@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface SeriesApi {
+interface SeriesApiV3 {
     @GET("/web/3.0.0/series/categories")
     suspend fun getCategories(): List<String>
 

@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface DriverApi {
+interface DriverApiV3 {
     @GET("/web/3.0.0/drivers/collections/{collection}")
     suspend fun getCollection(
         @Path("collection") collection: DriverCollection,

@@ -1,9 +1,9 @@
 package com.mss.core.network.v3.di
 
-import com.mss.core.network.v3.api.DriverApi
-import com.mss.core.network.v3.api.SeasonApi
-import com.mss.core.network.v3.api.SeriesApi
-import com.mss.core.network.v3.api.VenueApi
+import com.mss.core.network.v3.api.DriverApiV3
+import com.mss.core.network.v3.api.SeasonApiV3
+import com.mss.core.network.v3.api.SeriesApiV3
+import com.mss.core.network.v3.api.VenueApiV3
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,14 +15,14 @@ import retrofit2.create
 @InstallIn(SingletonComponent::class)
 object ApiModuleV3 {
     @Provides
-    fun provideSeriesApi(retrofit: Retrofit): SeriesApi = retrofit.create()
+    fun provideSeriesApi(retrofit: Retrofit): SeriesApiV3 = retrofit.create()
 
     @Provides
-    fun provideSeasonApi(retrofit: Retrofit): SeasonApi = retrofit.create()
+    fun provideSeasonApi(retrofit: Retrofit): SeasonApiV3 = retrofit.create()
 
     @Provides
-    fun provideDriverApi(retrofit: Retrofit): DriverApi = retrofit.create()
+    fun provideDriverApi(retrofit: Retrofit): DriverApiV3 = retrofit.create()
 
     @Provides
-    fun provideVenueApi(retrofit: Retrofit): VenueApi = retrofit.create()
+    fun provideVenueApi(retrofit: Retrofit): VenueApiV3 = retrofit.create()
 }

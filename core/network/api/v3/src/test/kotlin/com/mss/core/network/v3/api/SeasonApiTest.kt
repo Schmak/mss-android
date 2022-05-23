@@ -14,7 +14,7 @@ internal class SeasonApiTest : AbstractApiTest() {
             hideZeros = false,
             page = 0,
             size = 10,
-            orderBy = SeasonApi.DriverOrder.ChampionshipPosition,
+            orderBy = SeasonApiV3.DriverOrder.ChampionshipPosition,
             orderDescending = false,
         )
     }
