@@ -13,26 +13,30 @@ import kotlinx.coroutines.flow.emptyFlow
 data class ResultsLandingModelState(
     val categories: List<String> = emptyList(),
     val selectedCategoryIdx: Int = 0,
-    val mostRecent: Flow<PagingData<UiItem>> = emptyFlow(),
-    val forthcoming: Flow<PagingData<UiItem>> = emptyFlow(),
-    val categorySessions: Flow<PagingData<UiItem>> = emptyFlow(),
-    val mostPopular: Flow<PagingData<UiItem>> = emptyFlow(),
+    val mostRecent: Block = Block(),
+    val forthcoming: Block = Block(),
+    val categorySessions: Block = Block(),
+    val mostPopular: Block = Block(),
     val isLoading: Boolean = false,
     val errorMessageId: Int? = null
 ) {
+    data class Block(
+        val flow: Flow<PagingData<UiItem>> = emptyFlow(),
+    )
+
     fun toUiState(): LandingUiState {
         return LandingUiState(
             titleId = R.string.results,
             blocks = listOf(
                 LandingBlockState(
                     titleId = R.string.most_recent,
-                    itemsFlow = mostRecent,
+                    itemsFlow = mostRecent.flow,
                     action = action(ActionBlockId.MostRecent),
                     itemsConfig = UiItem.Configuration.WithTwoSubtitles
                 ),
                 LandingBlockState(
                     titleId = R.string.forthcoming,
-                    itemsFlow = forthcoming,
+                    itemsFlow = forthcoming.flow,
                     action = action(ActionBlockId.Forthcoming),
                     itemsConfig = UiItem.Configuration.WithTwoSubtitles,
                 ),
@@ -44,13 +48,13 @@ data class ResultsLandingModelState(
                         values = categories,
                         selectedIdx = selectedCategoryIdx,
                     ),
-                    itemsFlow = categorySessions,
+                    itemsFlow = categorySessions.flow,
                     action = action(ActionBlockId.Categories),
                     itemsConfig = UiItem.Configuration.WithTwoSubtitles,
                 ),
                 LandingBlockState(
                     titleId = R.string.most_popular,
-                    itemsFlow = mostPopular,
+                    itemsFlow = mostPopular.flow,
                     action = action(ActionBlockId.MostPopular),
                     itemsConfig = UiItem.Configuration.WithTwoSubtitles,
                 ),

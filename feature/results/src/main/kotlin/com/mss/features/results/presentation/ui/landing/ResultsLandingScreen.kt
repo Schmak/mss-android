@@ -12,6 +12,7 @@ import com.mss.core.ui.data.mock.MockSessionData
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.utils.asPageFlow
 import com.mss.features.results.presentation.ui.landing.state.ResultsLandingModelState
+import com.mss.features.results.presentation.ui.landing.state.ResultsLandingModelState.Block
 
 @Composable
 fun ResultsLandingScreen(
@@ -34,10 +35,10 @@ fun PreviewResultsLandingScreen() {
             LandingScreen(
                 uiState = ResultsLandingModelState(
                     categories = MockSeriesData.categories,
-                    mostRecent = MockSessionData.mostRecent.asPageFlow(),
-                    mostPopular = MockSessionData.mostPopular.asPageFlow(),
-                    forthcoming = MockSessionData.forthcoming.asPageFlow(),
-                    categorySessions = MockSessionData.categorySessions.asPageFlow(),
+                    mostRecent = Block(MockSessionData.mostRecent.asPageFlow()),
+                    mostPopular = Block(MockSessionData.mostPopular.asPageFlow()),
+                    forthcoming = Block(MockSessionData.forthcoming.asPageFlow()),
+                    categorySessions = Block(MockSessionData.categorySessions.asPageFlow()),
                 )
                     .toUiState()
             )

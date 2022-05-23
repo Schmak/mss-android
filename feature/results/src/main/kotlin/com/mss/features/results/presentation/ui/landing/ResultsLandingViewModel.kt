@@ -15,6 +15,7 @@ import com.mss.features.results.domain.usecases.GetSessionsBySeriesCategory
 import com.mss.features.results.presentation.mapper.SessionItemMapper
 import com.mss.features.results.presentation.ui.landing.BlockId.Categories
 import com.mss.features.results.presentation.ui.landing.state.ResultsLandingModelState
+import com.mss.features.results.presentation.ui.landing.state.ResultsLandingModelState.Block
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -43,23 +44,31 @@ class ResultsLandingViewModel @Inject constructor(
     init {
         viewModelState.update { state ->
             state.copy(
-                mostRecent = refreshActions
-                    .flatMapLatest { getSessionCollection(MostRecent) }
-                    .mapPage(SessionItemMapper)
-                    .cachedIn(viewModelScope),
-                mostPopular = refreshActions
-                    .flatMapLatest { getSessionCollection(MostPopular) }
-                    .mapPage(SessionItemMapper)
-                    .cachedIn(viewModelScope),
-                forthcoming = refreshActions
-                    .flatMapLatest { getSessionCollection(Forthcoming) }
-                    .mapPage(SessionItemMapper)
-                    .cachedIn(viewModelScope),
-                categorySessions = actions.filterByCategory(Categories)
-                    .mapNotNull { viewModelState.value.categories.getOrNull(it.idx) }
-                    .flatMapLatest { getSessionsBySeriesCategory(it) }
-                    .mapPage(SessionItemMapper)
-                    .cachedIn(viewModelScope),
+                mostRecent = Block(
+                    flow = refreshActions
+                        .flatMapLatest { getSessionCollection(MostRecent) }
+                        .mapPage(SessionItemMapper)
+                        .cachedIn(viewModelScope)
+                ),
+                mostPopular = Block(
+                    flow = refreshActions
+                        .flatMapLatest { getSessionCollection(MostPopular) }
+                        .mapPage(SessionItemMapper)
+                        .cachedIn(viewModelScope)
+                ),
+                forthcoming = Block(
+                    flow = refreshActions
+                        .flatMapLatest { getSessionCollection(Forthcoming) }
+                        .mapPage(SessionItemMapper)
+                        .cachedIn(viewModelScope)
+                ),
+                categorySessions = Block(
+                    flow = actions.filterByCategory(Categories)
+                        .mapNotNull { viewModelState.value.categories.getOrNull(it.idx) }
+                        .flatMapLatest { getSessionsBySeriesCategory(it) }
+                        .mapPage(SessionItemMapper)
+                        .cachedIn(viewModelScope)
+                ),
             )
         }
         refresh()
