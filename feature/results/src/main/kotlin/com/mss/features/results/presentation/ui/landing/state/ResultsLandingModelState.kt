@@ -22,6 +22,7 @@ data class ResultsLandingModelState(
 ) {
     data class Block(
         val flow: Flow<PagingData<UiItem>> = emptyFlow(),
+        val timeType: TimeType = TimeType.Venue,
     )
 
     fun toUiState(): LandingUiState {

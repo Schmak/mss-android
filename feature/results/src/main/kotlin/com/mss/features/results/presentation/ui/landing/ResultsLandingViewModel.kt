@@ -1,13 +1,16 @@
 package com.mss.features.results.presentation.ui.landing
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
+import com.mss.core.domain.SessionItem
 import com.mss.core.domain.repository.SessionRepository.Collection.*
 import com.mss.core.domain.usecases.GetSeriesCategories
 import com.mss.core.ui.components.landing.UiAction
 import com.mss.core.ui.components.landing.UiAction.Companion.filterByCategory
 import com.mss.core.ui.components.landing.viewmodel.AbstractLandingViewModel
-import com.mss.core.ui.utils.mapPage
+import com.mss.core.ui.model.UiItem
 import com.mss.core.utils.Result.Success
 import com.mss.features.results.R
 import com.mss.features.results.domain.usecases.GetSessionCollection
@@ -16,6 +19,7 @@ import com.mss.features.results.presentation.mapper.SessionItemMapper
 import com.mss.features.results.presentation.ui.landing.BlockId.Categories
 import com.mss.features.results.presentation.ui.landing.state.ResultsLandingModelState
 import com.mss.features.results.presentation.ui.landing.state.ResultsLandingModelState.Block
+import com.mss.features.results.presentation.ui.landing.state.TimeType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -47,38 +51,72 @@ class ResultsLandingViewModel @Inject constructor(
                 mostRecent = Block(
                     flow = refreshActions
                         .flatMapLatest { getSessionCollection(MostRecent) }
-                        .mapPage(SessionItemMapper)
                         .cachedIn(viewModelScope)
+                        .mappedWithMapperOf { it.mostRecent }
                 ),
                 mostPopular = Block(
                     flow = refreshActions
                         .flatMapLatest { getSessionCollection(MostPopular) }
-                        .mapPage(SessionItemMapper)
                         .cachedIn(viewModelScope)
+                        .mappedWithMapperOf { it.mostPopular }
                 ),
                 forthcoming = Block(
                     flow = refreshActions
                         .flatMapLatest { getSessionCollection(Forthcoming) }
-                        .mapPage(SessionItemMapper)
                         .cachedIn(viewModelScope)
+                        .mappedWithMapperOf { it.forthcoming }
                 ),
                 categorySessions = Block(
                     flow = actions.filterByCategory(Categories)
                         .mapNotNull { viewModelState.value.categories.getOrNull(it.idx) }
                         .flatMapLatest { getSessionsBySeriesCategory(it) }
-                        .mapPage(SessionItemMapper)
                         .cachedIn(viewModelScope)
+                        .mappedWithMapperOf { it.categorySessions }
                 ),
             )
         }
         refresh()
     }
 
+    private fun Flow<PagingData<SessionItem>>.mappedWithMapperOf(
+        selector: (ResultsLandingModelState) -> Block
+    ): Flow<PagingData<UiItem>> = combine(
+        viewModelState
+            .map(selector)
+            .map { it.timeType }
+            .distinctUntilChanged()
+    ) { data, timeType ->
+        val mapper = when (timeType) {
+            TimeType.Client -> SessionItemMapper.ClientTime
+            TimeType.Venue -> SessionItemMapper.VenueTime
+        }
+        data.map(mapper)
+    }
+
+    override fun handleActionButtonClick(blockId: Any?) = when (blockId) {
+        ActionBlockId.MostPopular -> viewModelState.update {
+            it.copy(mostPopular = toggleTimeType(it.mostPopular))
+        }
+        ActionBlockId.MostRecent -> viewModelState.update {
+            it.copy(mostRecent = toggleTimeType(it.mostRecent))
+        }
+        ActionBlockId.Categories -> viewModelState.update {
+            it.copy(categorySessions = toggleTimeType(it.categorySessions))
+        }
+        ActionBlockId.Forthcoming -> viewModelState.update {
+            it.copy(forthcoming = toggleTimeType(it.forthcoming))
+        }
+        else -> Timber.e("handleActionButtonClick: '$blockId' block is not supported")
+    }
+
+    private fun toggleTimeType(block: Block): Block =
+        block.copy(timeType = block.timeType.next())
+
     override fun selectCategory(action: UiAction.SelectCategory) =
         if (action.blockId == Categories)
             viewModelState.update { it.copy(selectedCategoryIdx = action.idx) }
         else
-            Timber.e("'${action.blockId}' block is not supported")
+            Timber.e("selectCategory: '${action.blockId}' block is not supported")
 
     override fun refresh() {
         viewModelState.update {
@@ -104,6 +142,10 @@ class ResultsLandingViewModel @Inject constructor(
             viewModelState.update {
                 it.copy(
                     categories = categories.data,
+                    mostRecent = it.mostRecent.copy(timeType = TimeType.Venue),
+                    mostPopular = it.mostPopular.copy(timeType = TimeType.Venue),
+                    categorySessions = it.categorySessions.copy(timeType = TimeType.Venue),
+                    forthcoming = it.forthcoming.copy(timeType = TimeType.Venue),
                     isLoading = false,
                     errorMessageId = null,
                 )
