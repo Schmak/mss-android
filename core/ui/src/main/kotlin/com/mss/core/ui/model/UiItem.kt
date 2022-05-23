@@ -9,11 +9,22 @@ data class UiItem(
     val subtitles: List<String?> = emptyList(),
 ) {
     sealed class Configuration(
-        val subtitles: List<SubtitleColor>
+        val subtitles: List<Subtitle>
     ) {
-        object Default : Configuration(listOf(Cyan))
+        object Default : Configuration(listOf(Subtitle(Cyan)))
         object NoSubtitle : Configuration(emptyList())
-        object WithTwoSubtitles : Configuration(listOf(Capri, Cyan))
+        object WithTwoSubtitles : Configuration(
+            listOf(Subtitle(Capri), Subtitle(Cyan))
+        )
+
+        object WithLongSecondSubtitle : Configuration(
+            listOf(Subtitle(Capri), Subtitle(Cyan, maxLines = 2))
+        )
+
+        data class Subtitle(
+            val color: SubtitleColor,
+            val maxLines: Int = 1,
+        )
 
         enum class SubtitleColor {
             Cyan,

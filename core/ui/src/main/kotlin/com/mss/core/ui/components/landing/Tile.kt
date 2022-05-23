@@ -73,10 +73,11 @@ fun Tile(
         itemConfig.subtitles.forEachIndexed { idx, config ->
             Subtitle(
                 text = item?.subtitles?.getOrNull(idx),
-                color = when (config) {
+                color = when (config.color) {
                     Capri -> MaterialTheme.colors.capriSubtitle
                     Cyan -> MaterialTheme.colors.cyanSubtitle
                 },
+                maxLines = config.maxLines,
                 placeholderVisible = placeholderVisible,
             )
         }
@@ -87,6 +88,7 @@ fun Tile(
 private fun Subtitle(
     text: String?,
     color: Color,
+    maxLines: Int,
     placeholderVisible: Boolean,
 ) {
     Text(
@@ -94,7 +96,7 @@ private fun Subtitle(
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.body1,
         color = color,
-        maxLines = 1,
+        maxLines = maxLines,
         overflow = TextOverflow.Ellipsis,
         modifier = Modifier
             .widthIn(min = Tile.subtitlePlaceHolderWidth)

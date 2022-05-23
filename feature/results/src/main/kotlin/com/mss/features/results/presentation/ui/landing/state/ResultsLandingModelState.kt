@@ -33,13 +33,13 @@ data class ResultsLandingModelState(
                     titleId = R.string.most_recent,
                     itemsFlow = mostRecent.flow,
                     action = action(ActionBlockId.MostRecent),
-                    itemsConfig = UiItem.Configuration.WithTwoSubtitles
+                    itemsConfig = UiItem.Configuration.WithLongSecondSubtitle
                 ),
                 LandingBlockState(
                     titleId = R.string.forthcoming,
                     itemsFlow = forthcoming.flow,
                     action = action(ActionBlockId.Forthcoming),
-                    itemsConfig = UiItem.Configuration.WithTwoSubtitles,
+                    itemsConfig = UiItem.Configuration.WithLongSecondSubtitle,
                 ),
                 LandingBlockState(
                     titleId = R.string.categories,
@@ -51,13 +51,13 @@ data class ResultsLandingModelState(
                     ),
                     itemsFlow = categorySessions.flow,
                     action = action(ActionBlockId.Categories),
-                    itemsConfig = UiItem.Configuration.WithTwoSubtitles,
+                    itemsConfig = UiItem.Configuration.WithLongSecondSubtitle,
                 ),
                 LandingBlockState(
                     titleId = R.string.most_popular,
                     itemsFlow = mostPopular.flow,
                     action = action(ActionBlockId.MostPopular),
-                    itemsConfig = UiItem.Configuration.WithTwoSubtitles,
+                    itemsConfig = UiItem.Configuration.WithLongSecondSubtitle,
                 ),
             ),
             isLoading = isLoading,
