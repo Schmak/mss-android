@@ -1,24 +1,24 @@
-package com.mss.test
+package com.mss.core.data.repository
 
-import com.mss.annotation.CoroutineTest
-import com.mss.annotation.UnitTest
+import com.mss.core.test.annotation.CoroutineTest
+import com.mss.core.test.annotation.UnitTest
+import com.mss.core.test.junit5.AbstractTestCaseWithOrigin
+import com.mss.core.test.utils.coroutines.TestDispatchers
+import com.mss.core.test.utils.coroutines.verify
 import com.mss.core.utils.Result
-import com.mss.junit5.AbstractTestCaseWithOrigin
-import com.mss.utils.coroutines.TestDispatchers
-import com.mss.utils.coroutines.verify
 import io.mockk.MockKMatcherScope
 import io.mockk.coEvery
 import io.mockk.coVerify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 
 @UnitTest
 @CoroutineTest
 @OptIn(ExperimentalCoroutinesApi::class)
-abstract class BaseRepositoryTest {
+abstract class AbstractRepositoryTest {
     @ParameterizedTest
     @MethodSource("cases")
     fun `check dispatcher`(case: TestCase<*, *>) = runTest {
@@ -32,7 +32,7 @@ abstract class BaseRepositoryTest {
 
         val actual = case.repositoryQuery()
         coVerify(exactly = 1) { case.apiQuery(this) }
-        assertThat(actual).isEqualTo(Result.Success(case.expectedRepositoryResponse))
+        Assertions.assertThat(actual).isEqualTo(Result.Success(case.expectedRepositoryResponse))
     }
 
     @ParameterizedTest
@@ -42,7 +42,7 @@ abstract class BaseRepositoryTest {
 
         val actual = case.repositoryQuery()
         coVerify(exactly = 1) { case.apiQuery(this) }
-        assertThat(actual).isEqualTo(Result.Error(EXCEPTION))
+        Assertions.assertThat(actual).isEqualTo(Result.Error(EXCEPTION))
     }
 
     protected abstract fun cases(): List<TestCase<*, *>>

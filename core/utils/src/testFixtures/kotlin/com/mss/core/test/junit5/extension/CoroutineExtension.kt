@@ -1,6 +1,6 @@
-package com.mss.junit5.extension
+package com.mss.core.test.junit5.extension
 
-import com.mss.utils.coroutines.TestDispatchers
+import com.mss.core.test.utils.coroutines.TestDispatchers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain

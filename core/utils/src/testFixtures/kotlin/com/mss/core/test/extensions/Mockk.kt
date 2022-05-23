@@ -1,4 +1,4 @@
-package com.mss.extensions
+package com.mss.core.test.extensions
 
 import io.mockk.MockK
 import io.mockk.MockKGateway

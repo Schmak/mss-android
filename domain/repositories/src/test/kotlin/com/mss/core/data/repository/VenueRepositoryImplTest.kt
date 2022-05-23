@@ -1,6 +1,5 @@
 package com.mss.core.data.repository
 
-import com.mss.annotation.UnitTest
 import com.mss.core.domain.VenueItem
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
@@ -14,12 +13,12 @@ import com.mss.core.network.v3.model.VenueItemDto
 import com.mss.core.network.v3.model.create
 import com.mss.core.network.v3.model.ref.CountryReferenceDto
 import com.mss.core.network.v3.model.ref.create
-import com.mss.test.BaseRepositoryTest
-import com.mss.utils.coroutines.TestDispatchers
+import com.mss.core.test.annotation.UnitTest
+import com.mss.core.test.utils.coroutines.TestDispatchers
 import io.mockk.mockk
 
 @UnitTest
-internal class VenueRepositoryImplTest : BaseRepositoryTest() {
+internal class VenueRepositoryImplTest : AbstractRepositoryTest() {
     private val venueApiV3: VenueApiV3 = mockk()
     private val seasonApiV3: SeasonApiV3 = mockk()
     private val repository: VenueRepository =

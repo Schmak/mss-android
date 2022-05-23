@@ -1,4 +1,4 @@
-package com.mss.junit5
+package com.mss.core.test.junit5
 
 abstract class AbstractTestCaseWithOrigin : ITestCaseWithOrigin {
     final override val constructedAt: String =

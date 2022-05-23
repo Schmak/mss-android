@@ -1,6 +1,5 @@
 package com.mss.core.data.repository
 
-import com.mss.annotation.UnitTest
 import com.mss.core.domain.DriverItem
 import com.mss.core.domain.create
 import com.mss.core.domain.page.Page
@@ -14,12 +13,12 @@ import com.mss.core.network.v3.api.SeriesApiV3
 import com.mss.core.network.v3.model.DriverItemDto
 import com.mss.core.network.v3.model.PageDto
 import com.mss.core.network.v3.model.create
-import com.mss.test.BaseRepositoryTest
-import com.mss.utils.coroutines.TestDispatchers
+import com.mss.core.test.annotation.UnitTest
+import com.mss.core.test.utils.coroutines.TestDispatchers
 import io.mockk.mockk
 
 @UnitTest
-internal class DriverRepositoryImplTest : BaseRepositoryTest() {
+internal class DriverRepositoryImplTest : AbstractRepositoryTest() {
     private val seriesApiV3: SeriesApiV3 = mockk()
     private val driverApiV3: DriverApiV3 = mockk()
     private val seasonApiV3: SeasonApiV3 = mockk()

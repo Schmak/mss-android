@@ -1,4 +1,4 @@
-package com.mss.asserts
+package com.mss.core.test.asserts
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature

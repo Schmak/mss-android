@@ -1,7 +1,7 @@
 package com.mss.core.network.v3.api
 
-import com.mss.annotation.IntegrationTest
 import com.mss.core.network.v3.model.PageDto
+import com.mss.core.test.annotation.IntegrationTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat

@@ -1,6 +1,6 @@
 package com.mss.mockk
 
-import com.mss.annotation.UnitTest
+import com.mss.core.test.annotation.UnitTest
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat

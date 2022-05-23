@@ -1,4 +1,4 @@
-package com.mss.utils.coroutines
+package com.mss.core.test.utils.coroutines
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,6 +1,6 @@
-package com.mss.junit5.extension
+package com.mss.core.test.junit5.extension
 
-import com.mss.asserts.PrettyRepresentation
+import com.mss.core.test.asserts.PrettyRepresentation
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.extension.BeforeAllCallback
 import org.junit.jupiter.api.extension.ExtensionContext

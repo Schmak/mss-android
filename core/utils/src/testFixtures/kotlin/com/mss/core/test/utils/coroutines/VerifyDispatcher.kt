@@ -1,4 +1,4 @@
-package com.mss.utils.coroutines
+package com.mss.core.test.utils.coroutines
 
 import io.mockk.MockKMatcherScope
 

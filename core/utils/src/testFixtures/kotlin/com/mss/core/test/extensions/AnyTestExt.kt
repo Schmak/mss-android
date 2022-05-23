@@ -1,4 +1,4 @@
-package com.mss.extensions
+package com.mss.core.test.extensions
 
 @Suppress("UNCHECKED_CAST")
 fun <T> Any.getField(name: String): T =

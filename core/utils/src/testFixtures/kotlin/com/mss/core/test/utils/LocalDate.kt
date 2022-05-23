@@ -1,6 +1,6 @@
 @file:Suppress("MagicNumber")
 
-package com.mss.utils
+package com.mss.core.test.utils
 
 import java.time.LocalDate
 

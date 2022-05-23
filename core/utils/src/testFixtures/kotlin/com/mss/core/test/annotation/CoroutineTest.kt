@@ -1,6 +1,6 @@
-package com.mss.annotation
+package com.mss.core.test.annotation
 
-import com.mss.junit5.extension.CoroutineExtension
+import com.mss.core.test.junit5.extension.CoroutineExtension
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.parallel.Execution

@@ -1,6 +1,5 @@
 package com.mss.core.data.repository
 
-import com.mss.annotation.UnitTest
 import com.mss.core.domain.TeamItem
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
@@ -15,12 +14,12 @@ import com.mss.core.network.v4.model.TeamItemDto
 import com.mss.core.network.v4.model.create
 import com.mss.core.network.v4.model.sort.OrderByDto.Companion.asc
 import com.mss.core.network.v4.model.sort.OrderByDto.Companion.desc
-import com.mss.test.BaseRepositoryTest
-import com.mss.utils.coroutines.TestDispatchers
+import com.mss.core.test.annotation.UnitTest
+import com.mss.core.test.utils.coroutines.TestDispatchers
 import io.mockk.mockk
 
 @UnitTest
-internal class TeamRepositoryImplTest : BaseRepositoryTest() {
+internal class TeamRepositoryImplTest : AbstractRepositoryTest() {
     private val seriesApiV4: SeriesApiV4 = mockk()
     private val teamApiV4: TeamApiV4 = mockk()
     private val seasonApiV4: SeasonApiV4 = mockk()
