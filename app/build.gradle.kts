@@ -76,6 +76,7 @@ dependencies {
     implementation(project(Core.UI))
     implementation(project(Features.SERIES))
     implementation(project(Features.DRIVER))
+    implementation(project(Features.RESULTS))
     implementation(project(Features.TEAM))
     implementation(project(Features.VENUE))
 

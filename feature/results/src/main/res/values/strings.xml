@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="forthcoming">Forthcoming</string>
+    <string name="most_popular">Most popular</string>
+    <string name="most_recent">Most Recent</string>
+</resources>

@@ -12,7 +12,7 @@ import kotlin.random.Random
 object MockSeriesData {
     private val random = Random(12_345)
 
-    private val pictures = listOf(
+    val pictures = listOf(
         "a33f8b4a-2b22-41ce-8e7d-0aea08f0e176", "a485d01c-f907-4ff7-83db-ca1c90cc28a1",
         "10904579-6e07-4a99-9b1f-19725110ceef", "7415d1ab-c31d-49dd-9143-1e7e33bff889",
         "967cd5ab-5562-40dc-a0b0-109738adcd01", "0f0f963a-d489-4b9a-8945-71d99bfabd62",

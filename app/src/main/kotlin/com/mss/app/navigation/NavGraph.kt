@@ -1,15 +1,13 @@
 package com.mss.app.navigation
 
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.mss.app.R
 import com.mss.app.navigation.Route.Companion.composable
 import com.mss.features.driver.presentation.ui.landing.DriverLandingScreen
+import com.mss.features.results.presentation.ui.landing.ResultsLandingScreen
 import com.mss.features.series.presentation.ui.landing.SeriesLandingScreen
 import com.mss.features.team.presentation.ui.landing.TeamLandingScreen
 import com.mss.features.venue.presentation.ui.landing.VenueLandingScreen
@@ -26,7 +24,7 @@ fun NavGraph(
         modifier = modifier
     ) {
         composable(Route.Series) { SeriesLandingScreen(hiltViewModel()) }
-        composable(Route.Results) { Text(stringResource(R.string.results)) }
+        composable(Route.Results) { ResultsLandingScreen(hiltViewModel()) }
         composable(Route.Drivers) { DriverLandingScreen(hiltViewModel()) }
         composable(Route.Teams) { TeamLandingScreen(hiltViewModel()) }
         composable(Route.Venues) { VenueLandingScreen(hiltViewModel()) }
