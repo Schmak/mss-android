@@ -6,4 +6,5 @@
     <string name="switch_time_format">Switch time format</string>
     <string name="venue_time">%1$s (venue time)</string>
     <string name="your_time">%1$s (your time)</string>
+    <string name="time_format">EEEE MMM d\nHH:mm</string>
 </resources>
