@@ -1,12 +1,13 @@
 package com.mss.features.driver.presentation.mapper
 
 import com.mss.core.domain.DriverItem
+import com.mss.core.ui.model.SimpleUiItem
 import com.mss.core.ui.model.UiItem
 import com.mss.core.utils.Mapper
 
 object DriverItemMapper : Mapper<DriverItem, UiItem> {
     override fun DriverItem.map() =
-        UiItem(
+        SimpleUiItem(
             imageUrl = picture.orEmpty(),
             title = name,
             subtitles = listOf(
