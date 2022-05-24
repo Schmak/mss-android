@@ -4,6 +4,7 @@ import androidx.paging.PagingData
 import com.mss.core.ui.model.LandingBlockState
 import com.mss.core.ui.model.LandingUiState
 import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.UiItemConfiguration.WithLongSecondSubtitle
 import com.mss.features.results.R
 import com.mss.features.results.presentation.ui.landing.ActionBlockId
 import com.mss.features.results.presentation.ui.landing.BlockId
@@ -33,13 +34,13 @@ data class ResultsLandingModelState(
                     titleId = R.string.most_recent,
                     itemsFlow = mostRecent.flow,
                     action = action(ActionBlockId.MostRecent),
-                    itemsConfig = UiItem.Configuration.WithLongSecondSubtitle
+                    itemsConfig = WithLongSecondSubtitle
                 ),
                 LandingBlockState(
                     titleId = R.string.forthcoming,
                     itemsFlow = forthcoming.flow,
                     action = action(ActionBlockId.Forthcoming),
-                    itemsConfig = UiItem.Configuration.WithLongSecondSubtitle,
+                    itemsConfig = WithLongSecondSubtitle,
                 ),
                 LandingBlockState(
                     titleId = R.string.categories,
@@ -51,13 +52,13 @@ data class ResultsLandingModelState(
                     ),
                     itemsFlow = categorySessions.flow,
                     action = action(ActionBlockId.Categories),
-                    itemsConfig = UiItem.Configuration.WithLongSecondSubtitle,
+                    itemsConfig = WithLongSecondSubtitle,
                 ),
                 LandingBlockState(
                     titleId = R.string.most_popular,
                     itemsFlow = mostPopular.flow,
                     action = action(ActionBlockId.MostPopular),
-                    itemsConfig = UiItem.Configuration.WithLongSecondSubtitle,
+                    itemsConfig = WithLongSecondSubtitle,
                 ),
             ),
             isLoading = isLoading,

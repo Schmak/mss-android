@@ -5,6 +5,7 @@ import androidx.paging.PagingData
 import com.mss.core.ui.model.LandingBlockState
 import com.mss.core.ui.model.LandingUiState
 import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.UiItemConfiguration.NoSubtitle
 import com.mss.features.series.R
 import com.mss.features.series.presentation.ui.landing.BlockId
 import kotlinx.coroutines.flow.Flow
@@ -28,7 +29,7 @@ data class SeriesLandingModelState(
             LandingBlockState(
                 titleId = R.string.leading_series,
                 itemsFlow = leadingSeries,
-                itemsConfig = UiItem.Configuration.NoSubtitle
+                itemsConfig = NoSubtitle
             ),
             LandingBlockState(
                 titleId = R.string.categories,

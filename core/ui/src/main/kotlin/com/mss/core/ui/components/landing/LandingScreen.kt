@@ -16,7 +16,7 @@ import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.model.LandingBlockState
 import com.mss.core.ui.model.LandingUiState
-import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.UiItemConfiguration.NoSubtitle
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions.Screen
 import com.mss.core.ui.theme.divider
@@ -127,7 +127,7 @@ fun PreviewLandingScreen() {
                                 descriptionId = R.string.select_series,
                             ),
                             itemsFlow = MockSeriesData.leadingSeries.asPageFlow(),
-                            itemsConfig = UiItem.Configuration.NoSubtitle,
+                            itemsConfig = NoSubtitle,
                         ),
                         LandingBlockState(
                             titleId = R.string.categories,
@@ -136,7 +136,7 @@ fun PreviewLandingScreen() {
                                 values = MockSeriesData.regions,
                             ),
                             itemsFlow = MockSeriesData.regionSeries.asPageFlow(),
-                            itemsConfig = UiItem.Configuration.NoSubtitle,
+                            itemsConfig = NoSubtitle,
                         ),
                     ),
                     hasData = true,

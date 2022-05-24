@@ -28,15 +28,17 @@ import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.data.mock.MockDriverData
 import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.model.UiItem
-import com.mss.core.ui.model.UiItem.Configuration.SubtitleColor.Capri
-import com.mss.core.ui.model.UiItem.Configuration.SubtitleColor.Cyan
+import com.mss.core.ui.model.UiItemConfiguration
+import com.mss.core.ui.model.UiItemConfiguration.*
+import com.mss.core.ui.model.UiItemConfiguration.SubtitleColor.Capri
+import com.mss.core.ui.model.UiItemConfiguration.SubtitleColor.Cyan
 import com.mss.core.ui.theme.*
 import com.mss.core.ui.theme.Dimensions.Tile
 
 @Composable
 fun Tile(
     item: UiItem?,
-    itemConfig: UiItem.Configuration,
+    itemConfig: UiItemConfiguration,
     modifier: Modifier = Modifier,
 ) {
     val placeholderVisible = item == null
@@ -116,7 +118,7 @@ private fun Modifier.placeholder(visible: Boolean) =
     }
 
 @Composable
-private fun PreviewTile(item: UiItem?, itemConfig: UiItem.Configuration) {
+private fun PreviewTile(item: UiItem?, itemConfig: UiItemConfiguration) {
     AppTheme {
         Surface {
             Tile(item = item, itemConfig = itemConfig)
@@ -127,35 +129,35 @@ private fun PreviewTile(item: UiItem?, itemConfig: UiItem.Configuration) {
 @MultiPreview
 @Composable
 fun PreviewLeadingSeriesTile() {
-    PreviewTile(MockSeriesData.leadingSeries.first(), UiItem.Configuration.NoSubtitle)
+    PreviewTile(MockSeriesData.leadingSeries.first(), NoSubtitle)
 }
 
 @MultiPreview
 @Composable
 fun PreviewCategoriesSeriesTile() {
-    PreviewTile(MockSeriesData.regionSeries.first(), UiItem.Configuration.Default)
+    PreviewTile(MockSeriesData.regionSeries.first(), Default)
 }
 
 @MultiPreview
 @Composable
 fun PreviewDriverTile() {
-    PreviewTile(MockDriverData.champions.first(), UiItem.Configuration.WithTwoSubtitles)
+    PreviewTile(MockDriverData.champions.first(), WithTwoSubtitles)
 }
 
 @MultiPreview
 @Composable
 fun PreviewStubTile() {
-    PreviewTile(null, UiItem.Configuration.NoSubtitle)
+    PreviewTile(null, NoSubtitle)
 }
 
 @MultiPreview
 @Composable
 fun PreviewStubTileWithSubtitle() {
-    PreviewTile(null, UiItem.Configuration.Default)
+    PreviewTile(null, Default)
 }
 
 @MultiPreview
 @Composable
 fun PreviewStubWithTwoSubtitles() {
-    PreviewTile(null, UiItem.Configuration.WithTwoSubtitles)
+    PreviewTile(null, WithTwoSubtitles)
 }
