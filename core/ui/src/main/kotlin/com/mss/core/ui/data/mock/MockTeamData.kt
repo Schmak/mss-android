@@ -1,6 +1,7 @@
 package com.mss.core.ui.data.mock
 
 import com.mss.core.ui.data.mock.MockCountryData.countries
+import com.mss.core.ui.model.SimpleUiItem
 import com.mss.core.ui.model.UiItem
 import kotlin.random.Random
 
@@ -29,8 +30,8 @@ object MockTeamData {
     val winners = getTeamList()
     val collectionTeams = getTeamList()
 
-    private fun getTeamList(size: Int = 10) = List(size) {
-        UiItem(
+    private fun getTeamList(size: Int = 10) = List<UiItem>(size) {
+        SimpleUiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
             subtitles = listOf(countries.random()),

@@ -5,6 +5,7 @@ import com.mss.core.domain.SeriesInfo
 import com.mss.core.ui.model.LandingBlockState
 import com.mss.core.ui.model.LandingUiState
 import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.UiItemConfiguration.WithTwoSubtitles
 import com.mss.features.driver.R
 import com.mss.features.driver.presentation.ui.landing.BlockId
 import com.mss.features.driver.presentation.ui.landing.Collections
@@ -39,7 +40,7 @@ data class DriverLandingModelState(
                         selectedIdx = selectedSeasonIdx,
                     ),
                     itemsFlow = currentSeasonDrivers,
-                    itemsConfig = UiItem.Configuration.WithTwoSubtitles,
+                    itemsConfig = WithTwoSubtitles,
                 ),
                 LandingBlockState(
                     titleId = R.string.champions,
@@ -50,7 +51,7 @@ data class DriverLandingModelState(
                         selectedIdx = selectedChampionSeriesIdx,
                     ),
                     itemsFlow = champions,
-                    itemsConfig = UiItem.Configuration.WithTwoSubtitles,
+                    itemsConfig = WithTwoSubtitles,
                 ),
                 LandingBlockState(
                     titleId = R.string.winners,
@@ -61,7 +62,7 @@ data class DriverLandingModelState(
                         selectedIdx = selectedWinnerSeriesIdx,
                     ),
                     itemsFlow = winners,
-                    itemsConfig = UiItem.Configuration.WithTwoSubtitles,
+                    itemsConfig = WithTwoSubtitles,
                 ),
                 LandingBlockState(
                     titleId = R.string.collections,
@@ -72,7 +73,7 @@ data class DriverLandingModelState(
                         selectedIdx = selectedCollectionIdx,
                     ),
                     itemsFlow = collectionDrivers,
-                    itemsConfig = UiItem.Configuration.WithTwoSubtitles,
+                    itemsConfig = WithTwoSubtitles,
                 ),
             ),
             isLoading = isLoading,

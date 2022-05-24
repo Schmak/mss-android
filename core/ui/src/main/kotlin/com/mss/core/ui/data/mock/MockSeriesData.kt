@@ -3,6 +3,7 @@ package com.mss.core.ui.data.mock
 import com.mss.core.domain.SeriesInfo
 import com.mss.core.domain.ref.SeasonReference
 import com.mss.core.domain.ref.SeriesReference
+import com.mss.core.ui.model.SimpleUiItem
 import com.mss.core.ui.model.UiItem
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -91,31 +92,31 @@ object MockSeriesData {
         "eSports"
     )
 
-    val leadingSeries = List(10) {
-        UiItem(
+    val leadingSeries = List<UiItem>(10) {
+        SimpleUiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
         )
     }
 
-    val categorySeries = List(10) {
-        UiItem(
+    val categorySeries = List<UiItem>(10) {
+        SimpleUiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
             subtitles = listOf(categories.random(random)),
         )
     }
 
-    val regionSeries = List(10) {
-        UiItem(
+    val regionSeries = List<UiItem>(10) {
+        SimpleUiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
             subtitles = listOf(regions.random(random)),
         )
     }
 
-    val mostRecent = List(10) {
-        UiItem(
+    val mostRecent = List<UiItem>(10) {
+        SimpleUiItem(
             imageUrl = pictures.random(random),
             title = eventNames.random(random),
             subtitles = listOf(

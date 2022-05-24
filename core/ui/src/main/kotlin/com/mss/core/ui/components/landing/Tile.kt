@@ -28,15 +28,17 @@ import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.data.mock.MockDriverData
 import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.model.UiItem
-import com.mss.core.ui.model.UiItem.Configuration.SubtitleColor.Capri
-import com.mss.core.ui.model.UiItem.Configuration.SubtitleColor.Cyan
+import com.mss.core.ui.model.UiItemConfiguration
+import com.mss.core.ui.model.UiItemConfiguration.*
+import com.mss.core.ui.model.UiItemConfiguration.SubtitleColor.Capri
+import com.mss.core.ui.model.UiItemConfiguration.SubtitleColor.Cyan
 import com.mss.core.ui.theme.*
 import com.mss.core.ui.theme.Dimensions.Tile
 
 @Composable
 fun Tile(
     item: UiItem?,
-    itemConfig: UiItem.Configuration,
+    itemConfig: UiItemConfiguration,
     modifier: Modifier = Modifier,
 ) {
     val placeholderVisible = item == null
@@ -51,7 +53,7 @@ fun Tile(
                 .build(),
             contentScale = ContentScale.Crop,
             alignment = Alignment.TopCenter,
-            contentDescription = item?.title,
+            contentDescription = item?.getTitle?.invoke(),
             modifier = Modifier
                 .size(Tile.imageSize)
                 .clip(CircleShape)
@@ -60,7 +62,7 @@ fun Tile(
         )
 
         Text(
-            text = item?.title?.uppercase().orEmpty(),
+            text = item?.getTitle?.invoke()?.uppercase().orEmpty(),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.subtitle1,
             maxLines = 1,
@@ -72,11 +74,12 @@ fun Tile(
         )
         itemConfig.subtitles.forEachIndexed { idx, config ->
             Subtitle(
-                text = item?.subtitles?.getOrNull(idx),
-                color = when (config) {
+                text = item?.subtitlesGetters?.getOrNull(idx)?.invoke(),
+                color = when (config.color) {
                     Capri -> MaterialTheme.colors.capriSubtitle
                     Cyan -> MaterialTheme.colors.cyanSubtitle
                 },
+                maxLines = config.maxLines,
                 placeholderVisible = placeholderVisible,
             )
         }
@@ -87,6 +90,7 @@ fun Tile(
 private fun Subtitle(
     text: String?,
     color: Color,
+    maxLines: Int,
     placeholderVisible: Boolean,
 ) {
     Text(
@@ -94,7 +98,7 @@ private fun Subtitle(
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.body1,
         color = color,
-        maxLines = 1,
+        maxLines = maxLines,
         overflow = TextOverflow.Ellipsis,
         modifier = Modifier
             .widthIn(min = Tile.subtitlePlaceHolderWidth)
@@ -114,7 +118,7 @@ private fun Modifier.placeholder(visible: Boolean) =
     }
 
 @Composable
-private fun PreviewTile(item: UiItem?, itemConfig: UiItem.Configuration) {
+private fun PreviewTile(item: UiItem?, itemConfig: UiItemConfiguration) {
     AppTheme {
         Surface {
             Tile(item = item, itemConfig = itemConfig)
@@ -125,35 +129,35 @@ private fun PreviewTile(item: UiItem?, itemConfig: UiItem.Configuration) {
 @MultiPreview
 @Composable
 fun PreviewLeadingSeriesTile() {
-    PreviewTile(MockSeriesData.leadingSeries.first(), UiItem.Configuration.NoSubtitle)
+    PreviewTile(MockSeriesData.leadingSeries.first(), NoSubtitle)
 }
 
 @MultiPreview
 @Composable
 fun PreviewCategoriesSeriesTile() {
-    PreviewTile(MockSeriesData.regionSeries.first(), UiItem.Configuration.Default)
+    PreviewTile(MockSeriesData.regionSeries.first(), Default)
 }
 
 @MultiPreview
 @Composable
 fun PreviewDriverTile() {
-    PreviewTile(MockDriverData.champions.first(), UiItem.Configuration.WithTwoSubtitles)
+    PreviewTile(MockDriverData.champions.first(), WithTwoSubtitles)
 }
 
 @MultiPreview
 @Composable
 fun PreviewStubTile() {
-    PreviewTile(null, UiItem.Configuration.NoSubtitle)
+    PreviewTile(null, NoSubtitle)
 }
 
 @MultiPreview
 @Composable
 fun PreviewStubTileWithSubtitle() {
-    PreviewTile(null, UiItem.Configuration.Default)
+    PreviewTile(null, Default)
 }
 
 @MultiPreview
 @Composable
 fun PreviewStubWithTwoSubtitles() {
-    PreviewTile(null, UiItem.Configuration.WithTwoSubtitles)
+    PreviewTile(null, WithTwoSubtitles)
 }

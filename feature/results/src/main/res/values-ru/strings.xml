@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="venue_time">%1$s (время места)</string>
+    <string name="your_time">%1$s (Ваше время)</string>
+    <string name="most_popular">Популярные</string>
+    <string name="most_recent">Последние</string>
+    <string name="forthcoming">Ближайшие</string>
+    <string name="switch_time_format">Переключить время</string>
+    <string name="time_format">EEEE, d MMM\nHH:mm</string>
+</resources>

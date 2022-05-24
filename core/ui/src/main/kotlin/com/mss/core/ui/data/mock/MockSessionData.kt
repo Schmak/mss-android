@@ -1,5 +1,6 @@
 package com.mss.core.ui.data.mock
 
+import com.mss.core.ui.model.SimpleUiItem
 import com.mss.core.ui.model.UiItem
 import kotlin.random.Random
 
@@ -17,8 +18,8 @@ object MockSessionData {
     val forthcoming = getSessionList()
     val categorySessions = getSessionList()
 
-    private fun getSessionList(size: Int = 10) = List(size) {
-        UiItem(
+    private fun getSessionList(size: Int = 10) = List<UiItem>(size) {
+        SimpleUiItem(
             imageUrl = MockSeriesData.pictures.random(random),
             title = MockEventData.names.random(random),
             subtitles = listOf(

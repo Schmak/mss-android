@@ -15,6 +15,7 @@ import androidx.paging.compose.items
 import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.UiItemConfiguration
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.utils.asPageFlow
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun LandingRow(
     itemsFlow: Flow<PagingData<UiItem>>,
-    itemConfig: UiItem.Configuration,
+    itemConfig: UiItemConfiguration,
     modifier: Modifier = Modifier
 ) {
     val items = itemsFlow.collectAsLazyPagingItems()
@@ -70,7 +71,7 @@ fun PreviewLandingRow() {
         Surface {
             LandingRow(
                 itemsFlow = flowOf(PagingData.from(MockSeriesData.leadingSeries)),
-                itemConfig = UiItem.Configuration.NoSubtitle
+                itemConfig = UiItemConfiguration.NoSubtitle
             )
         }
     }
@@ -83,7 +84,7 @@ fun PreviewLandingRowWithSubtitle() {
         Surface {
             LandingRow(
                 itemsFlow = MockSeriesData.leadingSeries.asPageFlow(),
-                itemConfig = UiItem.Configuration.Default
+                itemConfig = UiItemConfiguration.Default
             )
         }
     }

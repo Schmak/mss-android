@@ -1,14 +1,15 @@
 package com.mss.core.ui.components.landing
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mss.core.ui.R
 import com.mss.core.ui.annotation.MultiPreview
@@ -24,14 +25,32 @@ fun LandingBlock(
     state: LandingBlockState,
     modifier: Modifier = Modifier,
     onCategorySelected: (Int) -> Unit = {},
+    onActionClicked: () -> Unit = {},
 ) {
     val dividerModifier = modifier.padding(vertical = 10.dp)
     Column {
-        Text(
-            text = stringResource(state.titleId),
-            style = MaterialTheme.typography.h2,
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = modifier
-        )
+        ) {
+            Text(
+                text = stringResource(state.titleId),
+                style = MaterialTheme.typography.h2,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f, fill = false)
+            )
+            if (state.action != null)
+                IconButton(
+                    onClick = onActionClicked,
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(state.action.drawableId),
+                        contentDescription = stringResource(state.action.descriptionId),
+                    )
+                }
+        }
         Divider(color = MaterialTheme.colors.divider, modifier = dividerModifier)
         if (state.selector != null) {
             DropdownList(
@@ -55,8 +74,12 @@ fun PreviewWithoutSelector() {
         Surface {
             LandingBlock(
                 state = LandingBlockState(
-                    titleId = R.string.retry,
+                    titleId = R.string.series,
                     selector = null,
+                    action = LandingBlockState.Action(
+                        drawableId = R.drawable.ic_mss,
+                        descriptionId = R.string.select_series,
+                    ),
                     itemsFlow = MockSeriesData.leadingSeries.asPageFlow(),
                 ),
                 onCategorySelected = {}
@@ -72,9 +95,9 @@ fun PreviewWithSelector() {
         Surface {
             LandingBlock(
                 state = LandingBlockState(
-                    titleId = R.string.retry,
+                    titleId = R.string.series,
                     selector = LandingBlockState.Selector(
-                        titleId = R.string.retry,
+                        titleId = R.string.select_series,
                         values = MockSeriesData.categories,
                     ),
                     itemsFlow = MockSeriesData.leadingSeries.asPageFlow(),

@@ -9,6 +9,8 @@ sealed interface UiAction {
         val idx: Int
     ) : UiAction
 
+    data class ActionButtonClick(val blockId: Any?) : UiAction
+
     companion object {
         fun SharedFlow<UiAction>.filterByCategory(blockId: Any): Flow<SelectCategory> =
             this.onSubscription { emit(SelectCategory(blockId, 0)) }
