@@ -4,4 +4,6 @@
     <string name="most_popular">Most popular</string>
     <string name="most_recent">Most Recent</string>
     <string name="switch_time_format">Switch time format</string>
+    <string name="venue_time">%1$s (venue time)</string>
+    <string name="your_time">%1$s (your time)</string>
 </resources>
