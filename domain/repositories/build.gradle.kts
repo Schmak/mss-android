@@ -8,6 +8,7 @@ plugins {
 
 dependencies {
     api(project(Domain.MODEL))
+    implementation(project(Core.Network.COMMON))
     implementation(project(Core.Network.Api.V3))
     implementation(project(Core.Network.Api.V4))
     implementation(project(Core.UTILS))

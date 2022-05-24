@@ -1,13 +1,10 @@
 package com.mss.core.data.repository
 
-import com.mss.core.domain.SeriesInfo
-import com.mss.core.domain.SeriesItem
-import com.mss.core.domain.create
+import com.mss.core.domain.*
+import com.mss.core.domain.common.ResourceLink
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
-import com.mss.core.domain.ref.SeasonReference
-import com.mss.core.domain.ref.SeriesReference
-import com.mss.core.domain.ref.create
+import com.mss.core.domain.ref.*
 import com.mss.core.domain.repository.SeriesRepository
 import com.mss.core.network.v3.api.SeriesApiV3
 import com.mss.core.network.v3.model.PageDto
@@ -18,6 +15,17 @@ import com.mss.core.network.v3.model.ref.EventReferenceDto
 import com.mss.core.network.v3.model.ref.SeasonReferenceDto
 import com.mss.core.network.v3.model.ref.SeriesReferenceDto
 import com.mss.core.network.v3.model.ref.create
+import com.mss.core.network.v4.api.SeriesApiV4
+import com.mss.core.network.v4.model.LastSeriesChampionsDto
+import com.mss.core.network.v4.model.SeriesDto
+import com.mss.core.network.v4.model.common.ResourceLinkDto
+import com.mss.core.network.v4.model.common.TemplateDto
+import com.mss.core.network.v4.model.common.create
+import com.mss.core.network.v4.model.create
+import com.mss.core.network.v4.model.ref.DriverReferenceDto
+import com.mss.core.network.v4.model.ref.OrganisationReferenceDto
+import com.mss.core.network.v4.model.ref.TeamReferenceDto
+import com.mss.core.network.v4.model.ref.create
 import com.mss.core.test.utils.DEFAULT_LOCAL_DATE
 import com.mss.core.test.utils.coroutines.TestDispatchers
 import io.mockk.mockk
@@ -25,9 +33,11 @@ import kotlin.time.Duration.Companion.days
 
 internal class SeriesRepositoryImplTest : AbstractRepositoryTest() {
     private val seriesApiV3: SeriesApiV3 = mockk()
+    private val seriesApiV4: SeriesApiV4 = mockk()
     private val repository: SeriesRepository =
         SeriesRepositoryImpl(
-            api = seriesApiV3,
+            apiV3 = seriesApiV3,
+            apiV4 = seriesApiV4,
             dispatcher = TestDispatchers.IO,
         )
 
@@ -130,6 +140,20 @@ internal class SeriesRepositoryImplTest : AbstractRepositoryTest() {
                 pageNumber = 23,
             ),
         ),
+        TestCase(
+            name = "getInfo",
+            apiQuery = { seriesApiV4.getInfo(SERIES) },
+            apiResponse = SERIES_DTO,
+            repositoryQuery = { repository.getSeriesInfo(SERIES) },
+            expectedRepositoryResponse = EXPECTED_SERIES,
+        ),
+        TestCase(
+            name = "getLastChampions",
+            apiQuery = { seriesApiV4.getLastChampions(SERIES) },
+            apiResponse = CHAMPIONS_DTO,
+            repositoryQuery = { repository.getLastChampions(SERIES) },
+            expectedRepositoryResponse = EXPECTED_CHAMPIONS,
+        )
     )
 
     private companion object {
@@ -158,6 +182,57 @@ internal class SeriesRepositoryImplTest : AbstractRepositoryTest() {
             lastEvent = SeriesItem.LastEvent(
                 name = "$SERIES event",
                 date = DEFAULT_LOCAL_DATE,
+            )
+        )
+        private val SERIES_DTO = SeriesDto.create(
+            name = "series.name",
+            shortName = "series.shortName",
+            picture = "series.picture",
+            status = "series.status",
+            firstSeason = "series.firstSeason",
+            organisation = OrganisationReferenceDto.create(name = "series.organisation"),
+            template = TemplateDto.create(seriesCategory = "series.category"),
+            resourceLinks = listOf(ResourceLinkDto.create(href = "youtube.com", type = "youtube")),
+        )
+        private val EXPECTED_SERIES = Series(
+            name = "series.name",
+            shortName = "series.shortName",
+            picture = "series.picture",
+            firstSeason = "series.firstSeason",
+            organisation = "series.organisation",
+            category = "series.category",
+            links = listOf(ResourceLink.YouTube("youtube.com")),
+        )
+        private val CHAMPIONS_DTO = LastSeriesChampionsDto.create(
+            drivers = listOf(
+                LastSeriesChampionsDto.Driver.create(
+                    driver = DriverReferenceDto.create(
+                        name = "driver.name",
+                        slug = "driver.slug",
+                        picture = "driver.picture",
+                        countryFlag = "country.flag",
+                    )
+                )
+            ),
+            team = TeamReferenceDto.create(
+                name = "team.name",
+                slug = "team.slug",
+                picture = "team.picture",
+            )
+        )
+        private val EXPECTED_CHAMPIONS = LastSeriesChampions(
+            drivers = listOf(
+                DriverReference(
+                    name = "driver.name",
+                    slug = "driver.slug",
+                    picture = "driver.picture",
+                    countryFlag = "country.flag",
+                )
+            ),
+            team = TeamReference(
+                name = "team.name",
+                slug = "team.slug",
+                picture = "team.picture",
             )
         )
 

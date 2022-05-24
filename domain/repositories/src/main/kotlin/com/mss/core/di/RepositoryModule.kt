@@ -25,10 +25,15 @@ object RepositoryModule {
     @Singleton
     fun providesSeriesRepository(
         seriesApiV3: SeriesApiV3,
+        seriesApiV4: SeriesApiV4,
         @IoDispatcher
         dispatcher: CoroutineDispatcher,
     ): SeriesRepository =
-        SeriesRepositoryImpl(seriesApiV3, dispatcher)
+        SeriesRepositoryImpl(
+            apiV3 = seriesApiV3,
+            apiV4 = seriesApiV4,
+            dispatcher = dispatcher
+        )
 
     @Provides
     @Singleton

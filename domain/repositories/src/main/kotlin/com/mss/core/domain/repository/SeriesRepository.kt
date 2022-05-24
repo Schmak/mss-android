@@ -1,5 +1,7 @@
 package com.mss.core.domain.repository
 
+import com.mss.core.domain.LastSeriesChampions
+import com.mss.core.domain.Series
 import com.mss.core.domain.SeriesInfo
 import com.mss.core.domain.SeriesItem
 import com.mss.core.domain.page.Page
@@ -20,4 +22,8 @@ interface SeriesRepository {
     ): Result<Page<SeriesItem>>
 
     suspend fun getLeadingSeries(): Result<List<SeriesInfo>>
+
+    suspend fun getSeriesInfo(series: String): Result<Series>
+
+    suspend fun getLastChampions(series: String): Result<LastSeriesChampions?>
 }
