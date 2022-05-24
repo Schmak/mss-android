@@ -1,7 +1,13 @@
 package com.mss.core.ui.model
 
+import androidx.compose.runtime.Composable
+
 data class SimpleUiItem(
     override val imageUrl: String,
-    override val title: String,
-    override val subtitles: List<String?> = emptyList()
-) : UiItem
+    val title: String,
+    val subtitles: List<String?> = emptyList()
+) : UiItem {
+    override val getTitle = @Composable { title }
+    override val subtitlesGetters: List<@Composable () -> String?> =
+        subtitles.map { @Composable { it } }
+}

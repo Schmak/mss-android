@@ -53,7 +53,7 @@ fun Tile(
                 .build(),
             contentScale = ContentScale.Crop,
             alignment = Alignment.TopCenter,
-            contentDescription = item?.title,
+            contentDescription = item?.getTitle?.invoke(),
             modifier = Modifier
                 .size(Tile.imageSize)
                 .clip(CircleShape)
@@ -62,7 +62,7 @@ fun Tile(
         )
 
         Text(
-            text = item?.title?.uppercase().orEmpty(),
+            text = item?.getTitle?.invoke()?.uppercase().orEmpty(),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.subtitle1,
             maxLines = 1,
@@ -74,7 +74,7 @@ fun Tile(
         )
         itemConfig.subtitles.forEachIndexed { idx, config ->
             Subtitle(
-                text = item?.subtitles?.getOrNull(idx),
+                text = item?.subtitlesGetters?.getOrNull(idx)?.invoke(),
                 color = when (config.color) {
                     Capri -> MaterialTheme.colors.capriSubtitle
                     Cyan -> MaterialTheme.colors.cyanSubtitle
