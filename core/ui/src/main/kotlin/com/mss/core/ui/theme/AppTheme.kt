@@ -10,10 +10,12 @@ import androidx.compose.ui.text.TextStyle
 
 private val LightThemeColors = lightColors(
     primary = Red,
+    secondary = MaastrichtBlue,
 )
 
 private val DarkThemeColors = darkColors(
     primary = Red,
+    secondary = CelticBlue,
     surface = Blue21,
     background = Blue21,
     onSurface = White,
@@ -22,6 +24,12 @@ private val DarkThemeColors = darkColors(
 
 val Colors.imageBackground: Color
     get() = if (isLight) Gray95 else White
+
+val Colors.imageBorder: Color
+    get() = if (isLight) LightSilver else Indigo
+
+val Colors.infoSubtitleColor: Color
+    get() = if (isLight) Arsenic else WeldonBlue
 
 val Colors.capriSubtitle: Color
     get() = if (isLight) PrussianBlue else Capri
