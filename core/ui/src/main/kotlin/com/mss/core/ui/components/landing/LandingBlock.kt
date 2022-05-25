@@ -15,7 +15,8 @@ import com.mss.core.ui.R
 import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.components.DropdownList
 import com.mss.core.ui.data.mock.MockSeriesData
-import com.mss.core.ui.model.LandingBlockState
+import com.mss.core.ui.model.landing.LandingBlockState
+import com.mss.core.ui.model.landing.UiItem
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.divider
 import com.mss.core.ui.utils.asPageFlow
@@ -24,6 +25,7 @@ import com.mss.core.ui.utils.asPageFlow
 fun LandingBlock(
     state: LandingBlockState,
     modifier: Modifier = Modifier,
+    onItemClicked: (id: UiItem) -> Unit = {},
     onCategorySelected: (Int) -> Unit = {},
     onActionClicked: () -> Unit = {},
 ) {
@@ -63,7 +65,11 @@ fun LandingBlock(
             )
             Divider(color = MaterialTheme.colors.divider, modifier = dividerModifier)
         }
-        LandingRow(itemsFlow = state.itemsFlow, itemConfig = state.itemsConfig)
+        LandingRow(
+            itemsFlow = state.itemsFlow,
+            itemConfig = state.itemsConfig,
+            onItemClicked = onItemClicked
+        )
     }
 }
 

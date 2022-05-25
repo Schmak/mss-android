@@ -31,7 +31,28 @@ internal class SeriesApiTest : AbstractApiTest() {
         )
     }
 
+    @Test
+    fun getInfo() = test {
+        api.getInfo(SERIES)
+    }
+
+    @Test
+    fun getMissingSeriesInfo() = assertThrows404 {
+        api.getInfo(WRONG_SERIES)
+    }
+
+    @Test
+    fun getLastChampions() = test {
+        api.getLastChampions(SERIES)
+    }
+
+    @Test
+    fun getWrongSeriesLastChampions() = assertThrows404 {
+        api.getLastChampions(WRONG_SERIES)
+    }
+
     companion object {
         private const val SERIES = "formula-one"
+        private const val WRONG_SERIES = "formula-on"
     }
 }

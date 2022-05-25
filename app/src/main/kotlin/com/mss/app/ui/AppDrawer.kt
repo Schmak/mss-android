@@ -11,9 +11,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
 import com.mss.app.R
-import com.mss.app.navigation.Route
 import com.mss.app.ui.components.MssLogo
 import com.mss.core.ui.annotation.MultiPreview
+import com.mss.core.ui.navigation.Route
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Blue25
 
@@ -67,7 +67,7 @@ fun DrawerButton(
     closeDrawer: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val isSelected = targetRoute.value == currentRoute
+    val isSelected = currentRoute.startsWith(targetRoute.value)
     val colors = MaterialTheme.colors
     val textColor = if (isSelected)
         colors.primary

@@ -1,8 +1,8 @@
 package com.mss.features.driver.presentation.mapper
 
 import com.mss.core.domain.DriverItem
-import com.mss.core.ui.model.SimpleUiItem
-import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.landing.SimpleUiItem
+import com.mss.core.ui.model.landing.UiItem
 import com.mss.core.utils.Mapper
 
 object DriverItemMapper : Mapper<DriverItem, UiItem> {

@@ -1,5 +1,6 @@
 package com.mss.core.ui.components.landing
 
+import com.mss.core.ui.model.landing.UiItem
 import kotlinx.coroutines.flow.*
 
 sealed interface UiAction {
@@ -8,6 +9,8 @@ sealed interface UiAction {
         val blockId: Any?,
         val idx: Int
     ) : UiAction
+
+    data class ItemClicked(val item: UiItem) : UiAction
 
     data class ActionButtonClick(val blockId: Any?) : UiAction
 

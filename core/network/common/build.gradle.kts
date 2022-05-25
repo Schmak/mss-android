@@ -7,6 +7,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(Core.UTILS))
     implementation(project(Core.Network.CREDENTIALS))
 
     implementation(Deps.Network.okHttp)

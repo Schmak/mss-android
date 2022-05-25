@@ -1,13 +1,17 @@
 package com.mss.core.ui.data.mock
 
+import com.mss.core.domain.LastSeriesChampions
+import com.mss.core.domain.Series
 import com.mss.core.domain.SeriesInfo
+import com.mss.core.domain.common.ResourceLink
 import com.mss.core.domain.ref.SeasonReference
 import com.mss.core.domain.ref.SeriesReference
-import com.mss.core.ui.model.SimpleUiItem
-import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.landing.SimpleUiItem
+import com.mss.core.ui.model.landing.UiItem
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
+import kotlin.random.nextInt
 
 @Suppress("MagicNumber")
 object MockSeriesData {
@@ -125,4 +129,24 @@ object MockSeriesData {
             ),
         )
     }
+
+    val series = Series(
+        name = names.random(random),
+        shortName = names.random(random),
+        picture = pictures.random(random),
+        firstSeason = random.nextInt(1900..2022).toString(),
+        organisation = names.random(random),
+        category = categories.random(random),
+        links = listOf(
+            ResourceLink.YouTube("url"),
+            ResourceLink.Facebook("url"),
+            ResourceLink.Twitter("url"),
+            ResourceLink.Instagram("url"),
+        )
+    )
+
+    val lastSeriesChampions = LastSeriesChampions(
+        drivers = MockDriverData.driverReferences.take(3),
+        team = MockTeamData.teamReferences.first(),
+    )
 }

@@ -2,10 +2,10 @@ package com.mss.features.driver.presentation.ui.landing.state
 
 import androidx.paging.PagingData
 import com.mss.core.domain.SeriesInfo
-import com.mss.core.ui.model.LandingBlockState
-import com.mss.core.ui.model.LandingUiState
-import com.mss.core.ui.model.UiItem
-import com.mss.core.ui.model.UiItemConfiguration.WithTwoSubtitles
+import com.mss.core.ui.model.landing.LandingBlockState
+import com.mss.core.ui.model.landing.LandingUiState
+import com.mss.core.ui.model.landing.UiItem
+import com.mss.core.ui.model.landing.UiItemConfiguration.WithTwoSubtitles
 import com.mss.features.driver.R
 import com.mss.features.driver.presentation.ui.landing.BlockId
 import com.mss.features.driver.presentation.ui.landing.Collections

@@ -15,9 +15,9 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.mss.app.navigation.NavGraph
-import com.mss.app.navigation.Route
 import com.mss.app.ui.components.TopBar
+import com.mss.core.ui.navigation.NavGraph
+import com.mss.core.ui.navigation.Route
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Transparent
 import kotlinx.coroutines.launch
@@ -43,11 +43,8 @@ fun MssApp() {
                         currentRoute = currentRoute,
                         navigateTo = {
                             navController.navigate(it.value) {
-                                popUpTo(Route.Series.value) {
-                                    saveState = true
-                                }
+                                popUpTo(Route.Series.value)
                                 launchSingleTop = true
-                                restoreState = true
                             }
                         },
                         closeDrawer = { coroutineScope.launch { drawerState.close() } },

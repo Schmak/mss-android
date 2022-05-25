@@ -11,6 +11,7 @@ internal object SeriesItemMapper : Mapper<SeriesItemDto, SeriesItem> {
 
     override fun SeriesItemDto.map() =
         SeriesItem(
+            slug = uuid,
             name = name,
             picture = picture,
             region = region,

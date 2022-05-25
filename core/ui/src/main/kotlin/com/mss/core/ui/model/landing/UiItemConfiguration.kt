@@ -1,7 +1,7 @@
-package com.mss.core.ui.model
+package com.mss.core.ui.model.landing
 
-import com.mss.core.ui.model.UiItemConfiguration.SubtitleColor.Capri
-import com.mss.core.ui.model.UiItemConfiguration.SubtitleColor.Cyan
+import com.mss.core.ui.model.landing.UiItemConfiguration.SubtitleColor.Capri
+import com.mss.core.ui.model.landing.UiItemConfiguration.SubtitleColor.Cyan
 
 sealed class UiItemConfiguration(
     val subtitles: List<Subtitle>

@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import com.mss.core.domain.SessionItem
-import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.landing.UiItem
 import com.mss.core.utils.Mapper
 import com.mss.features.results.R
 import com.mss.features.results.presentation.ui.landing.state.SessionUiItem
