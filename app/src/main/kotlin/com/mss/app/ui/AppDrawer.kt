@@ -67,7 +67,7 @@ fun DrawerButton(
     closeDrawer: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val isSelected = targetRoute.value == currentRoute
+    val isSelected = currentRoute.startsWith(targetRoute.value)
     val colors = MaterialTheme.colors
     val textColor = if (isSelected)
         colors.primary

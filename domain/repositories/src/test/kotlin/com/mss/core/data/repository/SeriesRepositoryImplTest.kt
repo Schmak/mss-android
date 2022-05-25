@@ -167,6 +167,7 @@ internal class SeriesRepositoryImplTest : AbstractRepositoryTest() {
         private val REGIONS = listOf("Worldwide", "Europe", "United States")
 
         private val SERIES_ITEM_DTO = SeriesItemDto.create(
+            uuid = "$SERIES-slug",
             name = SERIES,
             picture = "$SERIES pic",
             region = "$SERIES region",
@@ -175,7 +176,8 @@ internal class SeriesRepositoryImplTest : AbstractRepositoryTest() {
             ),
             lastEventDate = DEFAULT_LOCAL_DATE.toEpochDay().days.inWholeSeconds
         )
-        private val EXPECTED_SERIES_ITEM = SeriesItem.create(
+        private val EXPECTED_SERIES_ITEM = SeriesItem(
+            slug = "$SERIES-slug",
             name = SERIES,
             picture = "$SERIES pic",
             region = "$SERIES region",

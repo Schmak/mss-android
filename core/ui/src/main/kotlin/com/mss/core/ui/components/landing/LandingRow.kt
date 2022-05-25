@@ -26,7 +26,8 @@ import kotlinx.coroutines.launch
 fun LandingRow(
     itemsFlow: Flow<PagingData<UiItem>>,
     itemConfig: UiItemConfiguration,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClicked: (id: UiItem) -> Unit = {}
 ) {
     val items = itemsFlow.collectAsLazyPagingItems()
     val loadState = items.loadState.refresh
@@ -43,22 +44,22 @@ fun LandingRow(
     }
     LazyRow(
         state = state,
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 5.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         userScrollEnabled = !loading,
         modifier = modifier,
     ) {
         if (loading)
             items(Int.MAX_VALUE) {
-                Tile(item = null, itemConfig = itemConfig)
+                Tile(item = null, itemConfig = itemConfig, onClicked = onItemClicked)
             }
         else {
             items(items) {
-                Tile(it, itemConfig = itemConfig)
+                Tile(it, itemConfig = itemConfig, onClicked = onItemClicked)
             }
             if (appendState is LoadState.Loading)
                 item {
-                    Tile(item = null, itemConfig = itemConfig)
+                    Tile(item = null, itemConfig = itemConfig, onClicked = onItemClicked)
                 }
         }
     }

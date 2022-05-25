@@ -65,6 +65,9 @@ fun LandingScreen(
                         onActionClicked = {
                             onAction(UiAction.ActionButtonClick(blockId = block.action?.id))
                         },
+                        onItemClicked = {
+                            onAction(UiAction.ItemClicked(it))
+                        },
                         modifier = screenModifier,
                     )
                     if (idx != uiState.blocks.lastIndex)

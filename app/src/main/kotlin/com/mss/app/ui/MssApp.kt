@@ -43,11 +43,8 @@ fun MssApp() {
                         currentRoute = currentRoute,
                         navigateTo = {
                             navController.navigate(it.value) {
-                                popUpTo(Route.Series.value) {
-                                    saveState = true
-                                }
+                                popUpTo(Route.Series.value)
                                 launchSingleTop = true
-                                restoreState = true
                             }
                         },
                         closeDrawer = { coroutineScope.launch { drawerState.close() } },

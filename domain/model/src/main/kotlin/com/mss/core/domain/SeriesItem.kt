@@ -3,6 +3,7 @@ package com.mss.core.domain
 import java.time.LocalDate
 
 data class SeriesItem(
+    val slug: String,
     val name: String,
     val picture: String?,
     val region: String?,

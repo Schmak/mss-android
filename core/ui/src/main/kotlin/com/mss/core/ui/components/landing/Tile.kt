@@ -1,6 +1,7 @@
 package com.mss.core.ui.components.landing
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,11 +41,16 @@ fun Tile(
     item: UiItem?,
     itemConfig: UiItemConfiguration,
     modifier: Modifier = Modifier,
+    onClicked: (id: UiItem) -> Unit = {},
 ) {
     val placeholderVisible = item == null
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.width(Tile.width)
+        modifier = modifier
+            .clip(RoundedCornerShape(8.dp))
+            .clickable { item?.let { onClicked(it) } }
+            .padding(vertical = 5.dp)
+            .width(Tile.width)
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)

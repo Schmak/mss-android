@@ -3,6 +3,8 @@ package com.mss.core.ui.components.landing.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.mss.core.ui.components.common.viewmodel.AbstractViewModel
 import com.mss.core.ui.components.landing.UiAction
+import com.mss.core.ui.model.common.UiEvent
+import com.mss.core.ui.model.landing.UiItem
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.filterIsInstance
@@ -26,7 +28,13 @@ abstract class AbstractLandingViewModel : AbstractViewModel() {
             is UiAction.Refresh -> refresh()
             is UiAction.SelectCategory -> selectCategory(action)
             is UiAction.ActionButtonClick -> handleActionButtonClick(action.blockId)
+            is UiAction.ItemClicked -> handleItemClick(action.item)
         }
+    }
+
+    private fun handleItemClick(item: UiItem) {
+        val route = item.route ?: return
+        sendUiEvent(UiEvent.Navigate(route))
     }
 
     fun resetCategories() {
