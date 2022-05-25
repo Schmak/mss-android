@@ -18,5 +18,6 @@ object Dimensions {
     object InfoHeader {
         val imageSize = 140.dp
         val imageBorder = 5.dp
+        val iconSize = 20.dp
     }
 }

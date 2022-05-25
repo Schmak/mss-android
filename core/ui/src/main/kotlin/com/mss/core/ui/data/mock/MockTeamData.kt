@@ -1,5 +1,6 @@
 package com.mss.core.ui.data.mock
 
+import com.mss.core.domain.ref.TeamReference
 import com.mss.core.ui.data.mock.MockCountryData.countries
 import com.mss.core.ui.model.SimpleUiItem
 import com.mss.core.ui.model.UiItem
@@ -29,6 +30,13 @@ object MockTeamData {
     val champions = getTeamList()
     val winners = getTeamList()
     val collectionTeams = getTeamList()
+    val teamReferences = List(10) {
+        TeamReference(
+            name = names.random(random),
+            slug = "",
+            picture = pictures.random(random),
+        )
+    }
 
     private fun getTeamList(size: Int = 10) = List<UiItem>(size) {
         SimpleUiItem(

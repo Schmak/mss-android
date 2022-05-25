@@ -1,5 +1,6 @@
 package com.mss.core.ui.data.mock
 
+import com.mss.core.domain.ref.DriverReference
 import com.mss.core.ui.model.SimpleUiItem
 import com.mss.core.ui.model.UiItem
 import kotlin.random.Random
@@ -26,6 +27,14 @@ object MockDriverData {
     val champions = getDriverList()
     val winners = getDriverList()
     val collectionDrivers = getDriverList()
+    val driverReferences = List(10) {
+        DriverReference(
+            name = names.random(random),
+            slug = "",
+            picture = pictures.random(random),
+            countryFlag = MockCountryData.flags.random(random),
+        )
+    }
 
     private fun getDriverList(size: Int = 10) = List<UiItem>(size) {
         SimpleUiItem(

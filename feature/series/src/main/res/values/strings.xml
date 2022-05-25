@@ -1,4 +1,9 @@
 <resources>
+    <string name="affiliation">Affiliation</string>
+    <string name="category">Category</string>
+    <string name="current_champions">Current champions</string>
+    <string name="current_team_champion">Current team champion</string>
+    <string name="established">Established</string>
     <string name="leading_series">Leading series</string>
     <string name="most_recent">Most recent</string>
     <string name="regions">Regions</string>
