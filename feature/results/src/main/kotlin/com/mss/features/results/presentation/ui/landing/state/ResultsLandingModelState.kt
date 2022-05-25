@@ -1,10 +1,10 @@
 package com.mss.features.results.presentation.ui.landing.state
 
 import androidx.paging.PagingData
-import com.mss.core.ui.model.LandingBlockState
-import com.mss.core.ui.model.LandingUiState
-import com.mss.core.ui.model.UiItem
-import com.mss.core.ui.model.UiItemConfiguration.WithLongSecondSubtitle
+import com.mss.core.ui.model.landing.LandingBlockState
+import com.mss.core.ui.model.landing.LandingUiState
+import com.mss.core.ui.model.landing.UiItem
+import com.mss.core.ui.model.landing.UiItemConfiguration.WithLongSecondSubtitle
 import com.mss.features.results.R
 import com.mss.features.results.presentation.ui.landing.ActionBlockId
 import com.mss.features.results.presentation.ui.landing.BlockId

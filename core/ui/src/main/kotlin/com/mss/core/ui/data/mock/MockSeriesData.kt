@@ -6,8 +6,8 @@ import com.mss.core.domain.SeriesInfo
 import com.mss.core.domain.common.ResourceLink
 import com.mss.core.domain.ref.SeasonReference
 import com.mss.core.domain.ref.SeriesReference
-import com.mss.core.ui.model.SimpleUiItem
-import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.landing.SimpleUiItem
+import com.mss.core.ui.model.landing.UiItem
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random

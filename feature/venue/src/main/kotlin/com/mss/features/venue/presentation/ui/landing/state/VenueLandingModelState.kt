@@ -2,9 +2,9 @@ package com.mss.features.venue.presentation.ui.landing.state
 
 import androidx.paging.PagingData
 import com.mss.core.domain.SeriesInfo
-import com.mss.core.ui.model.LandingBlockState
-import com.mss.core.ui.model.LandingUiState
-import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.landing.LandingBlockState
+import com.mss.core.ui.model.landing.LandingUiState
+import com.mss.core.ui.model.landing.UiItem
 import com.mss.features.venue.R
 import com.mss.features.venue.presentation.ui.landing.BlockId
 import kotlinx.coroutines.flow.Flow

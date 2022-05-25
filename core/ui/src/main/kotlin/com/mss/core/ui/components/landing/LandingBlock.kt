@@ -15,7 +15,7 @@ import com.mss.core.ui.R
 import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.components.DropdownList
 import com.mss.core.ui.data.mock.MockSeriesData
-import com.mss.core.ui.model.LandingBlockState
+import com.mss.core.ui.model.landing.LandingBlockState
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.divider
 import com.mss.core.ui.utils.asPageFlow

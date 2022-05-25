@@ -1,4 +1,4 @@
-package com.mss.core.ui.model
+package com.mss.core.ui.model.landing
 
 import androidx.compose.runtime.Composable
 

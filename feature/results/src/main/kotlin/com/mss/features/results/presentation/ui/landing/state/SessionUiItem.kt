@@ -1,7 +1,7 @@
 package com.mss.features.results.presentation.ui.landing.state
 
 import androidx.compose.runtime.Composable
-import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.landing.UiItem
 
 class SessionUiItem(
     override val imageUrl: String,

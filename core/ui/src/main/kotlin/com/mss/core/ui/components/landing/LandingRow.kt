@@ -14,8 +14,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.data.mock.MockSeriesData
-import com.mss.core.ui.model.UiItem
-import com.mss.core.ui.model.UiItemConfiguration
+import com.mss.core.ui.model.landing.UiItem
+import com.mss.core.ui.model.landing.UiItemConfiguration
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.utils.asPageFlow
 import kotlinx.coroutines.flow.Flow

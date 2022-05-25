@@ -14,9 +14,9 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.mss.core.ui.R
 import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.data.mock.MockSeriesData
-import com.mss.core.ui.model.LandingBlockState
-import com.mss.core.ui.model.LandingUiState
-import com.mss.core.ui.model.UiItemConfiguration.NoSubtitle
+import com.mss.core.ui.model.landing.LandingBlockState
+import com.mss.core.ui.model.landing.LandingUiState
+import com.mss.core.ui.model.landing.UiItemConfiguration.NoSubtitle
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions.Screen
 import com.mss.core.ui.theme.divider

@@ -1,8 +1,8 @@
 package com.mss.core.ui.data.mock
 
 import com.mss.core.domain.ref.DriverReference
-import com.mss.core.ui.model.SimpleUiItem
-import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.landing.SimpleUiItem
+import com.mss.core.ui.model.landing.UiItem
 import kotlin.random.Random
 
 @Suppress("MagicNumber")

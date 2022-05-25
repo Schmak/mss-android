@@ -1,9 +1,9 @@
-package com.mss.core.ui.model
+package com.mss.core.ui.model.landing
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.paging.PagingData
-import com.mss.core.ui.model.UiItemConfiguration.Default
+import com.mss.core.ui.model.landing.UiItemConfiguration.Default
 import kotlinx.coroutines.flow.Flow
 
 data class LandingBlockState(

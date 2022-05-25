@@ -2,10 +2,10 @@ package com.mss.features.series.presentation.ui.landing.state
 
 import androidx.annotation.StringRes
 import androidx.paging.PagingData
-import com.mss.core.ui.model.LandingBlockState
-import com.mss.core.ui.model.LandingUiState
-import com.mss.core.ui.model.UiItem
-import com.mss.core.ui.model.UiItemConfiguration.NoSubtitle
+import com.mss.core.ui.model.landing.LandingBlockState
+import com.mss.core.ui.model.landing.LandingUiState
+import com.mss.core.ui.model.landing.UiItem
+import com.mss.core.ui.model.landing.UiItemConfiguration.NoSubtitle
 import com.mss.features.series.R
 import com.mss.features.series.presentation.ui.landing.BlockId
 import kotlinx.coroutines.flow.Flow

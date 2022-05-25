@@ -27,11 +27,11 @@ import com.mss.core.ui.R
 import com.mss.core.ui.annotation.MultiPreview
 import com.mss.core.ui.data.mock.MockDriverData
 import com.mss.core.ui.data.mock.MockSeriesData
-import com.mss.core.ui.model.UiItem
-import com.mss.core.ui.model.UiItemConfiguration
-import com.mss.core.ui.model.UiItemConfiguration.*
-import com.mss.core.ui.model.UiItemConfiguration.SubtitleColor.Capri
-import com.mss.core.ui.model.UiItemConfiguration.SubtitleColor.Cyan
+import com.mss.core.ui.model.landing.UiItem
+import com.mss.core.ui.model.landing.UiItemConfiguration
+import com.mss.core.ui.model.landing.UiItemConfiguration.*
+import com.mss.core.ui.model.landing.UiItemConfiguration.SubtitleColor.Capri
+import com.mss.core.ui.model.landing.UiItemConfiguration.SubtitleColor.Cyan
 import com.mss.core.ui.theme.*
 import com.mss.core.ui.theme.Dimensions.Tile
 

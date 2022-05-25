@@ -10,7 +10,7 @@ import com.mss.core.domain.usecases.GetSeriesCategories
 import com.mss.core.ui.components.landing.UiAction
 import com.mss.core.ui.components.landing.UiAction.Companion.filterByCategory
 import com.mss.core.ui.components.landing.viewmodel.AbstractLandingViewModel
-import com.mss.core.ui.model.UiItem
+import com.mss.core.ui.model.landing.UiItem
 import com.mss.core.utils.Result.Success
 import com.mss.features.results.R
 import com.mss.features.results.domain.usecases.GetSessionCollection
