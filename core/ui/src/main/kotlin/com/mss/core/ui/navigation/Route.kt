@@ -1,4 +1,4 @@
-package com.mss.app.navigation
+package com.mss.core.ui.navigation
 
 sealed class Route(val value: String) {
     object Series : Route("series")

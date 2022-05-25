@@ -1,4 +1,4 @@
-package com.mss.app.navigation
+package com.mss.core.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
