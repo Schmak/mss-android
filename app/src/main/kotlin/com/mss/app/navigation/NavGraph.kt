@@ -3,9 +3,11 @@ package com.mss.app.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.mss.app.navigation.Route.Companion.composable
+import androidx.navigation.compose.composable
 import com.mss.features.driver.presentation.ui.landing.DriverLandingScreen
 import com.mss.features.results.presentation.ui.landing.ResultsLandingScreen
 import com.mss.features.series.presentation.ui.landing.SeriesLandingScreen
@@ -29,4 +31,14 @@ fun NavGraph(
         composable(Route.Teams) { TeamLandingScreen(hiltViewModel()) }
         composable(Route.Venues) { VenueLandingScreen(hiltViewModel()) }
     }
+}
+
+private fun NavGraphBuilder.composable(
+    route: Route,
+    content: @Composable (NavBackStackEntry) -> Unit
+) {
+    composable(
+        route = route.value,
+        content = content
+    )
 }
