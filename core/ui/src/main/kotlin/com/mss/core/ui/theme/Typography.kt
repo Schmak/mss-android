@@ -10,6 +10,7 @@ import com.mss.core.ui.R
 
 private val Poppins = FontFamily(
     Font(R.font.poppins_medium, FontWeight.Medium),
+    Font(R.font.poppins_regular, FontWeight.Normal),
     Font(R.font.poppins_bold, FontWeight.Bold),
     Font(R.font.poppins_extra_bold, FontWeight.ExtraBold)
 )
@@ -24,6 +25,10 @@ val AppTypography = Typography(
         fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
     ),
+    h3 = TextStyle(
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+    ),
     subtitle1 = TextStyle(
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
@@ -31,6 +36,10 @@ val AppTypography = Typography(
     body1 = TextStyle(
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
+    ),
+    body2 = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 20.sp,
     ),
     button = TextStyle(
         fontWeight = FontWeight.Bold,
