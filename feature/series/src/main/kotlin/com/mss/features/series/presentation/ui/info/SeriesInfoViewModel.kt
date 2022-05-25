@@ -3,6 +3,7 @@ package com.mss.features.series.presentation.ui.info
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mss.core.ui.navigation.Route
 import com.mss.core.utils.Result.Success
 import com.mss.features.series.R
 import com.mss.features.series.domain.usecases.GetLastChampions
@@ -20,7 +21,8 @@ class SeriesInfoViewModel @Inject constructor(
     private val getLastChampions: GetLastChampions,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val seriesSlug: String = requireNotNull(savedStateHandle["series"])
+    private val seriesSlug: String =
+        requireNotNull(savedStateHandle[Route.SeriesInfo.Arguments.SERIES_SLUG])
     private val viewModelState = MutableStateFlow(SeriesInfoModelState(isLoading = true))
 
     val uiState = viewModelState

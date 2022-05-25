@@ -8,8 +8,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.mss.features.driver.presentation.ui.landing.DriverLandingScreen
 import com.mss.features.results.presentation.ui.landing.ResultsLandingScreen
+import com.mss.features.series.presentation.ui.info.SeriesInfoScreen
 import com.mss.features.series.presentation.ui.landing.SeriesLandingScreen
 import com.mss.features.team.presentation.ui.landing.TeamLandingScreen
 import com.mss.features.venue.presentation.ui.landing.VenueLandingScreen
@@ -30,6 +32,7 @@ fun NavGraph(
         composable(Route.Drivers) { DriverLandingScreen(hiltViewModel()) }
         composable(Route.Teams) { TeamLandingScreen(hiltViewModel()) }
         composable(Route.Venues) { VenueLandingScreen(hiltViewModel()) }
+        composable(Route.SeriesInfo.INSTANCE) { SeriesInfoScreen(hiltViewModel()) }
     }
 }
 
@@ -39,6 +42,7 @@ private fun NavGraphBuilder.composable(
 ) {
     composable(
         route = route.value,
+        arguments = route.arguments.map { navArgument(it) {} },
         content = content
     )
 }
