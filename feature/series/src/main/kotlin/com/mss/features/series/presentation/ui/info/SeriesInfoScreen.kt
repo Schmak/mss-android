@@ -9,6 +9,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,6 +20,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.mss.core.domain.LastSeriesChampions
 import com.mss.core.ui.annotation.MultiPreview
+import com.mss.core.ui.components.common.LoadingAndErrorWrapper
 import com.mss.core.ui.components.info.BlockHeader
 import com.mss.core.ui.components.info.InfoBlock
 import com.mss.core.ui.components.info.InfoBlockImage
@@ -33,36 +36,55 @@ import com.mss.features.series.presentation.ui.info.state.SeriesInfoUiState
 
 @Composable
 fun SeriesInfoScreen(
-    uiState: SeriesInfoUiState,
-    modifier: Modifier = Modifier
+    viewModel: SeriesInfoViewModel,
+    modifier: Modifier = Modifier,
 ) {
-    val series = uiState.seriesInfo
-    val lastSeriesChampions = uiState.lastChampions
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(20.dp)
-    ) {
-        InfoBlockImage(series.picture)
-        Text(
-            text = (series.shortName ?: series.name).uppercase(),
-            style = MaterialTheme.typography.h1,
-            modifier = Modifier.padding(top = 10.dp)
+    val uiState by viewModel.uiState.collectAsState()
+    SeriesInfoScreen(
+        uiState = uiState,
+        onAction = viewModel::handleAction,
+        modifier = modifier,
+    )
+}
 
-        )
-        if (series.shortName != null)
+@Composable
+fun SeriesInfoScreen(
+    uiState: SeriesInfoUiState,
+    modifier: Modifier = Modifier,
+    onAction: (UiAction) -> Unit = {}
+) {
+    LoadingAndErrorWrapper(
+        uiState = uiState,
+        onRetry = { onAction(UiAction.Refresh) },
+    ) {
+        val series = requireNotNull(uiState.seriesInfo)
+        val lastSeriesChampions = uiState.lastChampions
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(20.dp)
+        ) {
+            InfoBlockImage(series.picture)
             Text(
-                text = series.name.uppercase(),
-                style = MaterialTheme.typography.h3,
-                color = MaterialTheme.colors.infoSubtitleColor,
+                text = (series.shortName ?: series.name).uppercase(),
+                style = MaterialTheme.typography.h1,
+                modifier = Modifier.padding(top = 10.dp)
+
             )
-        InfoBlock(titleId = R.string.category, value = series.category)
-        InfoBlock(titleId = R.string.affiliation, value = series.organisation)
-        InfoBlock(titleId = R.string.established, value = series.firstSeason)
-        if (lastSeriesChampions != null)
-            LastSeriesChampions(lastSeriesChampions)
-        SocialBlock(uiState.links)
+            if (series.shortName != null)
+                Text(
+                    text = series.name.uppercase(),
+                    style = MaterialTheme.typography.h3,
+                    color = MaterialTheme.colors.infoSubtitleColor,
+                )
+            InfoBlock(titleId = R.string.category, value = series.category)
+            InfoBlock(titleId = R.string.affiliation, value = series.organisation)
+            InfoBlock(titleId = R.string.established, value = series.firstSeason)
+            if (lastSeriesChampions != null)
+                LastSeriesChampions(lastSeriesChampions)
+            SocialBlock(uiState.links)
+        }
     }
 }
 
@@ -112,7 +134,10 @@ fun PreviewSeriesInfoScreen() {
                         SocialLink(R.drawable.ic_youtube, "url"),
                         SocialLink(R.drawable.ic_twitter, "url"),
                         SocialLink(R.drawable.ic_instagram, "url"),
-                    )
+                    ),
+                    hasData = true,
+                    errorMessageId = null,
+                    isLoading = false,
                 )
             )
         }
