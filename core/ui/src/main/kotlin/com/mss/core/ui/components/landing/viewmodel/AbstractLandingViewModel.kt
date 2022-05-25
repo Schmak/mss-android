@@ -1,7 +1,7 @@
 package com.mss.core.ui.components.landing.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mss.core.ui.components.common.viewmodel.AbstractViewModel
 import com.mss.core.ui.components.landing.UiAction
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.onSubscription
 import kotlinx.coroutines.launch
 
-abstract class AbstractLandingViewModel : ViewModel() {
+abstract class AbstractLandingViewModel : AbstractViewModel() {
     private val _actions = MutableSharedFlow<UiAction>()
     protected val actions = _actions.asSharedFlow().onSubscription { emit(UiAction.Refresh) }
     protected val refreshActions = actions.filterIsInstance<UiAction.Refresh>()

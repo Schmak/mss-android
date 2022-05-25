@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.mss.core.ui.model.common.UiEvent
 import com.mss.features.driver.presentation.ui.landing.DriverLandingScreen
 import com.mss.features.results.presentation.ui.landing.ResultsLandingScreen
 import com.mss.features.series.presentation.ui.info.SeriesInfoScreen
@@ -27,13 +28,47 @@ fun NavGraph(
         startDestination = startDestination.value,
         modifier = modifier
     ) {
-        composable(Route.Series) { SeriesLandingScreen(hiltViewModel()) }
-        composable(Route.Results) { ResultsLandingScreen(hiltViewModel()) }
-        composable(Route.Drivers) { DriverLandingScreen(hiltViewModel()) }
-        composable(Route.Teams) { TeamLandingScreen(hiltViewModel()) }
-        composable(Route.Venues) { VenueLandingScreen(hiltViewModel()) }
-        composable(Route.SeriesInfo.INSTANCE) { SeriesInfoScreen(hiltViewModel()) }
+        composable(Route.Series) {
+            SeriesLandingScreen(
+                viewModel = hiltViewModel(),
+                onUiEvent = navController::onUiEvent
+            )
+        }
+        composable(Route.Results) {
+            ResultsLandingScreen(
+                viewModel = hiltViewModel(),
+                onUiEvent = navController::onUiEvent
+            )
+        }
+        composable(Route.Drivers) {
+            DriverLandingScreen(
+                viewModel = hiltViewModel(),
+                onUiEvent = navController::onUiEvent
+            )
+        }
+        composable(Route.Teams) {
+            TeamLandingScreen(
+                viewModel = hiltViewModel(),
+                onUiEvent = navController::onUiEvent
+            )
+        }
+        composable(Route.Venues) {
+            VenueLandingScreen(
+                viewModel = hiltViewModel(),
+                onUiEvent = navController::onUiEvent
+            )
+        }
+        composable(Route.SeriesInfo.INSTANCE) {
+            SeriesInfoScreen(
+                viewModel = hiltViewModel(),
+                onUiEvent = navController::onUiEvent
+            )
+        }
     }
+}
+
+private fun NavHostController.onUiEvent(event: UiEvent) = when (event) {
+    is UiEvent.Navigate -> navigate(event.route.value)
 }
 
 private fun NavGraphBuilder.composable(

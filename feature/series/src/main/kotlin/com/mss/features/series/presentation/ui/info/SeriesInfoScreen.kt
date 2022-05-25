@@ -9,6 +9,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -27,6 +28,7 @@ import com.mss.core.ui.components.info.InfoBlockImage
 import com.mss.core.ui.components.info.SocialBlock
 import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.model.SocialLink
+import com.mss.core.ui.model.common.UiEvent
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions
 import com.mss.core.ui.theme.imageBackground
@@ -38,7 +40,9 @@ import com.mss.features.series.presentation.ui.info.state.SeriesInfoUiState
 fun SeriesInfoScreen(
     viewModel: SeriesInfoViewModel,
     modifier: Modifier = Modifier,
+    onUiEvent: (UiEvent) -> Unit = {},
 ) {
+    LaunchedEffect(key1 = true) { viewModel.uiEvents.collect(onUiEvent) }
     val uiState by viewModel.uiState.collectAsState()
     SeriesInfoScreen(
         uiState = uiState,
