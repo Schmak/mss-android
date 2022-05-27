@@ -15,6 +15,7 @@ import com.mss.features.results.presentation.ui.landing.ResultsLandingScreen
 import com.mss.features.series.presentation.ui.info.SeriesInfoScreen
 import com.mss.features.series.presentation.ui.landing.SeriesLandingScreen
 import com.mss.features.team.presentation.ui.landing.TeamLandingScreen
+import com.mss.features.venue.presentation.ui.info.VenueInfoScreen
 import com.mss.features.venue.presentation.ui.landing.VenueLandingScreen
 
 @Composable
@@ -60,6 +61,12 @@ fun NavGraph(
         }
         composable(Route.SeriesInfo.INSTANCE) {
             SeriesInfoScreen(
+                viewModel = hiltViewModel(),
+                onUiEvent = navController::onUiEvent
+            )
+        }
+        composable(Route.VenueInfo.INSTANCE) {
+            VenueInfoScreen(
                 viewModel = hiltViewModel(),
                 onUiEvent = navController::onUiEvent
             )
