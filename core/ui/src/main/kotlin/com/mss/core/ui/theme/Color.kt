@@ -24,3 +24,4 @@ val Red = Color.Red
 val Transparent = Color.Transparent
 val White = Color.White
 val White10 = Color(0X1AFFFFFF)
+val GhostWhite = Color(0xFFF9F9FA)

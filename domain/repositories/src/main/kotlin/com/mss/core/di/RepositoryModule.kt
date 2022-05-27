@@ -7,10 +7,7 @@ import com.mss.core.network.v3.api.DriverApiV3
 import com.mss.core.network.v3.api.SeasonApiV3
 import com.mss.core.network.v3.api.SeriesApiV3
 import com.mss.core.network.v3.api.VenueApiV3
-import com.mss.core.network.v4.api.SeasonApiV4
-import com.mss.core.network.v4.api.SeriesApiV4
-import com.mss.core.network.v4.api.SessionApiV4
-import com.mss.core.network.v4.api.TeamApiV4
+import com.mss.core.network.v4.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -71,6 +68,7 @@ object RepositoryModule {
     @Singleton
     fun providesVenueRepository(
         venueApiV3: VenueApiV3,
+        venueApiV4: VenueApiV4,
         seasonApiV3: SeasonApiV3,
         @IoDispatcher
         dispatcher: CoroutineDispatcher,
@@ -78,6 +76,7 @@ object RepositoryModule {
         VenueRepositoryImpl(
             seasonApiV3 = seasonApiV3,
             venueApiV3 = venueApiV3,
+            venueApiV4 = venueApiV4,
             dispatcher = dispatcher
         )
 

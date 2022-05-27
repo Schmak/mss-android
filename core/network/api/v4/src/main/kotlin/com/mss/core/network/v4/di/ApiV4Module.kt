@@ -1,9 +1,6 @@
 package com.mss.core.network.v4.di
 
-import com.mss.core.network.v4.api.SeasonApiV4
-import com.mss.core.network.v4.api.SeriesApiV4
-import com.mss.core.network.v4.api.SessionApiV4
-import com.mss.core.network.v4.api.TeamApiV4
+import com.mss.core.network.v4.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,4 +22,7 @@ object ApiV4Module {
 
     @Provides
     fun provideTeamApi(retrofit: Retrofit): TeamApiV4 = retrofit.create()
+
+    @Provides
+    fun provideVenueApi(retrofit: Retrofit): VenueApiV4 = retrofit.create()
 }
