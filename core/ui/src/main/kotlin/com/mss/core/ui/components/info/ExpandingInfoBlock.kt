@@ -1,6 +1,7 @@
 package com.mss.core.ui.components.info
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -24,7 +25,8 @@ fun ExpandingInfoBlock(
     @StringRes buttonTitleId: Int,
     @StringRes dialogTitleId: Int,
     items: List<String>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: (idx: Int) -> Unit = {}
 ) {
     if (items.isEmpty()) return
     Column(modifier = modifier) {
@@ -32,6 +34,7 @@ fun ExpandingInfoBlock(
             text = items.first(),
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.infoSubtitleColor,
+            modifier = Modifier.clickable { onItemClick(0) }
         )
         if (items.size > 1) {
             var openDialog by rememberSaveable { mutableStateOf(false) }
@@ -49,8 +52,10 @@ fun ExpandingInfoBlock(
                 ListDialog(
                     titleId = dialogTitleId,
                     items = items,
-                    onDismissRequest = { openDialog = false }
-                )
+                    onDismissRequest = { openDialog = false },
+                    onItemClick = onItemClick,
+
+                    )
         }
     }
 }

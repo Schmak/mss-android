@@ -73,6 +73,7 @@ fun VenueInfoScreen(
                 buttonTitleId = R.string.all_series,
                 dialogTitleId = R.string.series,
                 items = venueDetails?.series?.map { it.name }.orEmpty(),
+                onItemClick = { onAction(UiAction.SeriesSelected(it)) },
             )
             val address = venue.address
             if (address != null)

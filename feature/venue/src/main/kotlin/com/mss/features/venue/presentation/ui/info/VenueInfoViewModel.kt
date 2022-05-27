@@ -3,6 +3,7 @@ package com.mss.features.venue.presentation.ui.info
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.mss.core.ui.components.common.viewmodel.AbstractViewModel
+import com.mss.core.ui.model.common.UiEvent
 import com.mss.core.ui.navigation.Route
 import com.mss.core.utils.Result.Success
 import com.mss.features.venue.R
@@ -37,8 +38,15 @@ class VenueInfoViewModel @Inject constructor(
         refresh()
     }
 
-    fun handleAction(action: UiAction) = when (action) {
-        UiAction.Refresh -> refresh()
+    fun handleAction(action: UiAction) {
+        when (action) {
+            UiAction.Refresh -> refresh()
+            is UiAction.SeriesSelected -> {
+                val series = viewModelState.value.venueDetails?.series?.getOrNull(action.idx)
+                if (series != null)
+                    sendUiEvent(UiEvent.Navigate(Route.SeriesInfo(series.slug)))
+            }
+        }
     }
 
     private fun refresh() {
