@@ -27,7 +27,7 @@ import com.mss.core.ui.components.info.InfoBlock
 import com.mss.core.ui.components.info.InfoBlockImage
 import com.mss.core.ui.components.info.SocialBlock
 import com.mss.core.ui.data.mock.MockSeriesData
-import com.mss.core.ui.model.SocialLink
+import com.mss.core.ui.data.mock.MockSocialData
 import com.mss.core.ui.model.common.UiEvent
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.Dimensions
@@ -133,12 +133,7 @@ fun PreviewSeriesInfoScreen() {
                 uiState = SeriesInfoUiState(
                     seriesInfo = MockSeriesData.series,
                     lastChampions = MockSeriesData.lastSeriesChampions,
-                    links = listOf(
-                        SocialLink(R.drawable.ic_facebook, "url"),
-                        SocialLink(R.drawable.ic_youtube, "url"),
-                        SocialLink(R.drawable.ic_twitter, "url"),
-                        SocialLink(R.drawable.ic_instagram, "url"),
-                    ),
+                    links = MockSocialData.links,
                     hasData = true,
                     errorMessageId = null,
                     isLoading = false,

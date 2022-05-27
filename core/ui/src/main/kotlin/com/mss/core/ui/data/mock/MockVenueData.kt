@@ -1,6 +1,7 @@
 package com.mss.core.ui.data.mock
 
-import com.mss.core.ui.data.mock.MockCountryData.countries
+import com.mss.core.domain.Venue
+import com.mss.core.domain.VenueDetails
 import com.mss.core.ui.model.landing.SimpleUiItem
 import com.mss.core.ui.model.landing.UiItem
 import kotlin.random.Random
@@ -33,11 +34,35 @@ object MockVenueData {
     val roadCircuitVenues = getVenueList()
     val streetCircuitVenues = getVenueList()
 
+    val venue = Venue(
+        name = names.first(),
+        picture = pictures.first(),
+        country = MockCountryData.countryReference,
+        address = "Some address",
+        resourceLinks = emptyList(),
+    )
+
+    val venueDetails = VenueDetails(
+        firstEvent = VenueDetails.EventYear(
+            event = MockEventData.references[0],
+            year = 1999,
+        ),
+        lastEvent = VenueDetails.EventYear(
+            event = MockEventData.references[1],
+            year = 2005,
+        ),
+        lastCircuit = VenueDetails.Circuit(
+            lengthMeters = 2004.0,
+            totalCorners = 25,
+        ),
+        series = MockSeriesData.references.take(8)
+    )
+
     private fun getVenueList(size: Int = 10) = List<UiItem>(size) {
         SimpleUiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
-            subtitles = listOf(countries.random()),
+            subtitles = listOf(MockCountryData.names.random()),
         )
     }
 }

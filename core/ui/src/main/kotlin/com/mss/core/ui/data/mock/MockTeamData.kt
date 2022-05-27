@@ -1,7 +1,6 @@
 package com.mss.core.ui.data.mock
 
 import com.mss.core.domain.ref.TeamReference
-import com.mss.core.ui.data.mock.MockCountryData.countries
 import com.mss.core.ui.model.landing.SimpleUiItem
 import com.mss.core.ui.model.landing.UiItem
 import kotlin.random.Random
@@ -42,7 +41,7 @@ object MockTeamData {
         SimpleUiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
-            subtitles = listOf(countries.random()),
+            subtitles = listOf(MockCountryData.names.random()),
         )
     }
 }

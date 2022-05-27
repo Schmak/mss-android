@@ -40,7 +40,7 @@ object MockDriverData {
         SimpleUiItem(
             imageUrl = pictures.random(random),
             title = names.random(random),
-            subtitles = listOf(MockTeamData.names.random(), MockCountryData.countries.random()),
+            subtitles = listOf(MockTeamData.names.random(), MockCountryData.names.random()),
         )
     }
 }

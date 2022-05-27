@@ -55,18 +55,6 @@ object MockSeriesData {
         )
     }
 
-    private val eventNames = listOf(
-        "Fuji",
-        "Oulton Park",
-        "Portimão",
-        "Estoril",
-        "Spain",
-        "Brands Hatch",
-        "Hyundai Monterey Sports Car Championship",
-        "Honday Indy Grand Prix of Alabama",
-        "Barber Motorsports Park",
-    )
-
     val regions = listOf(
         "Worldwide",
         "Europe",
@@ -122,7 +110,7 @@ object MockSeriesData {
     val mostRecent = List<UiItem>(10) {
         SimpleUiItem(
             imageUrl = pictures.random(random),
-            title = eventNames.random(random),
+            title = MockEventData.names.random(random),
             subtitles = listOf(
                 LocalDate.now().minusDays(it.toLong())
                     .format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
@@ -149,4 +137,12 @@ object MockSeriesData {
         drivers = MockDriverData.driverReferences.take(3),
         team = MockTeamData.teamReferences.first(),
     )
+
+    val references = List(10) {
+        SeriesReference(
+            name = names.random(random),
+            slug = "series.slug",
+            picture = pictures.random(random)
+        )
+    }
 }
