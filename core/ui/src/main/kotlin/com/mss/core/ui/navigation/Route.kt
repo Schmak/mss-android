@@ -22,4 +22,17 @@ sealed class Route(
             val INSTANCE = SeriesInfo(seriesSlug = "{${Arguments.SERIES_SLUG}}")
         }
     }
+
+    class VenueInfo(venueSlug: String) : Route(
+        value = "venues/$venueSlug",
+        arguments = listOf(Arguments.VENUE_SLUG),
+    ) {
+        object Arguments {
+            const val VENUE_SLUG = "venueSlug"
+        }
+
+        companion object {
+            val INSTANCE = VenueInfo(venueSlug = "{${Arguments.VENUE_SLUG}}")
+        }
+    }
 }

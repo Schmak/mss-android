@@ -10,6 +10,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -22,9 +25,25 @@ import com.mss.core.ui.components.info.InfoBlockImage
 import com.mss.core.ui.components.info.SocialBlock
 import com.mss.core.ui.data.mock.MockSocialData
 import com.mss.core.ui.data.mock.MockVenueData
+import com.mss.core.ui.model.common.UiEvent
 import com.mss.core.ui.theme.AppTheme
 import com.mss.features.venue.R
 import com.mss.features.venue.presentation.ui.info.state.VenueInfoUiState
+
+@Composable
+fun VenueInfoScreen(
+    viewModel: VenueInfoViewModel,
+    modifier: Modifier = Modifier,
+    onUiEvent: (UiEvent) -> Unit = {},
+) {
+    LaunchedEffect(key1 = true) { viewModel.uiEvents.collect(onUiEvent) }
+    val uiState by viewModel.uiState.collectAsState()
+    VenueInfoScreen(
+        uiState = uiState,
+        onAction = viewModel::handleAction,
+        modifier = modifier,
+    )
+}
 
 @Composable
 fun VenueInfoScreen(
