@@ -1,18 +1,37 @@
 package com.mss.core.data.repository
 
+import com.mss.core.domain.Driver
 import com.mss.core.domain.DriverItem
+import com.mss.core.domain.SeriesWithTeam
+import com.mss.core.domain.common.ResourceLink
 import com.mss.core.domain.create
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
+import com.mss.core.domain.ref.CountryReference
+import com.mss.core.domain.ref.DriverReference
+import com.mss.core.domain.ref.SeriesReference
+import com.mss.core.domain.ref.TeamReference
 import com.mss.core.domain.repository.DriverRepository
 import com.mss.core.domain.sort.OrderBy.Companion.asc
 import com.mss.core.domain.sort.OrderBy.Companion.desc
 import com.mss.core.network.v3.api.DriverApiV3
 import com.mss.core.network.v3.api.SeasonApiV3
 import com.mss.core.network.v3.api.SeriesApiV3
+import com.mss.core.network.v3.model.DriverDto
 import com.mss.core.network.v3.model.DriverItemDto
 import com.mss.core.network.v3.model.PageDto
+import com.mss.core.network.v3.model.common.ResourceLinkDto
+import com.mss.core.network.v3.model.common.create
 import com.mss.core.network.v3.model.create
+import com.mss.core.network.v3.model.ref.CountryReferenceDto
+import com.mss.core.network.v3.model.ref.DriverReferenceDto
+import com.mss.core.network.v3.model.ref.create
+import com.mss.core.network.v4.api.DriverApiV4
+import com.mss.core.network.v4.model.SeriesWithTeamDto
+import com.mss.core.network.v4.model.create
+import com.mss.core.network.v4.model.ref.SeriesReferenceDto
+import com.mss.core.network.v4.model.ref.TeamReferenceDto
+import com.mss.core.network.v4.model.ref.create
 import com.mss.core.test.annotation.UnitTest
 import com.mss.core.test.utils.coroutines.TestDispatchers
 import io.mockk.mockk
@@ -21,12 +40,14 @@ import io.mockk.mockk
 internal class DriverRepositoryImplTest : AbstractRepositoryTest() {
     private val seriesApiV3: SeriesApiV3 = mockk()
     private val driverApiV3: DriverApiV3 = mockk()
+    private val driverApiV4: DriverApiV4 = mockk()
     private val seasonApiV3: SeasonApiV3 = mockk()
     private val repository: DriverRepository =
         DriverRepositoryImpl(
             seriesApiV3 = seriesApiV3,
             seasonApiV3 = seasonApiV3,
             driverApiV3 = driverApiV3,
+            driverApiV4 = driverApiV4,
             dispatcher = TestDispatchers.IO,
         )
 
@@ -94,13 +115,27 @@ internal class DriverRepositoryImplTest : AbstractRepositoryTest() {
             },
             expectedRepositoryResponse = repoResponse(15),
         ),
+        TestCase(
+            name = "getDriverInfo",
+            apiQuery = { driverApiV3.getDriverInfo(DRIVER_SLUG) },
+            apiResponse = DRIVER_DTO,
+            repositoryQuery = { repository.getInfo(DRIVER_SLUG) },
+            expectedRepositoryResponse = DRIVER,
+        ),
+        TestCase(
+            name = "getLastTeams",
+            apiQuery = { driverApiV4.getLastTeams(DRIVER_SLUG) },
+            apiResponse = listOf(LAST_TEAM_DTO),
+            repositoryQuery = { repository.getLastTeams(DRIVER_SLUG) },
+            expectedRepositoryResponse = listOf(LAST_TEAM),
+        ),
     )
 
     companion object {
         private const val SEASON = "F1 2022"
         private const val SERIES = "Formula One"
-        private const val DRIVER_NAME = "Ferrari"
-        private const val DRIVER_SLUG = "ferrari"
+        private const val DRIVER_NAME = "Lewis Hamilton"
+        private const val DRIVER_SLUG = "lewis-hamilton"
         private const val PAGE_SIZE = 27
         private const val TOTAL_PAGES = 18
         private const val TOTAL_ELEMENTS = 199L
@@ -119,6 +154,85 @@ internal class DriverRepositoryImplTest : AbstractRepositoryTest() {
             picture = null,
             lastTeam = null,
             nationalities = emptyList()
+        )
+
+        private val DRIVER_DTO = DriverDto.create(
+            name = "driver.name",
+            uuid = "driver.slug",
+            picture = "driver.picture",
+            nationality = CountryReferenceDto.create(
+                name = "country.name",
+                picture = null
+            ),
+            dateOfDeath = null,
+            dateOfBirth = null,
+            age = 15,
+            placeOfBirth = "driver.placeOfBirth",
+            placeOfDeath = "driver.placeOfDeath",
+            resourceLinks = listOf(ResourceLinkDto.create(type = "facebook", href = "url")),
+            relations = listOf(
+                DriverDto.Relation.create(
+                    driver = DriverReferenceDto.create(
+                        name = "father.name",
+                        uuid = "father.slug",
+                        picture = "father.picture",
+                    ),
+                    relationship = "father"
+                )
+            ),
+        )
+
+        private val DRIVER = Driver(
+            name = "driver.name",
+            slug = "driver.slug",
+            picture = "driver.picture",
+            nationality = CountryReference(
+                name = "country.name",
+                picture = null
+            ),
+            dateOfDeath = null,
+            dateOfBirth = null,
+            age = 15,
+            placeOfBirth = "driver.placeOfBirth",
+            placeOfDeath = "driver.placeOfDeath",
+            resourceLinks = listOf(ResourceLink.Facebook("url")),
+            relations = listOf(
+                Driver.Relation(
+                    driver = DriverReference(
+                        name = "father.name",
+                        slug = "father.slug",
+                        picture = "father.picture",
+                        countryFlag = null,
+                    ),
+                    relationship = "father"
+                )
+            ),
+        )
+
+        private val LAST_TEAM_DTO = SeriesWithTeamDto.create(
+            series = SeriesReferenceDto.create(
+                slug = "series.slug",
+                name = "series.name",
+                picture = "series.picture",
+            ),
+            team = TeamReferenceDto.create(
+                slug = "team.slug",
+                name = "team.name",
+                picture = "team.picture",
+            ),
+        )
+
+        private val LAST_TEAM = SeriesWithTeam(
+            series = SeriesReference(
+                slug = "series.slug",
+                name = "series.name",
+                picture = "series.picture",
+            ),
+            team = TeamReference(
+                slug = "team.slug",
+                name = "team.name",
+                picture = "team.picture",
+            ),
         )
 
         private fun repoResponse(page: Int) =

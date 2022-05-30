@@ -38,6 +38,7 @@ object RepositoryModule {
         seriesApiV3: SeriesApiV3,
         seasonApiV3: SeasonApiV3,
         driverApiV3: DriverApiV3,
+        driverApiV4: DriverApiV4,
         @IoDispatcher
         dispatcher: CoroutineDispatcher,
     ): DriverRepository =
@@ -45,6 +46,7 @@ object RepositoryModule {
             seriesApiV3 = seriesApiV3,
             seasonApiV3 = seasonApiV3,
             driverApiV3 = driverApiV3,
+            driverApiV4 = driverApiV4,
             dispatcher = dispatcher
         )
 
