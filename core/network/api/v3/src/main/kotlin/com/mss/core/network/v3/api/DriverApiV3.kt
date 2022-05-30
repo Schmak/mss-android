@@ -1,5 +1,6 @@
 package com.mss.core.network.v3.api
 
+import com.mss.core.network.v3.model.DriverDto
 import com.mss.core.network.v3.model.DriverItemDto
 import com.mss.core.network.v3.model.PageDto
 import retrofit2.http.GET
@@ -13,6 +14,11 @@ interface DriverApiV3 {
         @Query("page") page: Int?,
         @Query("size") size: Int?,
     ): PageDto<DriverItemDto>
+
+    @GET("/web/3.0.0/drivers/{driver}/short")
+    suspend fun getDriverInfo(
+        @Path("driver") driver: String,
+    ): DriverDto
 
     enum class DriverCollection {
         Anniversaries,
