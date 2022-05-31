@@ -1,5 +1,6 @@
 package com.mss.features.team.presentation.ui.info
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
@@ -72,6 +73,7 @@ fun TeamInfoScreen(
             SeriesBlock(
                 firstSeries = uiState.firstSeries,
                 otherSeries = uiState.otherSeries,
+                onAction = onAction,
             )
             SocialBlock(uiState.links)
         }
@@ -100,14 +102,22 @@ private fun ColumnScope.ConstructorsBlock(constructors: List<String>) {
 private fun ColumnScope.SeriesBlock(
     firstSeries: SeriesWithDrivers?,
     otherSeries: List<SeriesWithDrivers>,
+    onAction: (UiAction) -> Unit,
 ) {
     if (firstSeries != null) {
-        InfoBlock(titleId = R.string.series, value = firstSeries.series.name)
+        InfoBlock(
+            titleId = R.string.series,
+            value = firstSeries.series.name,
+            onItemClick = { onAction(UiAction.SeriesSelected(0)) }
+        )
         BlockHeader(titleId = R.string.drivers)
-        firstSeries.drivers.forEach { driver ->
+        firstSeries.drivers.forEachIndexed { idx, driver ->
             TextRowWithImage(
                 text = driver.name,
                 imageUrl = driver.picture,
+                modifier = Modifier.clickable {
+                    onAction(UiAction.DriverSelected(seriesIdx = 0, driverIdx = idx))
+                }
             )
         }
     }
@@ -117,20 +127,29 @@ private fun ColumnScope.SeriesBlock(
             style = MaterialTheme.typography.h3,
             color = MaterialTheme.colors.infoSubtitleColor,
         )
-    otherSeries.forEach {
+    otherSeries.forEachIndexed { idx, (series, drivers) ->
         Text(
-            text = it.series.name,
+            text = series.name,
             style = MaterialTheme.typography.body2,
+            modifier = Modifier.clickable {
+                onAction(UiAction.SeriesSelected(idx + 1))
+            },
         )
         Text(
-            text = it.drivers.first().name,
+            text = drivers.first().name,
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.infoSubtitleColor,
+            modifier = Modifier.clickable {
+                onAction(UiAction.DriverSelected(seriesIdx = idx + 1, driverIdx = 0))
+            }
         )
         ExpandingInfoBlock(
             buttonTitleId = R.string.all_drivers,
             dialogTitleId = R.string.drivers,
-            items = it.drivers.map { driver -> driver.name },
+            items = drivers.map { driver -> driver.name },
+            onItemClick = {
+                onAction(UiAction.DriverSelected(seriesIdx = idx + 1, driverIdx = it))
+            },
         )
     }
 }
