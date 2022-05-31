@@ -23,9 +23,11 @@ import com.mss.core.ui.theme.imageBackground
 fun TextRowWithImage(
     text: String,
     imageUrl: String?,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier,
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)

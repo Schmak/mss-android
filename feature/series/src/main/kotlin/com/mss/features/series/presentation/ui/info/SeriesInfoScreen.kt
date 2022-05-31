@@ -1,5 +1,6 @@
 package com.mss.features.series.presentation.ui.info
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -74,18 +75,28 @@ fun SeriesInfoScreen(
             InfoBlock(titleId = R.string.affiliation, value = series.organisation)
             InfoBlock(titleId = R.string.established, value = series.firstSeason)
             if (lastSeriesChampions != null)
-                LastSeriesChampions(lastSeriesChampions)
+                LastSeriesChampions(
+                    lastSeriesChampions = lastSeriesChampions,
+                    onDriverSelected = { onAction(UiAction.DriverSelected(it)) }
+                )
             SocialBlock(uiState.links)
         }
     }
 }
 
 @Composable
-private fun LastSeriesChampions(lastSeriesChampions: LastSeriesChampions) {
+private fun LastSeriesChampions(
+    lastSeriesChampions: LastSeriesChampions,
+    onDriverSelected: (Int) -> Unit,
+) {
     Spacer(modifier = Modifier.height(20.dp))
     BlockHeader(titleId = R.string.current_champions)
-    lastSeriesChampions.drivers.forEach {
-        TextRowWithImage(text = it.name, imageUrl = it.picture)
+    lastSeriesChampions.drivers.forEachIndexed { idx, driver ->
+        TextRowWithImage(
+            text = driver.name,
+            imageUrl = driver.picture,
+            modifier = Modifier.clickable { onDriverSelected(idx) }
+        )
     }
     InfoBlock(
         titleId = R.string.current_team_champion,
