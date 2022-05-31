@@ -4,9 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -24,10 +22,7 @@ fun InfoBlock(
         Column(modifier = modifier) {
             Spacer(modifier = Modifier.height(20.dp))
             BlockHeader(titleId = titleId)
-            Text(
-                text = value,
-                style = MaterialTheme.typography.body2,
-            )
+            TextRow(value)
         }
     }
 }
