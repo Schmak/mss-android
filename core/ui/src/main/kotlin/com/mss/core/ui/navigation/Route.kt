@@ -48,4 +48,17 @@ sealed class Route(
             val INSTANCE = DriverInfo(driverSlug = "{${Arguments.DRIVER_SLUG}}")
         }
     }
+
+    class TeamInfo(teamSlug: String) : Route(
+        value = "teams/$teamSlug",
+        arguments = listOf(Arguments.TEAM_SLUG),
+    ) {
+        object Arguments {
+            const val TEAM_SLUG = "teamSlug"
+        }
+
+        companion object {
+            val INSTANCE = TeamInfo(teamSlug = "{${Arguments.TEAM_SLUG}}")
+        }
+    }
 }
