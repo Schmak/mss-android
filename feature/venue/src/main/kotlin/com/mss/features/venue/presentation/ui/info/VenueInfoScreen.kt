@@ -1,6 +1,7 @@
 package com.mss.features.venue.presentation.ui.info
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -27,6 +28,7 @@ import com.mss.core.ui.data.mock.MockSocialData
 import com.mss.core.ui.data.mock.MockVenueData
 import com.mss.core.ui.model.common.UiEvent
 import com.mss.core.ui.theme.AppTheme
+import com.mss.core.ui.theme.infoSubtitleColor
 import com.mss.features.venue.R
 import com.mss.features.venue.presentation.ui.info.state.VenueInfoUiState
 
@@ -69,12 +71,21 @@ fun VenueInfoScreen(
                 style = MaterialTheme.typography.h1,
                 modifier = Modifier.padding(top = 10.dp)
             )
-            ExpandingInfoBlock(
-                buttonTitleId = R.string.all_series,
-                dialogTitleId = R.string.series,
-                items = venueDetails?.series?.map { it.name }.orEmpty(),
-                onItemClick = { onAction(UiAction.SeriesSelected(it)) },
-            )
+            val series = venueDetails?.series?.map { it.name }
+            if (!series.isNullOrEmpty()) {
+                Text(
+                    text = series.first(),
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.infoSubtitleColor,
+                    modifier = Modifier.clickable { onAction(UiAction.SeriesSelected(0)) }
+                )
+                ExpandingInfoBlock(
+                    buttonTitleId = R.string.all_series,
+                    dialogTitleId = R.string.series,
+                    items = series,
+                    onItemClick = { onAction(UiAction.SeriesSelected(it)) },
+                )
+            }
             val address = venue.address
             if (address != null)
                 Text(
