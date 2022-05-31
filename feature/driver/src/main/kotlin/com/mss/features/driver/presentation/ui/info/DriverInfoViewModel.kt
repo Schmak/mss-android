@@ -50,6 +50,10 @@ class DriverInfoViewModel @Inject constructor(
                     ?.relations?.getOrNull(action.idx)?.driver ?: return
                 sendUiEvent(UiEvent.Navigate(Route.DriverInfo(driver.slug)))
             }
+            is UiAction.SelectTeam -> {
+                val team = viewModelState.value.teams.getOrNull(action.idx) ?: return
+                sendUiEvent(UiEvent.Navigate(Route.TeamInfo(team.slug)))
+            }
         }
     }
 
