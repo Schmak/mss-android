@@ -8,9 +8,18 @@ internal class VenueApiTest : AbstractApiTest() {
     private val api = ApiModuleV3.provideVenueApi(testRetrofit)
 
     @Test
-    fun getVenues() = test {
+    fun getVenues() = assertIsNotEmpty {
         api.getVenues(
             filterIds = arrayOf("Street Circuit"),
+            page = 0,
+            size = 10,
+        )
+    }
+
+    @Test
+    fun getMissingVenues() = assertIsEmpty {
+        api.getVenues(
+            filterIds = arrayOf("Hamilton Lewis"),
             page = 0,
             size = 10,
         )

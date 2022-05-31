@@ -10,7 +10,7 @@ internal class SeriesApiTest : AbstractApiTest() {
     private val api = ApiV4Module.provideSeriesApi(testRetrofit)
 
     @Test
-    fun getTeamsOrderedByTeamWins() = test {
+    fun getTeamsOrderedByTeamWins() = assertIsNotEmpty {
         api.getTeams(
             series = SERIES,
             hideZeros = true,
@@ -21,7 +21,7 @@ internal class SeriesApiTest : AbstractApiTest() {
     }
 
     @Test
-    fun getTeamsOrderedByChampWins() = test {
+    fun getTeamsOrderedByChampWins() = assertIsNotEmpty {
         api.getTeams(
             series = SERIES,
             hideZeros = true,
@@ -32,7 +32,7 @@ internal class SeriesApiTest : AbstractApiTest() {
     }
 
     @Test
-    fun getInfo() = test {
+    fun getInfo() = assertIsNotEmpty {
         api.getInfo(SERIES)
     }
 
@@ -42,7 +42,7 @@ internal class SeriesApiTest : AbstractApiTest() {
     }
 
     @Test
-    fun getLastChampions() = test {
+    fun getLastChampions() = assertIsNotEmpty {
         api.getLastChampions(SERIES)
     }
 

@@ -8,7 +8,7 @@ internal class VenueApiTest : AbstractApiTest() {
     private val api = ApiV4Module.provideVenueApi(testRetrofit)
 
     @Test
-    fun getInfo() = test {
+    fun getInfo() = assertIsNotEmpty {
         api.getInfo(VENUE)
     }
 
@@ -18,7 +18,7 @@ internal class VenueApiTest : AbstractApiTest() {
     }
 
     @Test
-    fun getDetails() = test {
+    fun getDetails() = assertIsNotEmpty {
         api.getDetails(VENUE)
     }
 

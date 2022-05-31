@@ -11,7 +11,7 @@ internal class TeamApiTest : AbstractApiTest() {
 
     @ParameterizedTest
     @EnumSource(TeamCollection::class)
-    fun getCollection(collection: TeamCollection) = test {
+    fun getCollection(collection: TeamCollection) = assertIsNotEmpty {
         api.getCollection(
             collection = collection,
             page = 0,

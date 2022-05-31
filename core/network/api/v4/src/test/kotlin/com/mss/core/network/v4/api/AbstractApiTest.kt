@@ -5,6 +5,7 @@ import com.mss.core.test.annotation.IntegrationTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.fail
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import retrofit2.HttpException
@@ -12,11 +13,19 @@ import retrofit2.HttpException
 @OptIn(ExperimentalCoroutinesApi::class)
 @IntegrationTest
 open class AbstractApiTest {
-    protected fun test(apiCall: suspend () -> Any?) = runTest {
+    protected fun assertIsNotEmpty(apiCall: suspend () -> Any?) = runTest {
         when (val actual = assertDoesNotThrow { apiCall() }) {
             is PageDto<*> -> assertThat(actual.content).isNotEmpty
             is List<*> -> assertThat(actual).isNotEmpty
             else -> assertThat(actual).isNotNull
+        }
+    }
+
+    protected fun assertIsEmpty(apiCall: suspend () -> Any?) = runTest {
+        when (val actual = assertDoesNotThrow { apiCall() }) {
+            is PageDto<*> -> assertThat(actual.content).isEmpty()
+            is List<*> -> assertThat(actual).isEmpty()
+            else -> fail("Should be empty, but '$actual' is received")
         }
     }
 

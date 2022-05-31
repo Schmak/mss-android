@@ -13,7 +13,7 @@ internal class SessionApiTest : AbstractApiTest() {
 
     @ParameterizedTest
     @EnumSource(SessionCollection::class, mode = EnumSource.Mode.EXCLUDE, names = ["Forthcoming"])
-    fun getCollection(collection: SessionCollection) = test {
+    fun getCollection(collection: SessionCollection) = assertIsNotEmpty {
         api.getCollection(
             collection = collection,
             page = 0,
@@ -24,7 +24,7 @@ internal class SessionApiTest : AbstractApiTest() {
 
     @ParameterizedTest
     @ValueSource(strings = ["Single Seater", "Rally", "Rallycross"])
-    fun getSeriesCategorySessions(category: String) = test {
+    fun getSeriesCategorySessions(category: String) = assertIsNotEmpty {
         api.getSeriesCategorySessions(
             category = category,
             page = 0,

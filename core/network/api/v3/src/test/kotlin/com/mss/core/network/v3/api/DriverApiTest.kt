@@ -11,7 +11,7 @@ internal class DriverApiTest : AbstractApiTest() {
 
     @ParameterizedTest
     @EnumSource(DriverCollection::class)
-    fun getCollection(collection: DriverCollection) = test {
+    fun getCollection(collection: DriverCollection) = assertIsNotEmpty {
         api.getCollection(
             collection = collection,
             page = 0,

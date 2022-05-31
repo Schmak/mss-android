@@ -8,7 +8,7 @@ internal class SeasonApiTest : AbstractApiTest() {
     private val api = ApiModuleV3.provideSeasonApi(testRetrofit)
 
     @Test
-    fun getDrivers() = test {
+    fun getDrivers() = assertIsNotEmpty {
         api.getDrivers(
             season = SEASON,
             hideZeros = false,
@@ -20,7 +20,19 @@ internal class SeasonApiTest : AbstractApiTest() {
     }
 
     @Test
-    fun getVenues() = test {
+    fun getMissingDrivers() = assertIsEmpty {
+        api.getDrivers(
+            season = MISSING_SEASON,
+            hideZeros = false,
+            page = 0,
+            size = 10,
+            orderBy = SeasonApiV3.DriverOrder.ChampionshipPosition,
+            orderDescending = false,
+        )
+    }
+
+    @Test
+    fun getVenues() = assertIsNotEmpty {
         api.getVenues(
             season = SEASON,
             page = 0,
@@ -28,7 +40,17 @@ internal class SeasonApiTest : AbstractApiTest() {
         )
     }
 
+    @Test
+    fun getMissingVenues() = assertIsEmpty {
+        api.getVenues(
+            season = MISSING_SEASON,
+            page = 0,
+            size = 10,
+        )
+    }
+
     companion object {
         private const val SEASON = "formula-one_2022"
+        private const val MISSING_SEASON = "formula-one_202"
     }
 }

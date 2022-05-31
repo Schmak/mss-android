@@ -8,16 +8,16 @@ internal class SeriesApiTest : AbstractApiTest() {
     private val api = ApiModuleV3.provideSeriesApi(testRetrofit)
 
     @Test
-    fun getCategories() = test { api.getCategories() }
+    fun getCategories() = assertIsNotEmpty { api.getCategories() }
 
     @Test
-    fun getRegions() = test { api.getRegions() }
+    fun getRegions() = assertIsNotEmpty { api.getRegions() }
 
     @Test
-    fun getGoldenSeries() = test { api.getGoldenSeries() }
+    fun getGoldenSeries() = assertIsNotEmpty { api.getGoldenSeries() }
 
     @Test
-    fun getLeadingSeries() = test {
+    fun getLeadingSeries() = assertIsNotEmpty {
         api.getSeries(
             filterIds = arrayOf("Active"),
             orderBy = SeriesApiV3.SeriesOrder.LastEventDate,
@@ -28,7 +28,7 @@ internal class SeriesApiTest : AbstractApiTest() {
     }
 
     @Test
-    fun getRegionSeries() = test {
+    fun getRegionSeries() = assertIsNotEmpty {
         api.getCollection(
             region = "Worldwide",
             category = null,
@@ -38,7 +38,7 @@ internal class SeriesApiTest : AbstractApiTest() {
     }
 
     @Test
-    fun getCategorySeries() = test {
+    fun getCategorySeries() = assertIsNotEmpty {
         api.getCollection(
             region = null,
             category = "Single Seater",
@@ -48,7 +48,7 @@ internal class SeriesApiTest : AbstractApiTest() {
     }
 
     @Test
-    fun getDriversOrderedByDriverWins() = test {
+    fun getDriversOrderedByDriverWins() = assertIsNotEmpty {
         api.getDrivers(
             series = SERIES,
             hideZeros = true,
@@ -60,7 +60,7 @@ internal class SeriesApiTest : AbstractApiTest() {
     }
 
     @Test
-    fun getDriversOrderedByChampWins() = test {
+    fun getDriversOrderedByChampWins() = assertIsNotEmpty {
         api.getDrivers(
             series = SERIES,
             hideZeros = true,
