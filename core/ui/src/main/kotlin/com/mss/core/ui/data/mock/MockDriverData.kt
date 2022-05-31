@@ -20,7 +20,7 @@ object MockDriverData {
         "error"
     ).map { "https://content.motorsportstats.com/driverProfilePicture/driverProfilePicture-$it.jpg" }
 
-    private val names = listOf(
+    val names = listOf(
         "Alexander Albon", "Carlos Sainz", "Charles Leclerc", "Daniel Ricciardo", "Esteban Ocon",
         "Fernando Alonso", "George Russell", "Jüri Vips", "Kevin Magnussen", "Lance Stroll",
     )

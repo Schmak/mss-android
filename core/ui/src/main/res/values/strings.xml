@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="all_constructors">All constructors</string>
+    <string name="all_drivers">All drivers</string>
     <string name="all_series">All series</string>
     <string name="all_teams">All teams</string>
     <string name="categories">Categories</string>
     <string name="champions">Champions</string>
     <string name="close">Close</string>
     <string name="collections">Collections</string>
+    <string name="constructors">Constructors</string>
     <string name="drivers">Drivers</string>
     <string name="previous">Previous:</string>
     <string name="results">Results</string>
