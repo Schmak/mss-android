@@ -1,6 +1,8 @@
 package com.mss.core.domain.repository
 
+import com.mss.core.domain.Driver
 import com.mss.core.domain.DriverItem
+import com.mss.core.domain.SeriesWithTeam
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
 import com.mss.core.domain.sort.OrderBy
@@ -8,6 +10,10 @@ import com.mss.core.domain.sort.SortField
 import com.mss.core.utils.Result
 
 interface DriverRepository {
+    suspend fun getInfo(driver: String): Result<Driver>
+
+    suspend fun getLastTeams(driver: String): Result<List<SeriesWithTeam>>
+
     suspend fun getSeriesDrivers(
         series: String,
         orderBy: OrderBy<SeriesDriverOrder>,

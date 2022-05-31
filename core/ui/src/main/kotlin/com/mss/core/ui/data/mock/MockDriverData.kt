@@ -1,8 +1,10 @@
 package com.mss.core.ui.data.mock
 
+import com.mss.core.domain.Driver
 import com.mss.core.domain.ref.DriverReference
 import com.mss.core.ui.model.landing.SimpleUiItem
 import com.mss.core.ui.model.landing.UiItem
+import java.time.LocalDate
 import kotlin.random.Random
 
 @Suppress("MagicNumber")
@@ -35,6 +37,29 @@ object MockDriverData {
             countryFlag = MockCountryData.flags.random(random),
         )
     }
+
+    val driver = Driver(
+        name = names.random(random),
+        slug = "slug",
+        picture = pictures.random(random),
+        nationality = MockCountryData.countryReference,
+        dateOfBirth = LocalDate.of(1900, 12, 15),
+        dateOfDeath = LocalDate.of(2020, 11, 10),
+        age = 115,
+        placeOfDeath = "London, Great Britain",
+        placeOfBirth = "Paris, France",
+        resourceLinks = emptyList(),
+        relations = listOf(
+            Driver.Relation(
+                driver = driverReferences.first(),
+                relationship = "Brother",
+            ),
+            Driver.Relation(
+                driver = driverReferences.last(),
+                relationship = "Father",
+            ),
+        )
+    )
 
     private fun getDriverList(size: Int = 10) = List<UiItem>(size) {
         SimpleUiItem(

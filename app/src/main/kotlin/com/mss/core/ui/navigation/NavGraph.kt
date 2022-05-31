@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.mss.core.ui.model.common.UiEvent
+import com.mss.features.driver.presentation.ui.info.DriverInfoScreen
 import com.mss.features.driver.presentation.ui.landing.DriverLandingScreen
 import com.mss.features.results.presentation.ui.landing.ResultsLandingScreen
 import com.mss.features.series.presentation.ui.info.SeriesInfoScreen
@@ -67,6 +68,12 @@ fun NavGraph(
         }
         composable(Route.VenueInfo.INSTANCE) {
             VenueInfoScreen(
+                viewModel = hiltViewModel(),
+                onUiEvent = navController::onUiEvent
+            )
+        }
+        composable(Route.DriverInfo.INSTANCE) {
+            DriverInfoScreen(
                 viewModel = hiltViewModel(),
                 onUiEvent = navController::onUiEvent
             )

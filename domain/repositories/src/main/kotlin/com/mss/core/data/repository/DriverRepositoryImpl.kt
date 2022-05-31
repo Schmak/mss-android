@@ -1,6 +1,8 @@
 package com.mss.core.data.repository
 
+import com.mss.core.domain.Driver
 import com.mss.core.domain.DriverItem
+import com.mss.core.domain.SeriesWithTeam
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
 import com.mss.core.domain.repository.DriverRepository
@@ -11,8 +13,11 @@ import com.mss.core.network.v3.api.SeasonApiV3
 import com.mss.core.network.v3.api.SeriesApiV3
 import com.mss.core.network.v3.mapper.DriverCollectionMapper
 import com.mss.core.network.v3.mapper.DriverItemMapper
+import com.mss.core.network.v3.mapper.DriverMapper
 import com.mss.core.network.v3.mapper.sort.SeasonDriverOrderMapper
 import com.mss.core.network.v3.mapper.sort.SeriesDriverOrderMapper
+import com.mss.core.network.v4.api.DriverApiV4
+import com.mss.core.network.v4.mapper.SeriesWithTeamMapper
 import com.mss.core.utils.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -21,8 +26,20 @@ internal class DriverRepositoryImpl(
     private val seriesApiV3: SeriesApiV3,
     private val seasonApiV3: SeasonApiV3,
     private val driverApiV3: DriverApiV3,
+    private val driverApiV4: DriverApiV4,
     private val dispatcher: CoroutineDispatcher,
 ) : DriverRepository {
+    override suspend fun getInfo(driver: String): Result<Driver> = withContext(dispatcher) {
+        Result.of { driverApiV3.getDriverInfo(driver).let(DriverMapper) }
+    }
+
+    override suspend fun getLastTeams(driver: String): Result<List<SeriesWithTeam>> =
+        withContext(dispatcher) {
+            Result.of {
+                driverApiV4.getLastTeams(driver).map(SeriesWithTeamMapper)
+            }
+        }
+
     override suspend fun getSeriesDrivers(
         series: String,
         orderBy: OrderBy<DriverRepository.SeriesDriverOrder>,

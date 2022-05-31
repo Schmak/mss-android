@@ -3,6 +3,7 @@ package com.mss.features.series.presentation.ui.info
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.mss.core.ui.components.common.viewmodel.AbstractViewModel
+import com.mss.core.ui.model.common.UiEvent
 import com.mss.core.ui.navigation.Route
 import com.mss.core.utils.Result.Success
 import com.mss.features.series.R
@@ -37,8 +38,15 @@ class SeriesInfoViewModel @Inject constructor(
         refresh()
     }
 
-    fun handleAction(action: UiAction) = when (action) {
-        UiAction.Refresh -> refresh()
+    fun handleAction(action: UiAction) {
+        when (action) {
+            UiAction.Refresh -> refresh()
+            is UiAction.DriverSelected -> {
+                val driver = viewModelState.value.lastChampions?.drivers?.getOrNull(action.idx)
+                if (driver != null)
+                    sendUiEvent(UiEvent.Navigate(Route.DriverInfo(driver.slug)))
+            }
+        }
     }
 
     private fun refresh() {

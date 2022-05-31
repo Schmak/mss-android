@@ -12,6 +12,9 @@ import retrofit2.create
 @InstallIn(SingletonComponent::class)
 object ApiV4Module {
     @Provides
+    fun provideDriverApi(retrofit: Retrofit): DriverApiV4 = retrofit.create()
+
+    @Provides
     fun provideSessionApi(retrofit: Retrofit): SessionApiV4 = retrofit.create()
 
     @Provides
