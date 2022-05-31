@@ -12,7 +12,7 @@ internal class SessionApiTest : AbstractApiTest() {
     private val api = ApiV4Module.provideSessionApi(testRetrofit)
 
     @ParameterizedTest
-    @EnumSource(SessionCollection::class)
+    @EnumSource(SessionCollection::class, mode = EnumSource.Mode.EXCLUDE, names = ["Forthcoming"])
     fun getCollection(collection: SessionCollection) = test {
         api.getCollection(
             collection = collection,
