@@ -77,7 +77,8 @@ fun SeriesInfoScreen(
             if (lastSeriesChampions != null)
                 LastSeriesChampions(
                     lastSeriesChampions = lastSeriesChampions,
-                    onDriverSelected = { onAction(UiAction.DriverSelected(it)) }
+                    onDriverSelected = { onAction(UiAction.ChampionDriverSelected(it)) },
+                    onTeamSelected = { onAction(UiAction.ChampionTeamSelected) },
                 )
             SocialBlock(uiState.links)
         }
@@ -88,6 +89,7 @@ fun SeriesInfoScreen(
 private fun LastSeriesChampions(
     lastSeriesChampions: LastSeriesChampions,
     onDriverSelected: (Int) -> Unit,
+    onTeamSelected: () -> Unit,
 ) {
     Spacer(modifier = Modifier.height(20.dp))
     BlockHeader(titleId = R.string.current_champions)
@@ -100,7 +102,8 @@ private fun LastSeriesChampions(
     }
     InfoBlock(
         titleId = R.string.current_team_champion,
-        value = lastSeriesChampions.team?.name
+        value = lastSeriesChampions.team?.name,
+        onItemClick = { onTeamSelected() }
     )
 }
 
