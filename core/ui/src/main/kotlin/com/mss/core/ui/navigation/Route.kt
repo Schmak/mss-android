@@ -35,4 +35,17 @@ sealed class Route(
             val INSTANCE = VenueInfo(venueSlug = "{${Arguments.VENUE_SLUG}}")
         }
     }
+
+    class DriverInfo(driverSlug: String) : Route(
+        value = "drivers/$driverSlug",
+        arguments = listOf(Arguments.DRIVER_SLUG),
+    ) {
+        object Arguments {
+            const val DRIVER_SLUG = "driverSlug"
+        }
+
+        companion object {
+            val INSTANCE = DriverInfo(driverSlug = "{${Arguments.DRIVER_SLUG}}")
+        }
+    }
 }

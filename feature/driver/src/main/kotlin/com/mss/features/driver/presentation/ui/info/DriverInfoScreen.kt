@@ -8,6 +8,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -20,12 +23,28 @@ import com.mss.core.ui.data.mock.MockDriverData
 import com.mss.core.ui.data.mock.MockSeriesData
 import com.mss.core.ui.data.mock.MockSocialData
 import com.mss.core.ui.data.mock.MockTeamData
+import com.mss.core.ui.model.common.UiEvent
 import com.mss.core.ui.theme.AppTheme
 import com.mss.core.ui.theme.infoSubtitleColor
 import com.mss.features.driver.R
 import com.mss.features.driver.presentation.ui.info.state.DriverInfoUiState
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+
+@Composable
+fun DriverInfoScreen(
+    viewModel: DriverInfoViewModel,
+    modifier: Modifier = Modifier,
+    onUiEvent: (UiEvent) -> Unit = {},
+) {
+    LaunchedEffect(key1 = true) { viewModel.uiEvents.collect(onUiEvent) }
+    val uiState by viewModel.uiState.collectAsState()
+    DriverInfoScreen(
+        uiState = uiState,
+        onAction = viewModel::handleAction,
+        modifier = modifier,
+    )
+}
 
 @Composable
 fun DriverInfoScreen(
