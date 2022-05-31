@@ -19,7 +19,10 @@ import com.mss.core.ui.theme.imageBackground
 import com.mss.core.ui.theme.imageBorder
 
 @Composable
-fun InfoBlockImage(url: String?) {
+fun InfoBlockImage(
+    url: String?,
+    modifier: Modifier = Modifier
+) {
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(url)
@@ -28,7 +31,7 @@ fun InfoBlockImage(url: String?) {
         contentScale = ContentScale.Crop,
         alignment = Alignment.TopCenter,
         contentDescription = null,
-        modifier = Modifier
+        modifier = modifier
             .size(Dimensions.InfoHeader.imageSize)
             .clip(CircleShape)
             .background(MaterialTheme.colors.imageBackground)

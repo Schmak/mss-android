@@ -25,7 +25,7 @@ object MockSeriesData {
         "error"
     ).map { "https://content.motorsportstats.com/seriesProfilePicture/seriesProfilePicture-$it.png" }
 
-    private val names = listOf(
+    val names = listOf(
         "Formula One",
         "MotoGP",
         "World Rally Championship",
