@@ -15,7 +15,7 @@ data class SeriesInfoModelState(
         lastChampions = lastChampions,
         isLoading = isLoading,
         errorMessageId = errorMessageId,
-        hasData = seriesInfo != null && lastChampions != null,
+        hasData = seriesInfo != null,
         links = seriesInfo?.links?.map(SocialLinkMapper).orEmpty()
     )
 }

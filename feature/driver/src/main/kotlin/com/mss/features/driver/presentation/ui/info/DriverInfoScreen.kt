@@ -73,6 +73,7 @@ fun DriverInfoScreen(
                 titleId = R.string.series,
                 buttonTitleId = R.string.all_series,
                 items = uiState.series,
+                onItemClick = { onAction(UiAction.SelectSeries(it)) }
             )
             EntityWithPreviousBlock(
                 titleId = R.string.teams,

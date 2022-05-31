@@ -3,6 +3,7 @@ package com.mss.features.driver.presentation.ui.info
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.mss.core.ui.components.common.viewmodel.AbstractViewModel
+import com.mss.core.ui.model.common.UiEvent
 import com.mss.core.ui.navigation.Route
 import com.mss.core.utils.Result.Success
 import com.mss.features.driver.R
@@ -40,6 +41,10 @@ class DriverInfoViewModel @Inject constructor(
     fun handleAction(action: UiAction) {
         when (action) {
             UiAction.Refresh -> refresh()
+            is UiAction.SelectSeries -> {
+                val series = viewModelState.value.series.getOrNull(action.idx) ?: return
+                sendUiEvent(UiEvent.Navigate(Route.SeriesInfo(series.slug)))
+            }
         }
     }
 

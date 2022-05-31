@@ -1,6 +1,7 @@
 package com.mss.features.driver.presentation.ui.info
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -22,10 +23,15 @@ fun EntityWithPreviousBlock(
     @StringRes buttonTitleId: Int,
     items: List<String>,
     modifier: Modifier = Modifier,
+    onItemClick: (idx: Int) -> Unit = {},
 ) {
     if (items.isEmpty()) return
     Column(modifier) {
-        InfoBlock(titleId = titleId, value = items.first())
+        InfoBlock(
+            titleId = titleId,
+            value = items.first(),
+            onItemClick = { onItemClick(0) }
+        )
         if (items.size > 1) {
             Text(
                 text = stringResource(R.string.previous),
@@ -35,13 +41,15 @@ fun EntityWithPreviousBlock(
             Text(
                 text = items[1],
                 style = MaterialTheme.typography.body1,
+                modifier = Modifier.clickable { onItemClick(1) }
             )
         }
         ExpandingInfoBlock(
             buttonTitleId = buttonTitleId,
             dialogTitleId = titleId,
             items = items,
-            itemsThreshold = 2
+            itemsThreshold = 2,
+            onItemClick = onItemClick,
         )
     }
 }

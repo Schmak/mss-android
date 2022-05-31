@@ -1,6 +1,7 @@
 package com.mss.core.ui.components.info
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -16,13 +17,18 @@ import com.mss.core.ui.theme.AppTheme
 fun InfoBlock(
     @StringRes titleId: Int,
     value: String?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: (() -> Unit)? = null
 ) {
+    val textModifier = if (onItemClick != null)
+        Modifier.clickable { onItemClick() }
+    else
+        Modifier
     if (value != null) {
         Column(modifier = modifier) {
             Spacer(modifier = Modifier.height(20.dp))
             BlockHeader(titleId = titleId)
-            TextRow(value)
+            TextRow(value, modifier = textModifier)
         }
     }
 }
