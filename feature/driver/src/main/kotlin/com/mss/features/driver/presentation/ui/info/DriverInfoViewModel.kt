@@ -45,6 +45,11 @@ class DriverInfoViewModel @Inject constructor(
                 val series = viewModelState.value.series.getOrNull(action.idx) ?: return
                 sendUiEvent(UiEvent.Navigate(Route.SeriesInfo(series.slug)))
             }
+            is UiAction.SelectRelatedDriver -> {
+                val driver = viewModelState.value.driverInfo
+                    ?.relations?.getOrNull(action.idx)?.driver ?: return
+                sendUiEvent(UiEvent.Navigate(Route.DriverInfo(driver.slug)))
+            }
         }
     }
 

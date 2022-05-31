@@ -1,6 +1,7 @@
 package com.mss.features.driver.presentation.ui.info
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -91,21 +92,31 @@ fun DriverInfoScreen(
                 imageUrl = driver.nationality?.picture
             )
             if (driver.relations.isNotEmpty())
-                Relations(driver.relations)
+                Relations(
+                    relations = driver.relations,
+                    onItemClick = { onAction(UiAction.SelectRelatedDriver(it)) }
+                )
             SocialBlock(uiState.links)
         }
     }
 }
 
 @Composable
-private fun Relations(relations: List<Driver.Relation>) {
+private fun Relations(
+    relations: List<Driver.Relation>,
+    onItemClick: (idx: Int) -> Unit,
+) {
     Spacer(modifier = Modifier.height(20.dp))
     BlockHeader(titleId = R.string.relations)
     Column {
-        relations.forEach {
-            TextRowWithImage(text = it.driver.name, imageUrl = it.driver.picture)
+        relations.forEachIndexed { idx, (driver, relationship) ->
+            TextRowWithImage(
+                text = driver.name,
+                imageUrl = driver.picture,
+                modifier = Modifier.clickable { onItemClick(idx) }
+            )
             Text(
-                text = it.relationship,
+                text = relationship,
                 color = MaterialTheme.colors.infoSubtitleColor,
                 style = MaterialTheme.typography.body1,
             )
