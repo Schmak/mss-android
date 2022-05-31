@@ -100,7 +100,6 @@ dependencies {
     //DI
     implementation(Deps.Hilt.Android.core)
     kapt(Deps.Hilt.compiler)
-    implementation(Deps.Hilt.navigationCompose)
 
     //Logging
     implementation(Deps.Logging.timber)

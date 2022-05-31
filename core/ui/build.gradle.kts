@@ -46,6 +46,7 @@ dependencies {
     api(Deps.Compose.uiToolingPreview)
     api(Deps.UI.material)
     api(Deps.UI.coil)
+    api(Deps.Hilt.navigationCompose)
     debugApi(Deps.Compose.uiTooling)
 
     //AndroidX
