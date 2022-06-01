@@ -41,10 +41,14 @@ class SeriesInfoViewModel @Inject constructor(
     fun handleAction(action: UiAction) {
         when (action) {
             UiAction.Refresh -> refresh()
-            is UiAction.DriverSelected -> {
-                val driver = viewModelState.value.lastChampions?.drivers?.getOrNull(action.idx)
-                if (driver != null)
-                    sendUiEvent(UiEvent.Navigate(Route.DriverInfo(driver.slug)))
+            is UiAction.ChampionDriverSelected -> {
+                val driver = viewModelState.value.lastChampions
+                    ?.drivers?.getOrNull(action.idx) ?: return
+                sendUiEvent(UiEvent.Navigate(Route.DriverInfo(driver.slug)))
+            }
+            UiAction.ChampionTeamSelected -> {
+                val team = viewModelState.value.lastChampions?.team ?: return
+                sendUiEvent(UiEvent.Navigate(Route.TeamInfo(team.slug)))
             }
         }
     }

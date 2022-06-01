@@ -1,5 +1,7 @@
 package com.mss.core.data.repository
 
+import com.mss.core.domain.SeriesWithDrivers
+import com.mss.core.domain.Team
 import com.mss.core.domain.TeamItem
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
@@ -8,8 +10,10 @@ import com.mss.core.domain.sort.OrderBy
 import com.mss.core.network.v4.api.SeasonApiV4
 import com.mss.core.network.v4.api.SeriesApiV4
 import com.mss.core.network.v4.api.TeamApiV4
+import com.mss.core.network.v4.mapper.SeriesWithDriversMapper
 import com.mss.core.network.v4.mapper.TeamCollectionMapper
 import com.mss.core.network.v4.mapper.TeamItemMapper
+import com.mss.core.network.v4.mapper.TeamMapper
 import com.mss.core.network.v4.mapper.sort.SeasonTeamOrderMapper
 import com.mss.core.network.v4.mapper.sort.SeriesTeamOrderMapper
 import com.mss.core.utils.Result
@@ -22,6 +26,15 @@ internal class TeamRepositoryImpl(
     private val teamApiV4: TeamApiV4,
     private val dispatcher: CoroutineDispatcher,
 ) : TeamRepository {
+    override suspend fun getInfo(team: String): Result<Team> = withContext(dispatcher) {
+        Result.of { teamApiV4.getTeamInfo(team).let(TeamMapper) }
+    }
+
+    override suspend fun getLastDrivers(team: String): Result<List<SeriesWithDrivers>> =
+        withContext(dispatcher) {
+            Result.of { teamApiV4.getLastDrivers(team).map(SeriesWithDriversMapper) }
+        }
+
     override suspend fun getSeriesTeams(
         series: String,
         orderBy: OrderBy<TeamRepository.SeriesTeamOrder>,

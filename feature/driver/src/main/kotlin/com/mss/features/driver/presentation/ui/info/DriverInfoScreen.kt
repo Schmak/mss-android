@@ -80,6 +80,7 @@ fun DriverInfoScreen(
                 titleId = R.string.teams,
                 buttonTitleId = R.string.all_teams,
                 items = uiState.teams,
+                onItemClick = { onAction(UiAction.SelectTeam(it)) }
             )
             DateBlock(titleId = R.string.date_of_birth, date = driver.dateOfBirth)
             InfoBlock(titleId = R.string.place_of_birth, value = driver.placeOfBirth)

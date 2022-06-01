@@ -1,5 +1,7 @@
 package com.mss.core.domain.repository
 
+import com.mss.core.domain.SeriesWithDrivers
+import com.mss.core.domain.Team
 import com.mss.core.domain.TeamItem
 import com.mss.core.domain.page.Page
 import com.mss.core.domain.page.Pageable
@@ -8,6 +10,10 @@ import com.mss.core.domain.sort.SortField
 import com.mss.core.utils.Result
 
 interface TeamRepository {
+    suspend fun getInfo(team: String): Result<Team>
+
+    suspend fun getLastDrivers(team: String): Result<List<SeriesWithDrivers>>
+
     suspend fun getSeriesTeams(
         series: String,
         orderBy: OrderBy<SeriesTeamOrder>,

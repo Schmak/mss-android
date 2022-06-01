@@ -9,7 +9,7 @@ import kotlin.random.Random
 object MockTeamData {
     private val random = Random(12_345)
 
-    private val pictures = listOf(
+    val pictures = listOf(
         "4aeca1ca-721b-4c7a-82fd-65d4c75c88ce", "17a165a9-3184-4a7b-9a38-3301b022537a",
         "12ed024d-f43c-4777-b2af-9c0dd0e6481b", "dca36bc9-3d1d-4a61-a977-03bd38492cb9",
         "d88db12f-2b71-4d14-b7f6-5ab4bde459b8", "e8179b9a-212f-453a-a820-73fa3637503d",
